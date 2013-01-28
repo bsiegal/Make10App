@@ -17,19 +17,36 @@
  ******************************************************************************/
 
 
-#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
 #import "cocos2d.h"
 
-@interface AppController : NSObject <UIApplicationDelegate, CCDirectorDelegate>
-{
-	UIWindow *window_;
-	UINavigationController *navController_;
+@interface Tile : NSObject
 
-	CCDirectorIOS	*director_;							// weak ref
-}
-
-@property (nonatomic, retain) UIWindow *window;
-@property (readonly) UINavigationController *navController;
-@property (readonly) CCDirectorIOS *director;
-
+/**
+ * The sprite of this tile
+ */
+@property (readonly) CCSprite *sprite;
+/**
+ * The value of this tile
+ */
+@property (readonly) int value;
+/**
+ * The column of this tile in the wall
+ */
+@property int col;
+/**
+ * The row of this tile in the wall
+ */
+@property int row;
+/**
+ * An init method with value and boolean for current tile
+ * @param value int for the tile
+ */
+-(id) initWithValue:(int)value;
+/**
+ * An init method with value and column for placement
+ * @param value int for the tile
+ * @param col int column placement
+ */
+-(id) initWithValueAndCol:(int)value  col:(int)col;
 @end

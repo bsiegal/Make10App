@@ -2,22 +2,22 @@
 //  IntroLayer.m
 //  Make10App
 //
-//  Created by James Siegal on 1/25/13.
-//  Copyright __MyCompanyName__ 2013. All rights reserved.
+//  Created by Bess Siegal on 1/25/13.
+//  Copyright Bess Siegal 2013. All rights reserved.
 //
 
 
 // Import the interfaces
 #import "IntroLayer.h"
-#import "HelloWorldLayer.h"
+#import "Make10AppLayer.h"
 
 
 #pragma mark - IntroLayer
 
-// HelloWorldLayer implementation
+// Make10AppLayer implementation
 @implementation IntroLayer
 
-// Helper class method that creates a Scene with the HelloWorldLayer as the only child.
+// Helper class method that creates a Scene with the Make10AppLayer as the only child.
 +(CCScene *) scene
 {
 	// 'scene' is an autorelease object.
@@ -60,6 +60,6 @@
 
 -(void) makeTransition:(ccTime)dt
 {
-	[[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:1.0 scene:[HelloWorldLayer scene] withColor:ccWHITE]];
+	[[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:1.0 scene:[Make10AppLayer scene] withColor:ccWHITE]];
 }
 @end

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		910CA95416B6BB34006BB0CD /* tile.png in Resources */ = {isa = PBXBuildFile; fileRef = 910CA95316B6BB34006BB0CD /* tile.png */; };
+		910CA95816B6C9A3006BB0CD /* Wall.m in Sources */ = {isa = PBXBuildFile; fileRef = 910CA95716B6C9A3006BB0CD /* Wall.m */; };
 		915FEDF116B30B7E0045A15A /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 915FEDF016B30B7E0045A15A /* QuartzCore.framework */; };
 		915FEDF316B30B7E0045A15A /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 915FEDF216B30B7E0045A15A /* OpenGLES.framework */; };
 		915FEDF516B30B7E0045A15A /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 915FEDF416B30B7E0045A15A /* OpenAL.framework */; };
@@ -131,11 +133,24 @@
 		915FEF7416B30B800045A15A /* vec4.c in Sources */ = {isa = PBXBuildFile; fileRef = 915FEF7316B30B800045A15A /* vec4.c */; };
 		915FEF7916B30B800045A15A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 915FEF7816B30B800045A15A /* main.m */; };
 		915FEF7C16B30B800045A15A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 915FEF7B16B30B800045A15A /* AppDelegate.m */; };
-		915FEF7F16B30B800045A15A /* HelloWorldLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 915FEF7E16B30B800045A15A /* HelloWorldLayer.m */; };
 		915FEF8216B30B800045A15A /* IntroLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 915FEF8116B30B800045A15A /* IntroLayer.m */; };
+		915FEF8A16B314C50045A15A /* Make10AppLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 915FEF8916B314C50045A15A /* Make10AppLayer.m */; };
+		915FEF9416B31BEA0045A15A /* dot1.png in Resources */ = {isa = PBXBuildFile; fileRef = 915FEF8B16B31BEA0045A15A /* dot1.png */; };
+		915FEF9516B31BEA0045A15A /* dot2.png in Resources */ = {isa = PBXBuildFile; fileRef = 915FEF8C16B31BEA0045A15A /* dot2.png */; };
+		915FEF9616B31BEA0045A15A /* dot3.png in Resources */ = {isa = PBXBuildFile; fileRef = 915FEF8D16B31BEA0045A15A /* dot3.png */; };
+		915FEF9716B31BEA0045A15A /* dot4.png in Resources */ = {isa = PBXBuildFile; fileRef = 915FEF8E16B31BEA0045A15A /* dot4.png */; };
+		915FEF9816B31BEA0045A15A /* dot5.png in Resources */ = {isa = PBXBuildFile; fileRef = 915FEF8F16B31BEA0045A15A /* dot5.png */; };
+		915FEF9916B31BEA0045A15A /* dot6.png in Resources */ = {isa = PBXBuildFile; fileRef = 915FEF9016B31BEA0045A15A /* dot6.png */; };
+		915FEF9A16B31BEA0045A15A /* dot7.png in Resources */ = {isa = PBXBuildFile; fileRef = 915FEF9116B31BEA0045A15A /* dot7.png */; };
+		915FEF9B16B31BEA0045A15A /* dot8.png in Resources */ = {isa = PBXBuildFile; fileRef = 915FEF9216B31BEA0045A15A /* dot8.png */; };
+		915FEF9C16B31BEA0045A15A /* dot9.png in Resources */ = {isa = PBXBuildFile; fileRef = 915FEF9316B31BEA0045A15A /* dot9.png */; };
+		915FEF9F16B3351E0045A15A /* Tile.m in Sources */ = {isa = PBXBuildFile; fileRef = 915FEF9E16B3351E0045A15A /* Tile.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		910CA95316B6BB34006BB0CD /* tile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = tile.png; path = sprites/tile.png; sourceTree = "<group>"; };
+		910CA95616B6C9A3006BB0CD /* Wall.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Wall.h; sourceTree = "<group>"; };
+		910CA95716B6C9A3006BB0CD /* Wall.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Wall.m; sourceTree = "<group>"; };
 		915FEDEC16B30B7E0045A15A /* Make10App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Make10App.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		915FEDF016B30B7E0045A15A /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		915FEDF216B30B7E0045A15A /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
@@ -394,10 +409,21 @@
 		915FEF7816B30B800045A15A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		915FEF7A16B30B800045A15A /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		915FEF7B16B30B800045A15A /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		915FEF7D16B30B800045A15A /* HelloWorldLayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HelloWorldLayer.h; sourceTree = "<group>"; };
-		915FEF7E16B30B800045A15A /* HelloWorldLayer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HelloWorldLayer.m; sourceTree = "<group>"; };
 		915FEF8016B30B800045A15A /* IntroLayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IntroLayer.h; sourceTree = "<group>"; };
 		915FEF8116B30B800045A15A /* IntroLayer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IntroLayer.m; sourceTree = "<group>"; };
+		915FEF8816B314BE0045A15A /* Make10AppLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Make10AppLayer.h; sourceTree = "<group>"; };
+		915FEF8916B314C50045A15A /* Make10AppLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Make10AppLayer.m; sourceTree = "<group>"; };
+		915FEF8B16B31BEA0045A15A /* dot1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = dot1.png; path = sprites/dot1.png; sourceTree = "<group>"; };
+		915FEF8C16B31BEA0045A15A /* dot2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = dot2.png; path = sprites/dot2.png; sourceTree = "<group>"; };
+		915FEF8D16B31BEA0045A15A /* dot3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = dot3.png; path = sprites/dot3.png; sourceTree = "<group>"; };
+		915FEF8E16B31BEA0045A15A /* dot4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = dot4.png; path = sprites/dot4.png; sourceTree = "<group>"; };
+		915FEF8F16B31BEA0045A15A /* dot5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = dot5.png; path = sprites/dot5.png; sourceTree = "<group>"; };
+		915FEF9016B31BEA0045A15A /* dot6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = dot6.png; path = sprites/dot6.png; sourceTree = "<group>"; };
+		915FEF9116B31BEA0045A15A /* dot7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = dot7.png; path = sprites/dot7.png; sourceTree = "<group>"; };
+		915FEF9216B31BEA0045A15A /* dot8.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = dot8.png; path = sprites/dot8.png; sourceTree = "<group>"; };
+		915FEF9316B31BEA0045A15A /* dot9.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = dot9.png; path = sprites/dot9.png; sourceTree = "<group>"; };
+		915FEF9D16B3351E0045A15A /* Tile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tile.h; sourceTree = "<group>"; };
+		915FEF9E16B3351E0045A15A /* Tile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tile.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -458,8 +484,12 @@
 			children = (
 				915FEF7A16B30B800045A15A /* AppDelegate.h */,
 				915FEF7B16B30B800045A15A /* AppDelegate.m */,
-				915FEF7D16B30B800045A15A /* HelloWorldLayer.h */,
-				915FEF7E16B30B800045A15A /* HelloWorldLayer.m */,
+				915FEF8916B314C50045A15A /* Make10AppLayer.m */,
+				915FEF9D16B3351E0045A15A /* Tile.h */,
+				915FEF9E16B3351E0045A15A /* Tile.m */,
+				910CA95616B6C9A3006BB0CD /* Wall.h */,
+				910CA95716B6C9A3006BB0CD /* Wall.m */,
+				915FEF8816B314BE0045A15A /* Make10AppLayer.h */,
 				915FEF8016B30B800045A15A /* IntroLayer.h */,
 				915FEF8116B30B800045A15A /* IntroLayer.m */,
 				915FEE0316B30B7E0045A15A /* Resources */,
@@ -472,6 +502,16 @@
 		915FEE0316B30B7E0045A15A /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				910CA95316B6BB34006BB0CD /* tile.png */,
+				915FEF8B16B31BEA0045A15A /* dot1.png */,
+				915FEF8C16B31BEA0045A15A /* dot2.png */,
+				915FEF8D16B31BEA0045A15A /* dot3.png */,
+				915FEF8E16B31BEA0045A15A /* dot4.png */,
+				915FEF8F16B31BEA0045A15A /* dot5.png */,
+				915FEF9016B31BEA0045A15A /* dot6.png */,
+				915FEF9116B31BEA0045A15A /* dot7.png */,
+				915FEF9216B31BEA0045A15A /* dot8.png */,
+				915FEF9316B31BEA0045A15A /* dot9.png */,
 				915FEE0416B30B7E0045A15A /* Default.png */,
 				915FEE0616B30B7E0045A15A /* Default-Landscape~ipad.png */,
 				915FEE0816B30B7E0045A15A /* fps_images.png */,
@@ -895,6 +935,16 @@
 				915FEE1916B30B7E0045A15A /* Icon@2x.png in Resources */,
 				915FEE1C16B30B7E0045A15A /* iTunesArtwork in Resources */,
 				915FEF5A16B30B800045A15A /* ChangeLog in Resources */,
+				915FEF9416B31BEA0045A15A /* dot1.png in Resources */,
+				915FEF9516B31BEA0045A15A /* dot2.png in Resources */,
+				915FEF9616B31BEA0045A15A /* dot3.png in Resources */,
+				915FEF9716B31BEA0045A15A /* dot4.png in Resources */,
+				915FEF9816B31BEA0045A15A /* dot5.png in Resources */,
+				915FEF9916B31BEA0045A15A /* dot6.png in Resources */,
+				915FEF9A16B31BEA0045A15A /* dot7.png in Resources */,
+				915FEF9B16B31BEA0045A15A /* dot8.png in Resources */,
+				915FEF9C16B31BEA0045A15A /* dot9.png in Resources */,
+				910CA95416B6BB34006BB0CD /* tile.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1007,8 +1057,10 @@
 				915FEF7416B30B800045A15A /* vec4.c in Sources */,
 				915FEF7916B30B800045A15A /* main.m in Sources */,
 				915FEF7C16B30B800045A15A /* AppDelegate.m in Sources */,
-				915FEF7F16B30B800045A15A /* HelloWorldLayer.m in Sources */,
 				915FEF8216B30B800045A15A /* IntroLayer.m in Sources */,
+				915FEF8A16B314C50045A15A /* Make10AppLayer.m in Sources */,
+				915FEF9F16B3351E0045A15A /* Tile.m in Sources */,
+				910CA95816B6C9A3006BB0CD /* Wall.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1112,6 +1164,7 @@
 				915FEF8716B30B800045A15A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

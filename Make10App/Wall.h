@@ -16,20 +16,33 @@
  *
  ******************************************************************************/
 
+#import <Foundation/Foundation.h>
+#import "Tile.h"
 
-#import <UIKit/UIKit.h>
-#import "cocos2d.h"
+static int const MAX_ROWS = 7;
+static int const MAX_COLS = 7;
 
-@interface AppController : NSObject <UIApplicationDelegate, CCDirectorDelegate>
-{
-	UIWindow *window_;
-	UINavigationController *navController_;
+@interface Wall : NSObject
 
-	CCDirectorIOS	*director_;							// weak ref
-}
-
-@property (nonatomic, retain) UIWindow *window;
-@property (readonly) UINavigationController *navController;
-@property (readonly) CCDirectorIOS *director;
+/**
+ * Initialize
+ */
+-(id) init;
+/**
+ * Transition all the wall rows up
+ */
+-(void) transitionUp;
+/** 
+ * Set a tile into the wall
+ * @param tile Tile to place
+ * @param row int row placement
+ * @param col int col placement
+ */
+-(void) addTile:(Tile*)tile row:(int)row col:(int)col;
+-(void) removeTile;
+-(void) removeAdjacentsWithValue:(int)value row:(int)row col:(int)col;
+-(void) transitionDown;
+-(BOOL)isMax;
+-(NSArray*) getPossibles;
 
 @end

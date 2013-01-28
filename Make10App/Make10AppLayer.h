@@ -1,5 +1,5 @@
 //
-//  IntroLayer.h
+//  Make10AppLayer.h
 //  Make10App
 //
 //  Created by Bess Siegal on 1/25/13.
@@ -7,11 +7,13 @@
 //
 
 
+#import <GameKit/GameKit.h>
+
 // When you import this file, you import all the cocos2d classes
 #import "cocos2d.h"
 
 // Make10AppLayer
-@interface IntroLayer : CCLayer
+@interface Make10AppLayer : CCLayerColor <GKAchievementViewControllerDelegate, GKLeaderboardViewControllerDelegate>
 {
 }
 
