@@ -48,5 +48,17 @@
  * @param value int for the tile
  * @param col int column placement
  */
--(id) initWithValueAndCol:(int)value  col:(int)col;
+-(id) initWithValueAndCol:(int)value col:(int)col;
+/**
+ * Move the tile to the current tile position
+ */
+-(void) transitionToCurrent;
+/**
+ * Move the tile to the point
+ */
+-(void) transitionToPoint:(CGPoint)point target:(id)target callback:(SEL)callback;
+/**
+ * Destroy this tile
+ */
+-(void) destroy;
 @end

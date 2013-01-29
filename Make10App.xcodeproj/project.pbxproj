@@ -145,6 +145,7 @@
 		915FEF9B16B31BEA0045A15A /* dot8.png in Resources */ = {isa = PBXBuildFile; fileRef = 915FEF9216B31BEA0045A15A /* dot8.png */; };
 		915FEF9C16B31BEA0045A15A /* dot9.png in Resources */ = {isa = PBXBuildFile; fileRef = 915FEF9316B31BEA0045A15A /* dot9.png */; };
 		915FEF9F16B3351E0045A15A /* Tile.m in Sources */ = {isa = PBXBuildFile; fileRef = 915FEF9E16B3351E0045A15A /* Tile.m */; };
+		91E3EBBF16B81FEA0019D9CE /* Score.m in Sources */ = {isa = PBXBuildFile; fileRef = 91E3EBBE16B81FEA0019D9CE /* Score.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -424,6 +425,8 @@
 		915FEF9316B31BEA0045A15A /* dot9.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = dot9.png; path = sprites/dot9.png; sourceTree = "<group>"; };
 		915FEF9D16B3351E0045A15A /* Tile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tile.h; sourceTree = "<group>"; };
 		915FEF9E16B3351E0045A15A /* Tile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tile.m; sourceTree = "<group>"; };
+		91E3EBBD16B81FEA0019D9CE /* Score.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Score.h; sourceTree = "<group>"; };
+		91E3EBBE16B81FEA0019D9CE /* Score.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Score.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -485,6 +488,8 @@
 				915FEF7A16B30B800045A15A /* AppDelegate.h */,
 				915FEF7B16B30B800045A15A /* AppDelegate.m */,
 				915FEF8916B314C50045A15A /* Make10AppLayer.m */,
+				91E3EBBD16B81FEA0019D9CE /* Score.h */,
+				91E3EBBE16B81FEA0019D9CE /* Score.m */,
 				915FEF9D16B3351E0045A15A /* Tile.h */,
 				915FEF9E16B3351E0045A15A /* Tile.m */,
 				910CA95616B6C9A3006BB0CD /* Wall.h */,
@@ -1061,6 +1066,7 @@
 				915FEF8A16B314C50045A15A /* Make10AppLayer.m in Sources */,
 				915FEF9F16B3351E0045A15A /* Tile.m in Sources */,
 				910CA95816B6C9A3006BB0CD /* Wall.m in Sources */,
+				91E3EBBF16B81FEA0019D9CE /* Score.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

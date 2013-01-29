@@ -22,13 +22,13 @@
 @implementation Tile
 
 -(void) createSprite:(int)value {
-//        NSString *fileName = [NSString stringWithFormat:@"dot%d.png", value];
-    NSString *fileName = @"tile.png";
+//        NSString* fileName = [NSString stringWithFormat:@"dot%d.png", value];
+    NSString* fileName = @"tile.png";
     
     _sprite = [CCSprite spriteWithFile:fileName rect:CGRectMake(0, 0, 44, 60)];
     
-    NSString *text = [NSString stringWithFormat:@"%d", value];
-    CCLabelTTF *label = [CCLabelTTF labelWithString:text fontName:@"Marker Felt" fontSize:32];
+    NSString* text = [NSString stringWithFormat:@"%d", value];
+    CCLabelTTF* label = [CCLabelTTF labelWithString:text fontName:@"Marker Felt" fontSize:32];
     label.position = ccp(_sprite.contentSize.width / 2, _sprite.contentSize.height / 2);
     label.color = ccBLACK;
     
@@ -68,6 +68,44 @@
         _sprite.position = ccp(_sprite.contentSize.width / 2, winSize.height - _sprite.contentSize.height / 2);
     }
     return self;
+}
+
+-(void) spriteMoveFinished:(id)sender {
+    NSLog(@"Tile.spriteMoveFinished");
+    //    CCSprite *sprite = (CCSprite *)sender;
+    //    [self removeChild:sprite cleanup:YES];
+    //
+    //
+    //    if (sprite.tag == 1) {
+    //        [_targets removeObject:sprite];
+    //        GameOverScene *gameOverScene = [GameOverScene node];
+    //        [gameOverScene.layer.label setString:@"You lose :["];
+    //        [[CCDirector sharedDirector] replaceScene:gameOverScene];
+    //    } else if (sprite.tag == 2) {
+    //        [_projectiles removeObject:sprite];
+    //    }
+}
+
+-(void) transitionToCurrent {
+    CGSize winSize = [[CCDirector sharedDirector] winSize];
+    id actionMove = [CCMoveBy actionWithDuration:0.25 position:ccp(winSize.width / 2 - self.sprite.contentSize.width / 2, 0)];
+    id actionMoveDone = [CCCallFuncN actionWithTarget:self selector:@selector(spriteMoveFinished:)];
+    [self.sprite runAction:[CCSequence actions:actionMove, actionMoveDone, nil]];
+}
+
+-(void) transitionToPoint:(CGPoint)point target:(id)target callback:(SEL)callback {
+    id actionMove = [CCMoveTo actionWithDuration:0.35 position:point];
+    id actionMoveDone = [CCCallFuncN actionWithTarget:target selector:callback];
+    [self.sprite runAction:[CCSequence actions:actionMove, actionMoveDone, nil]];
+}
+
+-(void) destroy {
+    [self.sprite removeFromParentAndCleanup:YES];
+}
+
+-(NSString*) description {
+    return [NSString stringWithFormat:@"Tile row:%d col:%d value:%d",
+            self.row, self.col, self.value];
 }
 
 -(void) dealloc

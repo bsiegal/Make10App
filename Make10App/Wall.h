@@ -25,6 +25,11 @@ static int const MAX_COLS = 7;
 @interface Wall : NSObject
 
 /**
+ * How many tiles were removed
+ */
+@property int removalCount;
+
+/**
  * Initialize
  */
 -(id) init;
@@ -39,10 +44,41 @@ static int const MAX_COLS = 7;
  * @param col int col placement
  */
 -(void) addTile:(Tile*)tile row:(int)row col:(int)col;
--(void) removeTile;
--(void) removeAdjacentsWithValue:(int)value row:(int)row col:(int)col;
+/**
+ * Remove the tile from the wall grid
+ * @param tile to remove
+ * @return the number of tiles to remove (1)
+ */
+-(int) removeTile:(Tile*)tile;
+-(int) removeAdjacentsWithValue:(int)value row:(int)row col:(int)col;
 -(void) transitionDown;
 -(BOOL)isMax;
--(NSArray*) getPossibles;
-
+/**
+ * Get up to 2 * MAX_COLS of possible values 
+ */
+-(NSMutableArray*) getPossibles;
+/**
+ * Return the tile at the given location or nil if none
+ */
+-(Tile*) whichTileAtLocation:(CGPoint)location;
+/**
+ * Check if there is an empty spot the row, col
+ * @param row int row
+ * @param col int col
+ */
+-(BOOL) isEmptyAtRow:(int)row col:(int)col;
+/**
+ * Add a tile to the top of the column where the reference tile is
+ * @param tileToAdd Tile* the current tile to add
+ * @param refTile Tile* the tile used to determine the column
+ * @return CGPoint where to position the tile or 0,0 if no empty spots found
+ */
+-(CGPoint) addTileAtopTile:(Tile*) tileToAdd referenceTile:(Tile*)refTile;
+/**
+ * Add a tile to the top of the column where touch point is
+ * @param tileToAdd Tile* the current tile to add
+ * @param location CGPoint the point used to determine the column
+ * @return CGPoint where to position the tile or 0,0 if no empty spots found
+ */
+-(CGPoint) addTileToEmptyColumn:(Tile*) tileToAdd location:(CGPoint)location;
 @end
