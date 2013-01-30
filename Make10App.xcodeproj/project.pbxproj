@@ -18,8 +18,6 @@
 		915FEDFD16B30B7E0045A15A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 915FEDFC16B30B7E0045A15A /* Foundation.framework */; };
 		915FEDFF16B30B7E0045A15A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 915FEDFE16B30B7E0045A15A /* CoreGraphics.framework */; };
 		915FEE0116B30B7E0045A15A /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 915FEE0016B30B7E0045A15A /* GameKit.framework */; };
-		915FEE0516B30B7E0045A15A /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 915FEE0416B30B7E0045A15A /* Default.png */; };
-		915FEE0716B30B7E0045A15A /* Default-Landscape~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 915FEE0616B30B7E0045A15A /* Default-Landscape~ipad.png */; };
 		915FEE0916B30B7E0045A15A /* fps_images.png in Resources */ = {isa = PBXBuildFile; fileRef = 915FEE0816B30B7E0045A15A /* fps_images.png */; };
 		915FEE0B16B30B7E0045A15A /* fps_images-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 915FEE0A16B30B7E0045A15A /* fps_images-hd.png */; };
 		915FEE0D16B30B7E0045A15A /* fps_images-ipadhd.png in Resources */ = {isa = PBXBuildFile; fileRef = 915FEE0C16B30B7E0045A15A /* fps_images-ipadhd.png */; };
@@ -146,6 +144,7 @@
 		915FEF9C16B31BEA0045A15A /* dot9.png in Resources */ = {isa = PBXBuildFile; fileRef = 915FEF9316B31BEA0045A15A /* dot9.png */; };
 		915FEF9F16B3351E0045A15A /* Tile.m in Sources */ = {isa = PBXBuildFile; fileRef = 915FEF9E16B3351E0045A15A /* Tile.m */; };
 		91E3EBBF16B81FEA0019D9CE /* Score.m in Sources */ = {isa = PBXBuildFile; fileRef = 91E3EBBE16B81FEA0019D9CE /* Score.m */; };
+		91F9D13816B96E1900917B61 /* GameOverScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 91F9D13716B96E1900917B61 /* GameOverScene.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -162,8 +161,6 @@
 		915FEDFC16B30B7E0045A15A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		915FEDFE16B30B7E0045A15A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		915FEE0016B30B7E0045A15A /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
-		915FEE0416B30B7E0045A15A /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default.png; path = Resources/Default.png; sourceTree = "<group>"; };
-		915FEE0616B30B7E0045A15A /* Default-Landscape~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-Landscape~ipad.png"; path = "Resources/Default-Landscape~ipad.png"; sourceTree = "<group>"; };
 		915FEE0816B30B7E0045A15A /* fps_images.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = fps_images.png; path = Resources/fps_images.png; sourceTree = "<group>"; };
 		915FEE0A16B30B7E0045A15A /* fps_images-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "fps_images-hd.png"; path = "Resources/fps_images-hd.png"; sourceTree = "<group>"; };
 		915FEE0C16B30B7E0045A15A /* fps_images-ipadhd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "fps_images-ipadhd.png"; path = "Resources/fps_images-ipadhd.png"; sourceTree = "<group>"; };
@@ -427,6 +424,8 @@
 		915FEF9E16B3351E0045A15A /* Tile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tile.m; sourceTree = "<group>"; };
 		91E3EBBD16B81FEA0019D9CE /* Score.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Score.h; sourceTree = "<group>"; };
 		91E3EBBE16B81FEA0019D9CE /* Score.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Score.m; sourceTree = "<group>"; };
+		91F9D13616B96E1900917B61 /* GameOverScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameOverScene.h; sourceTree = "<group>"; };
+		91F9D13716B96E1900917B61 /* GameOverScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameOverScene.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -485,8 +484,11 @@
 		915FEE0216B30B7E0045A15A /* Make10App */ = {
 			isa = PBXGroup;
 			children = (
+				91F9D13616B96E1900917B61 /* GameOverScene.h */,
+				91F9D13716B96E1900917B61 /* GameOverScene.m */,
 				915FEF7A16B30B800045A15A /* AppDelegate.h */,
 				915FEF7B16B30B800045A15A /* AppDelegate.m */,
+				915FEF8816B314BE0045A15A /* Make10AppLayer.h */,
 				915FEF8916B314C50045A15A /* Make10AppLayer.m */,
 				91E3EBBD16B81FEA0019D9CE /* Score.h */,
 				91E3EBBE16B81FEA0019D9CE /* Score.m */,
@@ -494,7 +496,6 @@
 				915FEF9E16B3351E0045A15A /* Tile.m */,
 				910CA95616B6C9A3006BB0CD /* Wall.h */,
 				910CA95716B6C9A3006BB0CD /* Wall.m */,
-				915FEF8816B314BE0045A15A /* Make10AppLayer.h */,
 				915FEF8016B30B800045A15A /* IntroLayer.h */,
 				915FEF8116B30B800045A15A /* IntroLayer.m */,
 				915FEE0316B30B7E0045A15A /* Resources */,
@@ -517,8 +518,6 @@
 				915FEF9116B31BEA0045A15A /* dot7.png */,
 				915FEF9216B31BEA0045A15A /* dot8.png */,
 				915FEF9316B31BEA0045A15A /* dot9.png */,
-				915FEE0416B30B7E0045A15A /* Default.png */,
-				915FEE0616B30B7E0045A15A /* Default-Landscape~ipad.png */,
 				915FEE0816B30B7E0045A15A /* fps_images.png */,
 				915FEE0A16B30B7E0045A15A /* fps_images-hd.png */,
 				915FEE0C16B30B7E0045A15A /* fps_images-ipadhd.png */,
@@ -927,8 +926,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				915FEE0516B30B7E0045A15A /* Default.png in Resources */,
-				915FEE0716B30B7E0045A15A /* Default-Landscape~ipad.png in Resources */,
 				915FEE0916B30B7E0045A15A /* fps_images.png in Resources */,
 				915FEE0B16B30B7E0045A15A /* fps_images-hd.png in Resources */,
 				915FEE0D16B30B7E0045A15A /* fps_images-ipadhd.png in Resources */,
@@ -1067,6 +1064,7 @@
 				915FEF9F16B3351E0045A15A /* Tile.m in Sources */,
 				910CA95816B6C9A3006BB0CD /* Wall.m in Sources */,
 				91E3EBBF16B81FEA0019D9CE /* Score.m in Sources */,
+				91F9D13816B96E1900917B61 /* GameOverScene.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

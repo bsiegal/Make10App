@@ -152,7 +152,14 @@ NSMutableArray* _tiles;
 }
 
 -(BOOL)isMax {
-    return false;
+    NSMutableArray* topRow = [_tiles objectAtIndex:MAX_ROWS - 1];
+    for (int j = 0; j < MAX_COLS; j++) {
+        if ([topRow objectAtIndex:j] != [NSNull null]) {
+            return YES;
+        }
+        
+    }
+    return NO;
 }
 
 -(NSMutableArray*) getPossibles {

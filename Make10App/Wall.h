@@ -52,6 +52,9 @@ static int const MAX_COLS = 7;
 -(int) removeTile:(Tile*)tile;
 -(int) removeAdjacentsWithValue:(int)value row:(int)row col:(int)col;
 -(void) transitionDown;
+/** 
+ * Return YES when any tile has reached max row
+ */
 -(BOOL)isMax;
 /**
  * Get up to 2 * MAX_COLS of possible values 

@@ -19,7 +19,7 @@
 
 // Import the interfaces
 #import "Make10AppLayer.h"
-
+#import "GameOverScene.h"
 // Needed to obtain the Navigation Controller
 #import "AppDelegate.h"
 #import "Tile.h"
@@ -90,6 +90,13 @@ Tile* _knockedWallTile;
      * Transition the wall up
      */
     [_wall transitionUp];
+    
+    /*
+     * If the wall has reached the max, show the game over scene after a slight delay
+     */
+    if ([_wall isMax]) {
+        [self scheduleOnce:@selector(endGame) delay:1];
+    }
 }
 
 -(void) createNextTile {
@@ -133,6 +140,8 @@ Tile* _knockedWallTile;
         
         [self createNextTile];
         [self createCurrentTile];
+        
+        [self schedule:@selector(addWallRow) interval:12];
 //		
 //		//
 //		// Leaderboards and Achievements
@@ -231,20 +240,30 @@ Tile* _knockedWallTile;
     /*
      * It's not a match
      * Move the current tile to the top of the column where the wallTile is
-     * or if wallTile is nil, then stick it in the empty spot
+     * or if wallTile is nil, then stick it in the empty spot if it the column is empty
+     * otherwise do nothing (ignore the touch)
      */
     if (wallTile) {
         CGPoint newPosition = [_wall addTileAtopTile:_currentTile referenceTile:wallTile];
         
-        [_currentTile transitionToPoint:newPosition target:self callback:@selector(currentBecomesWallTileDone:)];
+        if (newPosition.x != 0 && newPosition.y != 0) {
+            [_currentTile transitionToPoint:newPosition target:self callback:@selector(currentBecomesWallTileDone:)];
+        } else {
+            /*
+             * No empty spot found (wall at max), so end game after slight delay
+             */
+            [self scheduleOnce:@selector(endGame) delay:1];
+        }
         
     } else {
         CGPoint newPosition = [_wall addTileToEmptyColumn:_currentTile location:point];
         if (newPosition.x != 0 && newPosition.y != 0) {
             [_currentTile transitionToPoint:newPosition target:self callback:@selector(currentBecomesWallTileDone:)];
                         
-        }
-        
+        } 
+        /*
+         * else clicked too high, just ignore and do nothing
+         */
     }
 
 }
@@ -257,6 +276,14 @@ Tile* _knockedWallTile;
     _currentTile = nil;
     [self createCurrentTile];
     
+}
+
+-(void) endGame {
+    NSLog(@"endGame");
+    GameOverScene* gameOverScene = [GameOverScene node];
+    NSString* score = [NSString stringWithFormat:@"Your score: %d", _score.score];
+    [gameOverScene.layer.label setString:score];
+    [[CCDirector sharedDirector] replaceScene:gameOverScene];
 }
 
 // on "dealloc" you need to release all your retained objects

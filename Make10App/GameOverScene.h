@@ -16,16 +16,17 @@
  *
  ******************************************************************************/
 
-
-// When you import this file, you import all the cocos2d classes
 #import "cocos2d.h"
 
-// Make10AppLayer
-@interface IntroLayer : CCLayer
-{
+@interface GameOverLayer : CCLayerColor {
+    CCLabelTTF* _label;
 }
 
-// returns a CCScene that contains the Make10AppLayer as the only child
-+(CCScene *) scene;
+@property (nonatomic, retain) CCLabelTTF* label;
+@end
 
+@interface GameOverScene : CCScene {
+    GameOverLayer* _layer;
+}
+@property (nonatomic, retain) GameOverLayer* layer;
 @end

@@ -65,7 +65,7 @@
          * The y position is top of screen - half the height of a tile
          */
         CGSize winSize = [[CCDirector sharedDirector] winSize];
-        _sprite.position = ccp(_sprite.contentSize.width / 2, winSize.height - _sprite.contentSize.height / 2);
+        _sprite.position = ccp(_sprite.contentSize.width / 2, winSize.height - _sprite.contentSize.height * (1.5));
     }
     return self;
 }
@@ -100,7 +100,8 @@
 }
 
 -(void) destroy {
-    [self.sprite removeFromParentAndCleanup:YES];
+    [_sprite removeFromParentAndCleanup:YES];
+    _sprite = nil;
 }
 
 -(NSString*) description {
@@ -110,8 +111,9 @@
 
 -(void) dealloc
 {
-    [_sprite release];
-    _sprite = nil;
+    if (_sprite) {
+        [self destroy];
+    }
 	[super dealloc];
 }
 
