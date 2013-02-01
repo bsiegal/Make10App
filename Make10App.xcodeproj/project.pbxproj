@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		910CA95416B6BB34006BB0CD /* tile.png in Resources */ = {isa = PBXBuildFile; fileRef = 910CA95316B6BB34006BB0CD /* tile.png */; };
 		910CA95816B6C9A3006BB0CD /* Wall.m in Sources */ = {isa = PBXBuildFile; fileRef = 910CA95716B6C9A3006BB0CD /* Wall.m */; };
+		914514E516BADF4A00B51357 /* scoreLabelBg.png in Resources */ = {isa = PBXBuildFile; fileRef = 914514E416BADF4A00B51357 /* scoreLabelBg.png */; };
+		914514E916BB4A5D00B51357 /* gain.png in Resources */ = {isa = PBXBuildFile; fileRef = 914514E816BB4A5D00B51357 /* gain.png */; };
 		915FEDF116B30B7E0045A15A /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 915FEDF016B30B7E0045A15A /* QuartzCore.framework */; };
 		915FEDF316B30B7E0045A15A /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 915FEDF216B30B7E0045A15A /* OpenGLES.framework */; };
 		915FEDF516B30B7E0045A15A /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 915FEDF416B30B7E0045A15A /* OpenAL.framework */; };
@@ -151,6 +153,8 @@
 		910CA95316B6BB34006BB0CD /* tile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = tile.png; path = sprites/tile.png; sourceTree = "<group>"; };
 		910CA95616B6C9A3006BB0CD /* Wall.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Wall.h; sourceTree = "<group>"; };
 		910CA95716B6C9A3006BB0CD /* Wall.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Wall.m; sourceTree = "<group>"; };
+		914514E416BADF4A00B51357 /* scoreLabelBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = scoreLabelBg.png; sourceTree = "<group>"; };
+		914514E816BB4A5D00B51357 /* gain.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gain.png; sourceTree = "<group>"; };
 		915FEDEC16B30B7E0045A15A /* Make10App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Make10App.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		915FEDF016B30B7E0045A15A /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		915FEDF216B30B7E0045A15A /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
@@ -508,6 +512,8 @@
 		915FEE0316B30B7E0045A15A /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				914514E816BB4A5D00B51357 /* gain.png */,
+				914514E416BADF4A00B51357 /* scoreLabelBg.png */,
 				910CA95316B6BB34006BB0CD /* tile.png */,
 				915FEF8B16B31BEA0045A15A /* dot1.png */,
 				915FEF8C16B31BEA0045A15A /* dot2.png */,
@@ -902,7 +908,7 @@
 		915FEDE316B30B7E0045A15A /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0450;
+				LastUpgradeCheck = 0460;
 			};
 			buildConfigurationList = 915FEDE616B30B7E0045A15A /* Build configuration list for PBXProject "Make10App" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -947,6 +953,8 @@
 				915FEF9B16B31BEA0045A15A /* dot8.png in Resources */,
 				915FEF9C16B31BEA0045A15A /* dot9.png in Resources */,
 				910CA95416B6BB34006BB0CD /* tile.png in Resources */,
+				914514E516BADF4A00B51357 /* scoreLabelBg.png in Resources */,
+				914514E916BB4A5D00B51357 /* gain.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1075,6 +1083,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -1085,6 +1097,7 @@
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				SDKROOT = iphoneos;
@@ -1096,6 +1109,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -1104,6 +1121,7 @@
 				);
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				SDKROOT = iphoneos;

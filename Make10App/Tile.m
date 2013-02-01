@@ -109,8 +109,7 @@
             self.row, self.col, self.value];
 }
 
--(void) dealloc
-{
+-(void) dealloc {
     if (_sprite) {
         [self destroy];
     }

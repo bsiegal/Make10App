@@ -19,6 +19,11 @@
 
 #import <Foundation/Foundation.h>
 
+/**
+ * Points needed to advance to next level
+ */
+static int const LEVEL_MARKER = 500;
+
 @interface Score : NSObject
 
 /**
@@ -33,4 +38,13 @@
  * The current level
  */
 @property int level;
+/**
+ * The time in seconds a wall row is added
+ */
+@property int wallTime;
+
+/**
+ * Increase the level, point value and wall speed
+ */
+-(void) levelUp;
 @end

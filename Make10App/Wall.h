@@ -19,7 +19,13 @@
 #import <Foundation/Foundation.h>
 #import "Tile.h"
 
+/**
+ * Max rows of tiles
+ */
 static int const MAX_ROWS = 7;
+/**
+ * Max columns in a row of tiles
+ */
 static int const MAX_COLS = 7;
 
 @interface Wall : NSObject
@@ -84,4 +90,8 @@ static int const MAX_COLS = 7;
  * @return CGPoint where to position the tile or 0,0 if no empty spots found
  */
 -(CGPoint) addTileToEmptyColumn:(Tile*) tileToAdd location:(CGPoint)location;
+/**
+ * Remove all the tiles from the wall
+ */
+-(void) clearWall;
 @end

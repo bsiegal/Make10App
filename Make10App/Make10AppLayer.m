@@ -32,12 +32,17 @@
 // Make10AppLayer implementation
 @implementation Make10AppLayer
 
-int _makeValue;
-Wall* _wall;
-Tile* _nextTile;
-Tile* _currentTile;
-Score* _score;
-Tile* _knockedWallTile;
+int         _makeValue;
+Wall*       _wall;
+Score*      _score;
+Tile*       _nextTile;
+Tile*       _currentTile;
+Tile*       _knockedWallTile;
+CCLabelTTF* _scoreLabel;
+CCSprite*   _gain;
+CCLabelTTF* _gainLabel;
+
+NSTimer*    _wallTimer;
 
 // Helper class method that creates a Scene with the Make10AppLayer as the only child.
 +(CCScene*) scene
@@ -123,6 +128,36 @@ Tile* _knockedWallTile;
     _nextTile = nil;
     [self createNextTile];
 }
+
+-(void) placeScoreLabel {
+    CGSize winSize = [[CCDirector sharedDirector] winSize];
+    CCSprite* bg = [CCSprite spriteWithFile:@"scoreLabelBg.png" rect:CGRectMake(0, 0, 308, 50)];
+    bg.position = ccp(winSize.width / 2, winSize.height - 50 / 2 - 4);
+    [self addChild:bg];
+    
+    _scoreLabel = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"Make %d", _makeValue] fontName:@"Arial" fontSize:24];
+    _scoreLabel.color = ccc3(0, 0, 0);
+    _scoreLabel.position = ccp(bg.contentSize.width / 2, bg.contentSize.height / 2);
+    [bg addChild:_scoreLabel];
+    
+}
+
+-(void) createGain {
+    NSLog(@"createGain");
+    _gain = [CCSprite spriteWithFile:@"gain.png" rect:CGRectMake(0, 0, 40, 40)];
+    _gain.position = ccp(100, 300);
+    [self addChild:_gain];
+    
+    _gainLabel = [CCLabelTTF labelWithString:@"+10" fontName:@"Arial" fontSize:16];
+    _gainLabel.color = ccc3(0, 0, 0);
+    _gainLabel.position = ccp(_gain.contentSize.width / 2, _gain.contentSize.height / 2);
+    [_gain addChild:_gainLabel];
+    _gain.visible = NO;
+}
+
+-(void) startWallTimer {
+    _wallTimer = [NSTimer scheduledTimerWithTimeInterval:_score.wallTime target:self selector:@selector(addWallRow) userInfo:nil repeats:YES];
+}
 // on "init" you need to initialize your instance
 -(id) init
 {
@@ -134,6 +169,8 @@ Tile* _knockedWallTile;
         _score = [[Score alloc] init];
         _wall = [[Wall alloc] init];
         
+        [self placeScoreLabel];
+        [self createGain];
         [self prepNewLevel];
         
         self.isTouchEnabled = YES;
@@ -141,8 +178,10 @@ Tile* _knockedWallTile;
         [self createNextTile];
         [self createCurrentTile];
         
-        [self schedule:@selector(addWallRow) interval:12];
-//		
+//        [self schedule:@selector(addWallRow) interval:12];
+        [self startWallTimer];
+        
+//
 //		//
 //		// Leaderboards and Achievements
 //		//
@@ -225,14 +264,55 @@ Tile* _knockedWallTile;
     [_currentTile destroy];
     _currentTile = nil;
 
+    _gain.position = _knockedWallTile.sprite.position;
     int tileCount = [_wall removeTile:_knockedWallTile];
     _knockedWallTile = nil;
 
-    _score.score += _score.pointValue * tileCount;
-    NSLog(@"score = %d", _score.score);
+    int pointGain = _score.pointValue * tileCount;
+    [self updateScore:pointGain];
+    [self levelUp];
     
     [self createCurrentTile];
+}
+
+-(void) updateScore:(int)pointGain {
+    [_gainLabel setString:[NSString stringWithFormat:@"+%d", pointGain]];
+    _gain.visible = YES;
+    [_gain runAction:[CCFadeOut actionWithDuration:0.15]];
+    [_gainLabel runAction:[CCFadeOut actionWithDuration:0.15]];
     
+    _score.score += pointGain;
+    [_scoreLabel setString:[NSString stringWithFormat:@"%d", _score.score]];
+}
+
+-(void) levelUp {
+    /*
+     * If the score is enough to advance to the next level,
+     * stop the timer, 
+     * clear the wall and prep for a new level,
+     * show the level layer
+     * then restart the timer
+     */
+    if (_score.score >= LEVEL_MARKER * pow(2, _score.level - 1)) {
+        [_score levelUp];
+        [_wallTimer invalidate];
+        [_wall clearWall];
+        //For now just a label that wil fade out
+//        CCLayerColor* levelLayer = [[CCLayerColor node] initWithCo
+        CGSize winSize = [[CCDirector sharedDirector] winSize];
+        CCSprite* bg = [CCSprite spriteWithFile:@"scoreLabelBg.png" rect:CGRectMake(0, 0, 308, 50)];
+        bg.position = ccp(winSize.width / 2, winSize.height - 50 / 2 - 4);
+        [self addChild:bg];
+        
+        CCLabelTTF* levelLabel = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"Get ready for Level %d", _score.level] fontName:@"Arial" fontSize:24];
+        levelLabel.color = ccc3(0, 0, 0);
+        levelLabel.position = ccp(bg.contentSize.width / 2, bg.contentSize.height / 2);
+        [bg addChild:levelLabel];
+        //TODO NEED TO USE CALLBACK
+        [bg runAction:[CCFadeOut actionWithDuration:2]];
+        [self prepNewLevel];
+        [self startWallTimer];
+    }
 }
 
 -(void) valueNotMade:(Tile*) wallTile touchPoint:(CGPoint)point {
@@ -287,8 +367,7 @@ Tile* _knockedWallTile;
 }
 
 // on "dealloc" you need to release all your retained objects
--(void) dealloc
-{
+-(void) dealloc {
     [_nextTile release];
     _nextTile = nil;
     [_currentTile release];
@@ -297,6 +376,15 @@ Tile* _knockedWallTile;
     _wall = nil;
     [_score release];
     _score = nil;
+    [_scoreLabel removeFromParentAndCleanup:YES];
+    _scoreLabel = nil;
+    [_gainLabel removeFromParentAndCleanup:YES];
+    _gainLabel = nil;
+    [_gain removeFromParentAndCleanup:YES];
+    _gain = nil;
+    [_wallTimer invalidate];
+    _wallTimer = nil;
+    
 	[super dealloc];
 }
 

@@ -270,8 +270,19 @@ NSMutableArray* _tiles;
     return ccp(0, 0);
 }
 
--(void) dealloc
-{
+-(void) clearWall {
+    for (int i = 0; i < MAX_ROWS; i++) {
+        NSMutableArray* tileRow = [_tiles objectAtIndex:i];
+        for (int j = 0; j < MAX_COLS; j++) {
+            if ([tileRow objectAtIndex:j] != [NSNull null]) {
+                [self removeTile:[tileRow objectAtIndex:j]];
+            }
+        }
+    }
+
+}
+
+-(void) dealloc {
     [_tiles release];
     _tiles = nil;
 	[super dealloc];
