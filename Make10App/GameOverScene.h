@@ -23,6 +23,12 @@
 }
 
 @property (nonatomic, retain) CCLabelTTF* label;
+
+/**
+ * The score to show
+ */
+-(void) setScore:(int)score;
+
 @end
 
 @interface GameOverScene : CCScene {

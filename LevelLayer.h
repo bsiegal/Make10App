@@ -17,17 +17,16 @@
  ******************************************************************************/
 
 
-#import <GameKit/GameKit.h>
-
-// When you import this file, you import all the cocos2d classes
+#import <Foundation/Foundation.h>
 #import "cocos2d.h"
 
-// Make10AppLayer
-@interface Make10AppLayer : CCLayerColor <GKAchievementViewControllerDelegate, GKLeaderboardViewControllerDelegate>
-{
-}
+@interface LevelLayer : CCLayerColor
 
-// returns a CCScene that contains the Make10AppLayer as the only child
-+(CCScene *) scene;
+@property (nonatomic, retain) CCLabelTTF* label;
 
+/**
+ * Set the level
+ * @param level to show
+ */
+-(void) setLevel:(int)level;
 @end

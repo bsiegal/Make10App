@@ -51,7 +51,7 @@
 	// ask director for the window size
 	CGSize winSize = [[CCDirector sharedDirector] winSize];
 
-	CCLabelTTF* title = [CCLabelTTF labelWithString:@"Make 10" fontName:@"Arial" fontSize:64];
+	CCLabelTTF* title = [CCLabelTTF labelWithString:@"Make 10" fontName:@"American Typewriter" fontSize:64];
     //title.color = ccc3(0, 0, 0);
     title.position = ccp(winSize.width / 2, winSize.height / 2);
 	// add the label as a child to this Layer

@@ -103,7 +103,7 @@ NSMutableArray* _tiles;
      * Destroy the tile and nullify the grid at the row, col
      */
     NSMutableArray* tileRow = [_tiles objectAtIndex:row];
-    [tile destroy];
+    [tile release];
     [tileRow replaceObjectAtIndex:col withObject:[NSNull null]];
 
     NSLog(@"Wall.removeTile tileRow at row:%d = %@", row, tileRow);
@@ -277,7 +277,7 @@ NSMutableArray* _tiles;
         for (int j = 0; j < MAX_COLS; j++) {
             if ([tileRow objectAtIndex:j] != [NSNull null]) {
                 Tile* tile = [tileRow objectAtIndex:j];
-                [tile destroy];
+                [tile release];
                 [tileRow replaceObjectAtIndex:j withObject:[NSNull null]];
             }
         }

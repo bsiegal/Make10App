@@ -57,8 +57,5 @@
  * Move the tile to the point
  */
 -(void) transitionToPoint:(CGPoint)point target:(id)target callback:(SEL)callback;
-/**
- * Destroy this tile
- */
--(void) destroy;
+
 @end

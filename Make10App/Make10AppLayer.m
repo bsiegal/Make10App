@@ -20,6 +20,7 @@
 // Import the interfaces
 #import "Make10AppLayer.h"
 #import "GameOverScene.h"
+#import "LevelLayer.h"
 // Needed to obtain the Navigation Controller
 #import "AppDelegate.h"
 #import "Tile.h"
@@ -41,6 +42,7 @@ Tile*       _knockedWallTile;
 CCLabelTTF* _scoreLabel;
 CCSprite*   _gain;
 CCLabelTTF* _gainLabel;
+LevelLayer* _levelLayer;
 
 NSTimer*    _wallTimer;
 
@@ -135,7 +137,7 @@ NSTimer*    _wallTimer;
     bg.position = ccp(winSize.width / 2, winSize.height - 50 / 2 - 4);
     [self addChild:bg];
     
-    _scoreLabel = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"Make %d", _makeValue] fontName:@"Arial" fontSize:24];
+    _scoreLabel = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"Make %d", _makeValue] fontName:@"American Typewriter" fontSize:24];
     _scoreLabel.color = ccc3(0, 0, 0);
     _scoreLabel.position = ccp(bg.contentSize.width / 2, bg.contentSize.height / 2);
     [bg addChild:_scoreLabel];
@@ -148,7 +150,7 @@ NSTimer*    _wallTimer;
     _gain.position = ccp(100, 300);
     [self addChild:_gain];
     
-    _gainLabel = [CCLabelTTF labelWithString:@"+10" fontName:@"Arial" fontSize:16];
+    _gainLabel = [CCLabelTTF labelWithString:@"+10" fontName:@"American Typewriter" fontSize:16];
     _gainLabel.color = ccc3(0, 0, 0);
     _gainLabel.position = ccp(_gain.contentSize.width / 2, _gain.contentSize.height / 2);
     [_gain addChild:_gainLabel];
@@ -159,8 +161,7 @@ NSTimer*    _wallTimer;
     _wallTimer = [NSTimer scheduledTimerWithTimeInterval:_score.wallTime target:self selector:@selector(addWallRow) userInfo:nil repeats:YES];
 }
 // on "init" you need to initialize your instance
--(id) init
-{
+-(id) init {
 	// always call "super" init
 	// Apple recommends to re-assign "self" with the "super's" return value
 	if (self = [super initWithColor: ccc4(70, 130, 180, 255)]) {
@@ -261,7 +262,7 @@ NSTimer*    _wallTimer;
      * Destroy both the current tile and the knockedWallTile
      * Create the next current tile
      */
-    [_currentTile destroy];
+    [_currentTile release];
     _currentTile = nil;
 
     _gain.position = _knockedWallTile.sprite.position;
@@ -296,29 +297,24 @@ NSTimer*    _wallTimer;
     if ([_score levelUp]) {
         [_wallTimer invalidate];
         [_wall clearWall];
-        //For now just a label that wil fade out
-//        CCLayerColor* levelLayer = [[CCLayerColor node] initWithCo
-        CGSize winSize = [[CCDirector sharedDirector] winSize];
-        CCSprite* bg = [CCSprite spriteWithFile:@"scoreLabelBg.png" rect:CGRectMake(0, 0, 308, 50)];
-        bg.position = ccp(winSize.width / 2, winSize.height / 2);
-        [self addChild:bg];
         
-        CCLabelTTF* levelLabel = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"Get ready for Level %d", _score.level] fontName:@"Arial" fontSize:24];
-        levelLabel.color = ccc3(0, 0, 0);
-        levelLabel.position = ccp(bg.contentSize.width / 2, bg.contentSize.height / 2);
-        [bg addChild:levelLabel];
-        //TODO NEED TO USE CALLBACK
-        [bg runAction:[CCFadeOut actionWithDuration:2]];
+        _levelLayer = [[LevelLayer alloc] init];
+        [_levelLayer setLevel:_score.level];
+        [self addChild:_levelLayer];
         
-        
-        id actionFadeOut = [CCFadeOut actionWithDuration:2];
+        id actionFadeOut = [CCFadeOut actionWithDuration:5];
         id actionFadeOutDone = [CCCallFuncN actionWithTarget:self selector:@selector(levelFadeOutDone)];
-        [bg runAction:[CCSequence actions:actionFadeOut, actionFadeOutDone, nil]];
+        [_levelLayer runAction:[CCSequence actions:actionFadeOut, actionFadeOutDone, nil]];
         
+        [_levelLayer.label runAction:[CCFadeOut actionWithDuration:5]];
     }
 }
 
 -(void) levelFadeOutDone {
+    if (_levelLayer) {
+        [_levelLayer removeFromParentAndCleanup:YES];
+        _levelLayer = nil;
+    }
     [self prepNewLevel];
     [self startWallTimer];
     
@@ -368,9 +364,12 @@ NSTimer*    _wallTimer;
 
 -(void) endGame {
     NSLog(@"endGame");
+    if (_wallTimer) {
+        [_wallTimer invalidate];
+        _wallTimer = nil;
+    }
     GameOverScene* gameOverScene = [GameOverScene node];
-    NSString* score = [NSString stringWithFormat:@"Your score: %d", _score.score];
-    [gameOverScene.layer.label setString:score];
+    [gameOverScene.layer setScore:_score.score];
     [[CCDirector sharedDirector] replaceScene:gameOverScene];
 }
 
@@ -390,8 +389,15 @@ NSTimer*    _wallTimer;
     _gainLabel = nil;
     [_gain removeFromParentAndCleanup:YES];
     _gain = nil;
-    [_wallTimer invalidate];
+    if (_wallTimer) {
+        [_wallTimer release];
+    }
     _wallTimer = nil;
+    
+    if (_levelLayer) {
+        [_levelLayer removeFromParentAndCleanup:YES];
+    }
+    _levelLayer = nil;
     
 	[super dealloc];
 }
