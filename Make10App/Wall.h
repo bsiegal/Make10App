@@ -74,6 +74,7 @@ static int const MAX_COLS = 7;
  * Check if there is an empty spot the row, col
  * @param row int row
  * @param col int col
+ * @param YES if empty at the row and column
  */
 -(BOOL) isEmptyAtRow:(int)row col:(int)col;
 /**
