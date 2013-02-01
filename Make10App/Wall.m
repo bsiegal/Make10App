@@ -271,11 +271,14 @@ NSMutableArray* _tiles;
 }
 
 -(void) clearWall {
+    NSLog(@"Wall.clearWall");
     for (int i = 0; i < MAX_ROWS; i++) {
         NSMutableArray* tileRow = [_tiles objectAtIndex:i];
         for (int j = 0; j < MAX_COLS; j++) {
             if ([tileRow objectAtIndex:j] != [NSNull null]) {
-                [self removeTile:[tileRow objectAtIndex:j]];
+                Tile* tile = [tileRow objectAtIndex:j];
+                [tile destroy];
+                [tileRow replaceObjectAtIndex:j withObject:[NSNull null]];
             }
         }
     }

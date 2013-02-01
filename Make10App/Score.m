@@ -24,17 +24,13 @@
 -(id) init {
     if (self = [super init]) {
         self.score = 0;
-        self.level = 0; //starting at 0 b/c levelUp will increase to 1 //based on NSUserDefaults
-        [self levelUp];
+        self.level = 1; //starts at 1 but should be based on NSUserDefaults
+        [self initializeProperties];
     }
     return self;
 }
 
-/**
- * Increase the level, point value and wall speed
- */
--(void) levelUp {
-    self.level++;
+-(void) initializeProperties {
     self.pointValue = self.level * 10;
     /*
      * speed increases with every level if the challenge type is speed
@@ -45,7 +41,18 @@
     } else {
         self.wallTime = 6;
     }
-
+}
+/**
+ * Increase the level, point value and wall speed
+ */
+-(BOOL) levelUp {
+    NSLog(@"Score.levelUp");
+    if (self.score >= LEVEL_MARKER * pow(2, self.level - 1)) {
+        self.level++;
+        [self initializeProperties];
+        return YES;
+    }
+    return NO;
 }
 
 -(void) dealloc {

@@ -293,15 +293,14 @@ NSTimer*    _wallTimer;
      * show the level layer
      * then restart the timer
      */
-    if (_score.score >= LEVEL_MARKER * pow(2, _score.level - 1)) {
-        [_score levelUp];
+    if ([_score levelUp]) {
         [_wallTimer invalidate];
         [_wall clearWall];
         //For now just a label that wil fade out
 //        CCLayerColor* levelLayer = [[CCLayerColor node] initWithCo
         CGSize winSize = [[CCDirector sharedDirector] winSize];
         CCSprite* bg = [CCSprite spriteWithFile:@"scoreLabelBg.png" rect:CGRectMake(0, 0, 308, 50)];
-        bg.position = ccp(winSize.width / 2, winSize.height - 50 / 2 - 4);
+        bg.position = ccp(winSize.width / 2, winSize.height / 2);
         [self addChild:bg];
         
         CCLabelTTF* levelLabel = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"Get ready for Level %d", _score.level] fontName:@"Arial" fontSize:24];
@@ -310,11 +309,20 @@ NSTimer*    _wallTimer;
         [bg addChild:levelLabel];
         //TODO NEED TO USE CALLBACK
         [bg runAction:[CCFadeOut actionWithDuration:2]];
-        [self prepNewLevel];
-        [self startWallTimer];
+        
+        
+        id actionFadeOut = [CCFadeOut actionWithDuration:2];
+        id actionFadeOutDone = [CCCallFuncN actionWithTarget:self selector:@selector(levelFadeOutDone)];
+        [bg runAction:[CCSequence actions:actionFadeOut, actionFadeOutDone, nil]];
+        
     }
 }
 
+-(void) levelFadeOutDone {
+    [self prepNewLevel];
+    [self startWallTimer];
+    
+}
 -(void) valueNotMade:(Tile*) wallTile touchPoint:(CGPoint)point {
     NSLog(@"valueNotMade wallTile=%@", wallTile);
     /*

@@ -45,6 +45,8 @@ static int const LEVEL_MARKER = 500;
 
 /**
  * Increase the level, point value and wall speed
+ * if the score passes the bench mark
+ * @return YES if level increases, NO if it stays as is
  */
--(void) levelUp;
+-(BOOL) levelUp;
 @end
