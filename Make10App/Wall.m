@@ -57,26 +57,39 @@ NSMutableArray* _tiles;
 //    }
 }
 
--(void) transitionUp {
-    NSLog(@"Wall.transitionUp");
+-(void) transitionUpWithTarget:(id)target callback:(SEL)callback {
+    NSLog(@"Wall.transitionUpWithTarget");
+    NSMutableArray* tiles = [NSMutableArray array];
     for (int i = 0; i < MAX_ROWS; i++) {
         NSMutableArray* tileRow = [_tiles objectAtIndex:i];
         for (int j = 0; j < MAX_COLS; j++) {
             if ([tileRow objectAtIndex:j] != [NSNull null]) {
+                
                 Tile* tile = [tileRow objectAtIndex:j];
-//                NSLog(@"Got (%@) from row %d, col %d", tile, i, j);
                 tile.row++;// = i + 1;
-                int x = tile.sprite.contentSize.width * (j + 0.5);
-                int y = tile.sprite.contentSize.height * (i + 0.5);
-                
-                id actionMove = [CCMoveTo actionWithDuration:0.5 position:ccp(x, y)];
-                id actionMoveDone = [CCCallFuncN actionWithTarget:self selector:@selector(spriteMoveFinished:)];
-                [tile.sprite runAction:[CCSequence actions:actionMove, actionMoveDone, nil]];
-                
+
+                [tiles addObject:tile];
             }
         }
     }
-    
+
+    for (int index = 0, len = [tiles count]; index < len; index++) {
+        Tile* tile = [tiles objectAtIndex:index];
+
+        int y = tile.sprite.contentSize.height;
+
+        id actionMove = [CCMoveBy actionWithDuration:WALL_TRANS_TIME position:ccp(0, y)];
+
+        if (target && index == len - 1) {
+            id actionMoveDone = [CCCallFuncN actionWithTarget:target selector:callback];
+            [tile.sprite runAction:[CCSequence actions:actionMove, actionMoveDone, nil]];
+            
+        } else {
+            [tile.sprite runAction:actionMove];
+        }
+        
+        
+    }
     /*
      * Unshift a new empty row
      */
@@ -93,6 +106,15 @@ NSMutableArray* _tiles;
     if (size > MAX_ROWS) {
         [_tiles removeObjectAtIndex:MAX_ROWS];
     }
+    
+}
+
+-(void) transitionUp {
+    NSLog(@"Wall.transitionUp");
+    [self transitionUpWithTarget:nil callback:nil];
+    
+//    [NSTimer scheduledTimerWithTimeInterval:_transitionUpTime target:target selector:callback userInfo:nil repeats:NO];
+//    [target performSelector:callback];
 }
 
 -(int) removeTile:(Tile*)tile {
@@ -232,9 +254,10 @@ NSMutableArray* _tiles;
 
 -(CGPoint) addTileToEmptyColumn:(Tile *)tileToAdd location:(CGPoint)location {
     /*
-     * Find the column that the location is closest to by checking the x
+     * Find the column and row that the location is closest to
      */
     int col = 0;
+//    int row = 0;
     int width = tileToAdd.sprite.contentSize.width;
     int height = tileToAdd.sprite.contentSize.height;
     
@@ -246,23 +269,52 @@ NSMutableArray* _tiles;
             break;
         }
     }
-    
+
     /*
-     * If the column is empty (check row 1) and the 
-     * location was no higher than row 1
+     * If the column is empty (check row 1) and the location
+     * was no higher than row 1
      */
     if ([self isEmptyAtRow:1 col:col] && location.y >= 0 && location.y < height) {
-            
         tileToAdd.row = 1;
         tileToAdd.col = col;
         NSMutableArray* tileRow = [_tiles objectAtIndex:1];
         [tileRow replaceObjectAtIndex:col withObject:tileToAdd];
-            
+        
         int x = width * (col + 0.5);
         int y = height * 0.5;
-            
+        
         return ccp(x, y);
     }
+//    for (int i = 1; i < MAX_ROWS; i++) {
+//        int minY = height * (i - 1);
+//        int maxY = height * i;
+//        if (location.y >= minY && location.y <= maxY) {
+//            row = i;
+//            break;
+//        }
+//    }
+//    
+//    NSLog(@"addTileToEmptyColumn row=%d, col=%d", row, col);
+//    /*
+//     * If the column is empty in the row but the row has at least 1 other tile
+//     * return the point of the row, col
+//     */
+//    if ([self isEmptyAtRow:row col:col]) {
+//        for (int j = 0; j < MAX_COLS; j++) {
+//            if (![self isEmptyAtRow:row col:j]) {
+//                tileToAdd.row = row;
+//                tileToAdd.col = col;
+//                NSMutableArray* tileRow = [_tiles objectAtIndex:row];
+//                [tileRow replaceObjectAtIndex:col withObject:tileToAdd];
+//                
+//                int x = width * (col + 0.5);
+//                int y = height * 0.5;
+//                
+//                return ccp(x, y);                
+//            }
+//        }
+//        
+//    }
     
     /*
      * Column wasn't empty so return 0, 0

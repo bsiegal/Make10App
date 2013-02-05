@@ -27,6 +27,10 @@ static int const MAX_ROWS = 7;
  * Max columns in a row of tiles
  */
 static int const MAX_COLS = 7;
+/**
+ * The duration for the wall to rise
+ */
+static float const WALL_TRANS_TIME = 2.5f;
 
 @interface Wall : NSObject
 
@@ -43,7 +47,14 @@ static int const MAX_COLS = 7;
  * Transition all the wall rows up
  */
 -(void) transitionUp;
-/** 
+/**
+ * Transition all the wall rows up
+ * @param target where callback is located
+ * @param callback selector of callback
+ */
+-(void) transitionUpWithTarget:(id)target callback:(SEL)callback;
+
+/**
  * Set a tile into the wall
  * @param tile Tile to place
  * @param row int row placement

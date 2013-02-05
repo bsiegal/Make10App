@@ -26,6 +26,7 @@
 #import "Tile.h"
 #import "Wall.h"
 #import "Score.h"
+#import "Progress.h"
 //#import <objc/runtime.h>
 
 #pragma mark - Make10AppLayer
@@ -43,7 +44,7 @@ CCLabelTTF* _scoreLabel;
 CCSprite*   _gain;
 CCLabelTTF* _gainLabel;
 LevelLayer* _levelLayer;
-
+Progress*   _progressBar;
 NSTimer*    _wallTimer;
 
 // Helper class method that creates a Scene with the Make10AppLayer as the only child.
@@ -70,20 +71,32 @@ NSTimer*    _wallTimer;
 }
 
 /**
- * Prepare a new level by clearing wall and then adding 2 rows
+ * Prepare a new level by adding 2 rows (to a cleared wall)
  */
 -(void) prepNewLevel {
-    [self addWallRow];
-    [self addWallRow];
+    NSLog(@"prepNewLevel");
+    /*
+     * Create 2 full row of tiles
+     */
+    for (int j = 0; j < MAX_COLS; j++) {
+        int value = [self genRandomValue];
+        Tile* wallTile = [[Tile alloc] initWithValueAndCol:value col:j];
+        [self addChild:wallTile.sprite];
+        
+        [_wall addTile:wallTile row:0 col:j];
+    }
+    [_wall transitionUpWithTarget:self callback:@selector(addWallRow)];
+//    [self addWallRow];
 }
 
 /**
- * Add a row to the wall
+ * Add a row to the wall.
+ * Disable touch so there's no bad behavior when the wall is moving
  */
 -(void) addWallRow {
     NSLog(@"addWallRow");
     /*
-     * Create wall row of tiles
+     * Create full row of tiles
      */
     for (int j = 0; j < MAX_COLS; j++) {
         int value = [self genRandomValue];
@@ -93,10 +106,11 @@ NSTimer*    _wallTimer;
         [_wall addTile:wallTile row:0 col:j];
     }
 
+    self.isTouchEnabled = NO;
     /*
      * Transition the wall up
      */
-    [_wall transitionUp];
+    [_wall transitionUpWithTarget:self callback:@selector(startProgressBar)];
     
     /*
      * If the wall has reached the max, show the game over scene after a slight delay
@@ -106,6 +120,10 @@ NSTimer*    _wallTimer;
     }
 }
 
+
+/**
+ * Create and place the next tile
+ */
 -(void) createNextTile {
     NSLog(@"createNextTile");
     NSMutableArray* possibles = [_wall getPossibles];
@@ -123,6 +141,10 @@ NSTimer*    _wallTimer;
     [self addChild:_nextTile.sprite];
 }
 
+/**
+ * Move the next tile to the current position
+ * and create a new next tile
+ */
 -(void) createCurrentTile {
     NSLog(@"createCurrentTile");
     [_nextTile transitionToCurrent];
@@ -131,6 +153,9 @@ NSTimer*    _wallTimer;
     [self createNextTile];
 }
 
+/**
+ * Create the score label and progress bar
+ */
 -(void) placeScoreLabel {
     CGSize winSize = [[CCDirector sharedDirector] winSize];
     CCSprite* bg = [CCSprite spriteWithFile:@"scoreLabelBg.png" rect:CGRectMake(0, 0, 308, 50)];
@@ -142,8 +167,14 @@ NSTimer*    _wallTimer;
     _scoreLabel.position = ccp(bg.contentSize.width / 2, bg.contentSize.height / 2);
     [bg addChild:_scoreLabel];
     
+    _progressBar = [[Progress alloc] init];
+    _progressBar.sprite.position = ccp(0, 0);
+    [bg addChild:_progressBar.sprite];
 }
 
+/**
+ * Create the sprite to show for earned points
+ */
 -(void) createGain {
     NSLog(@"createGain");
     _gain = [CCSprite spriteWithFile:@"gain.png" rect:CGRectMake(0, 0, 40, 40)];
@@ -156,6 +187,16 @@ NSTimer*    _wallTimer;
     [_gain addChild:_gainLabel];
     _gain.visible = NO;
 }
+
+/**
+ * Start the progress bar and enable touch
+ */
+-(void) startProgressBar {
+    [_progressBar resetBar];
+    [_progressBar startWithDuration:_score.wallTime target:self callback:@selector(addWallRow)];
+    self.isTouchEnabled = YES;
+}
+
 
 -(void) startWallTimer {
     _wallTimer = [NSTimer scheduledTimerWithTimeInterval:_score.wallTime target:self selector:@selector(addWallRow) userInfo:nil repeats:YES];
@@ -174,13 +215,11 @@ NSTimer*    _wallTimer;
         [self createGain];
         [self prepNewLevel];
         
-        self.isTouchEnabled = YES;
-        
         [self createNextTile];
         [self createCurrentTile];
         
 //        [self schedule:@selector(addWallRow) interval:12];
-        [self startWallTimer];
+//        [self startWallTimer];
         
 //
 //		//
@@ -232,6 +271,9 @@ NSTimer*    _wallTimer;
 	return self;
 }
 
+/**
+ * @Override
+ */
 -(void) ccTouchesEnded:(NSSet*)touches withEvent:(UIEvent*)event {
     UITouch* touch = [touches anyObject];
     CGPoint location = [touch locationInView:[touch view]];
@@ -245,6 +287,10 @@ NSTimer*    _wallTimer;
     }
 }
 
+/**
+ * Handle when the value is made
+ * @param wallTile the tile touched to make the value
+ */
 -(void) valueMade:(Tile*) wallTile {
     NSLog(@"valueMade");
     /*
@@ -256,6 +302,9 @@ NSTimer*    _wallTimer;
     [_currentTile transitionToPoint:point target:self callback:@selector(wallTileKnockedDone:)];
 }
 
+/**
+ * Callback when the value made wall tile is done
+ */
 -(void) wallTileKnockedDone:(id)sender {
     NSLog(@"wallTileKnockedDone");
     /*
@@ -276,6 +325,10 @@ NSTimer*    _wallTimer;
     [self createCurrentTile];
 }
 
+/**
+ * Update the score and gain labels 
+ * @param pointGain int increase in points
+ */
 -(void) updateScore:(int)pointGain {
     [_gainLabel setString:[NSString stringWithFormat:@"+%d", pointGain]];
     _gain.visible = YES;
@@ -286,6 +339,10 @@ NSTimer*    _wallTimer;
     [_scoreLabel setString:[NSString stringWithFormat:@"%d", _score.score]];
 }
 
+/**
+ * Check if the next level point benchmark has been reached
+ * and if so show the level layer with the new level
+ */
 -(void) levelUp {
     /*
      * If the score is enough to advance to the next level,
@@ -310,15 +367,24 @@ NSTimer*    _wallTimer;
     }
 }
 
+/**
+ * Callback when the level layer fades out
+ */
 -(void) levelFadeOutDone {
     if (_levelLayer) {
         [_levelLayer removeFromParentAndCleanup:YES];
         _levelLayer = nil;
     }
     [self prepNewLevel];
-    [self startWallTimer];
+//    [self startWallTimer];
     
 }
+
+/**
+ * Handle when the value is not made
+ * @param wallTile Tile that was touched
+ * @param touchPoint CGPoint that was touched in case there was no wallTile touched
+ */
 -(void) valueNotMade:(Tile*) wallTile touchPoint:(CGPoint)point {
     NSLog(@"valueNotMade wallTile=%@", wallTile);
     /*
@@ -352,6 +418,9 @@ NSTimer*    _wallTimer;
 
 }
 
+/**
+ * Callback after the current tile becomes a part of the wall
+ */
 -(void) currentBecomesWallTileDone:(id)sender {
     NSLog(@"currentBecomesWallTileDone");
     /*
@@ -362,12 +431,17 @@ NSTimer*    _wallTimer;
     
 }
 
+/**
+ * Show the game over scene
+ */
 -(void) endGame {
     NSLog(@"endGame");
     if (_wallTimer) {
         [_wallTimer invalidate];
         _wallTimer = nil;
     }
+    [self stopAllActions];
+    
     GameOverScene* gameOverScene = [GameOverScene node];
     [gameOverScene.layer setScore:_score.score];
     [[CCDirector sharedDirector] replaceScene:gameOverScene];
@@ -375,6 +449,8 @@ NSTimer*    _wallTimer;
 
 // on "dealloc" you need to release all your retained objects
 -(void) dealloc {
+    [self stopAllActions];
+    
     [_nextTile release];
     _nextTile = nil;
     [_currentTile release];
@@ -399,6 +475,7 @@ NSTimer*    _wallTimer;
     }
     _levelLayer = nil;
     
+    [_progressBar release];
 	[super dealloc];
 }
 

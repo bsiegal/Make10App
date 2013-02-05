@@ -20,45 +20,27 @@
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"
 
-@interface Tile : NSObject
+@interface Progress : NSObject
 
 /**
  * The sprite of this tile
  */
 @property (readonly) CCSprite* sprite;
 /**
- * The value of this tile
+ * The action of the progress bar running
  */
-@property (readonly) int value;
+@property (readonly) CCFiniteTimeAction* progressAction;
 /**
- * The column of this tile in the wall
- */
-@property int col;
-/**
- * The row of this tile in the wall
- */
-@property int row;
-/**
- * An init method with value and boolean for current tile
- * @param value int for the tile
- */
--(id) initWithValue:(int)value;
-/**
- * An init method with value and column for placement
- * @param value int for the tile
- * @param col int column placement
- */
--(id) initWithValueAndCol:(int)value col:(int)col;
-/**
- * Move the tile to the current tile position
- */
--(void) transitionToCurrent;
-/**
- * Move the tile to the point
- * @param point CGPoint to move to
+ * Start the progress bar
+ * @param duration of progress
  * @param target where callback is located
  * @param callback selector of callback
  */
--(void) transitionToPoint:(CGPoint)point target:(id)target callback:(SEL)callback;
+-(void) startWithDuration:(int)duration target:(id)target callback:(SEL)callback;
+
+/**
+ * Reset the progress bar
+ */
+-(void) resetBar;
 
 @end
