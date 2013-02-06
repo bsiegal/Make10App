@@ -97,6 +97,8 @@ CCLabelTTF* _hiScore;
 -(void) dealloc {
     [_label release];
     _label = nil;
+    [_hiScore release];
+    _hiScore = nil;
     [super dealloc];
 }
 @end

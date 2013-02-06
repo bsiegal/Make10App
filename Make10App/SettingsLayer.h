@@ -16,22 +16,14 @@
  *
  ******************************************************************************/
 
-
-// When you import this file, you import all the cocos2d classes
 #import "cocos2d.h"
 
-
-/**
- * The duration scenes to change
- */
-static float const LAYER_TRANS_TIME = 0.5f;
-
-@interface IntroLayer : CCLayer
+@interface SettingsLayer : CCLayer
 {
 }
 
 /**
- * returns a CCScene that contains the IntroLayer as the only child
+ * returns a CCScene that contains the SettingsLayer as the only child
  */
 +(CCScene *) scene;
 

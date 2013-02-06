@@ -20,14 +20,14 @@
 // Import the interfaces
 #import "IntroLayer.h"
 #import "Make10AppLayer.h"
-
+#import "SettingsLayer.h"
+#import "AboutLayer.h"
 
 #pragma mark - IntroLayer
 
-// Make10AppLayer implementation
 @implementation IntroLayer
 
-// Helper class method that creates a Scene with the Make10AppLayer as the only child.
+// Helper class method that creates a Scene with the IntroLayer as the only child.
 +(CCScene *) scene
 {
 	// 'scene' is an autorelease object.
@@ -53,16 +53,52 @@
 
 	CCLabelTTF* title = [CCLabelTTF labelWithString:@"Make 10" fontName:@"American Typewriter" fontSize:64];
     //title.color = ccc3(0, 0, 0);
-    title.position = ccp(winSize.width / 2, winSize.height / 2);
+    title.position = ccp(winSize.width / 2, winSize.height * 2 / 3);
 	// add the label as a child to this Layer
 	[self addChild: title];
 	
-	// In one second transition to the new scene
-	[self scheduleOnce:@selector(makeTransition:) delay:1];
+    /*
+     * Play button
+     */
+    CCMenuItemFont* play = [CCMenuItemFont itemWithString:@"Play" target:self selector:@selector(playAction)];
+    play.fontName = @"American Typewriter";
+    play.fontSize = 32;
+    
+    /*
+     * Settings button
+     */
+    CCMenuItemFont* settings = [CCMenuItemFont itemWithString:@"Settings" target:self selector:@selector(settingsAction)];
+    settings.fontName = @"American Typewriter";
+    settings.fontSize = 24;
+    
+    /*
+     * About button
+     */
+    CCMenuItemFont* about = [CCMenuItemFont itemWithString:@"About" target:self selector:@selector(aboutAction)];
+    about.fontName = @"American Typewriter";
+    about.fontSize = 24;
+    
+    /*
+     * Create the menu
+     */
+    CCMenu* menu = [CCMenu menuWithItems:play, settings, about, nil];
+    menu.position = ccp(winSize.width / 2, winSize.height / 3);
+    [self addChild:menu];
+    [menu alignItemsVerticallyWithPadding:20];
 }
 
--(void) makeTransition:(ccTime)dt
-{
-	[[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:1.0 scene:[Make10AppLayer scene] withColor:ccWHITE]];
+-(void) playAction {
+	[[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:LAYER_TRANS_TIME scene:[Make10AppLayer scene] withColor:ccc3(70, 130, 180)]];
 }
+
+-(void) settingsAction {
+	[[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInR transitionWithDuration:LAYER_TRANS_TIME scene:[SettingsLayer scene]]];
+     //CCTransitionFade transitionWithDuration:1.0 scene:[SettingsLayer scene] withColor:ccWHITE]];
+}
+
+-(void) aboutAction {
+	[[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInR transitionWithDuration:LAYER_TRANS_TIME scene:[AboutLayer scene]]];
+     //[CCTransitionFade transitionWithDuration:1.0 scene:[AboutLayer scene] withColor:ccWHITE]];
+}
+
 @end

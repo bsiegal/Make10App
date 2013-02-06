@@ -109,14 +109,6 @@ NSMutableArray* _tiles;
     
 }
 
--(void) transitionUp {
-    NSLog(@"Wall.transitionUp");
-    [self transitionUpWithTarget:nil callback:nil];
-    
-//    [NSTimer scheduledTimerWithTimeInterval:_transitionUpTime target:target selector:callback userInfo:nil repeats:NO];
-//    [target performSelector:callback];
-}
-
 -(int) removeTile:(Tile*)tile {
     int row = tile.row;
     int col = tile.col;
@@ -257,7 +249,6 @@ NSMutableArray* _tiles;
      * Find the column and row that the location is closest to
      */
     int col = 0;
-//    int row = 0;
     int width = tileToAdd.sprite.contentSize.width;
     int height = tileToAdd.sprite.contentSize.height;
     
@@ -285,37 +276,28 @@ NSMutableArray* _tiles;
         
         return ccp(x, y);
     }
-//    for (int i = 1; i < MAX_ROWS; i++) {
-//        int minY = height * (i - 1);
-//        int maxY = height * i;
-//        if (location.y >= minY && location.y <= maxY) {
-//            row = i;
-//            break;
-//        }
-//    }
-//    
-//    NSLog(@"addTileToEmptyColumn row=%d, col=%d", row, col);
-//    /*
-//     * If the column is empty in the row but the row has at least 1 other tile
-//     * return the point of the row, col
-//     */
-//    if ([self isEmptyAtRow:row col:col]) {
-//        for (int j = 0; j < MAX_COLS; j++) {
-//            if (![self isEmptyAtRow:row col:j]) {
-//                tileToAdd.row = row;
-//                tileToAdd.col = col;
-//                NSMutableArray* tileRow = [_tiles objectAtIndex:row];
-//                [tileRow replaceObjectAtIndex:col withObject:tileToAdd];
-//                
-//                int x = width * (col + 0.5);
-//                int y = height * 0.5;
-//                
-//                return ccp(x, y);                
-//            }
-//        }
-//        
-//    }
     
+    /*
+     * If the column is empty at the row and the column directly below is not empty
+     */
+    for (int i = 2; i < MAX_ROWS; i++) {
+        int minY = height * (i - 1);
+        int maxY = height * i;
+        if (location.y >= minY && location.y <= maxY &&
+                ![self isEmptyAtRow:(i - 1) col:col]) {
+            tileToAdd.row = i;
+            tileToAdd.col = col;
+            NSMutableArray* tileRow = [_tiles objectAtIndex:i];
+            [tileRow replaceObjectAtIndex:col withObject:tileToAdd];
+            
+            int x = width * (col + 0.5);
+            int y = height * (i - 0.5);
+            
+            return ccp(x, y);
+
+        }
+    }
+
     /*
      * Column wasn't empty so return 0, 0
      */

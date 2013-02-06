@@ -16,17 +16,15 @@
  *
  ******************************************************************************/
 
-
-#import <Foundation/Foundation.h>
 #import "cocos2d.h"
 
-@interface LevelLayer : CCLayerColor
-
-@property (nonatomic, retain) CCLabelTTF* label;
+@interface AboutLayer : CCLayer
+{
+}
 
 /**
- * Set the level
- * @param level to show
+ * returns a CCScene that contains the IntroLayer as the only child
  */
--(void) setLevel:(int)level;
++(CCScene *) scene;
+
 @end

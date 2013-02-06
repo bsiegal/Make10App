@@ -148,6 +148,8 @@
 		915FEF9F16B3351E0045A15A /* Tile.m in Sources */ = {isa = PBXBuildFile; fileRef = 915FEF9E16B3351E0045A15A /* Tile.m */; };
 		91A9B43316C04FB30032F8C0 /* progress.png in Resources */ = {isa = PBXBuildFile; fileRef = 91A9B43216C04FB30032F8C0 /* progress.png */; };
 		91A9B43616C058B50032F8C0 /* Progress.m in Sources */ = {isa = PBXBuildFile; fileRef = 91A9B43516C058B50032F8C0 /* Progress.m */; };
+		91A9B43E16C1B4ED0032F8C0 /* AboutLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 91A9B43D16C1B4ED0032F8C0 /* AboutLayer.m */; };
+		91A9B44116C1B7640032F8C0 /* SettingsLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 91A9B44016C1B7640032F8C0 /* SettingsLayer.m */; };
 		91E3EBBF16B81FEA0019D9CE /* Score.m in Sources */ = {isa = PBXBuildFile; fileRef = 91E3EBBE16B81FEA0019D9CE /* Score.m */; };
 		91F9D13816B96E1900917B61 /* GameOverScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 91F9D13716B96E1900917B61 /* GameOverScene.m */; };
 /* End PBXBuildFile section */
@@ -434,6 +436,10 @@
 		91A9B43216C04FB30032F8C0 /* progress.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = progress.png; path = sprites/progress.png; sourceTree = "<group>"; };
 		91A9B43416C058B50032F8C0 /* Progress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Progress.h; sourceTree = "<group>"; };
 		91A9B43516C058B50032F8C0 /* Progress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Progress.m; sourceTree = "<group>"; };
+		91A9B43C16C1B4ED0032F8C0 /* AboutLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutLayer.h; sourceTree = "<group>"; };
+		91A9B43D16C1B4ED0032F8C0 /* AboutLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutLayer.m; sourceTree = "<group>"; };
+		91A9B43F16C1B7640032F8C0 /* SettingsLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsLayer.h; sourceTree = "<group>"; };
+		91A9B44016C1B7640032F8C0 /* SettingsLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsLayer.m; sourceTree = "<group>"; };
 		91E3EBBD16B81FEA0019D9CE /* Score.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Score.h; sourceTree = "<group>"; };
 		91E3EBBE16B81FEA0019D9CE /* Score.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Score.m; sourceTree = "<group>"; };
 		91F9D13616B96E1900917B61 /* GameOverScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameOverScene.h; sourceTree = "<group>"; };
@@ -498,8 +504,6 @@
 			children = (
 				911368B716BD5FE400374AA6 /* LevelLayer.h */,
 				911368B816BD5FE400374AA6 /* LevelLayer.m */,
-				91F9D13616B96E1900917B61 /* GameOverScene.h */,
-				91F9D13716B96E1900917B61 /* GameOverScene.m */,
 				915FEF7A16B30B800045A15A /* AppDelegate.h */,
 				915FEF7B16B30B800045A15A /* AppDelegate.m */,
 				915FEF8816B314BE0045A15A /* Make10AppLayer.h */,
@@ -512,8 +516,7 @@
 				915FEF9E16B3351E0045A15A /* Tile.m */,
 				910CA95616B6C9A3006BB0CD /* Wall.h */,
 				910CA95716B6C9A3006BB0CD /* Wall.m */,
-				915FEF8016B30B800045A15A /* IntroLayer.h */,
-				915FEF8116B30B800045A15A /* IntroLayer.m */,
+				91A9B43716C1A45B0032F8C0 /* Scenes */,
 				915FEE0316B30B7E0045A15A /* Resources */,
 				915FEE1D16B30B7E0045A15A /* libs */,
 				915FEF7616B30B800045A15A /* Supporting Files */,
@@ -895,6 +898,21 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		91A9B43716C1A45B0032F8C0 /* Scenes */ = {
+			isa = PBXGroup;
+			children = (
+				91F9D13616B96E1900917B61 /* GameOverScene.h */,
+				91F9D13716B96E1900917B61 /* GameOverScene.m */,
+				915FEF8016B30B800045A15A /* IntroLayer.h */,
+				915FEF8116B30B800045A15A /* IntroLayer.m */,
+				91A9B43C16C1B4ED0032F8C0 /* AboutLayer.h */,
+				91A9B43D16C1B4ED0032F8C0 /* AboutLayer.m */,
+				91A9B43F16C1B7640032F8C0 /* SettingsLayer.h */,
+				91A9B44016C1B7640032F8C0 /* SettingsLayer.m */,
+			);
+			name = Scenes;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1089,6 +1107,8 @@
 				91F9D13816B96E1900917B61 /* GameOverScene.m in Sources */,
 				911368B916BD5FE400374AA6 /* LevelLayer.m in Sources */,
 				91A9B43616C058B50032F8C0 /* Progress.m in Sources */,
+				91A9B43E16C1B4ED0032F8C0 /* AboutLayer.m in Sources */,
+				91A9B44116C1B7640032F8C0 /* SettingsLayer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

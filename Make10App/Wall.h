@@ -30,7 +30,7 @@ static int const MAX_COLS = 7;
 /**
  * The duration for the wall to rise
  */
-static float const WALL_TRANS_TIME = 2.5f;
+static float const WALL_TRANS_TIME = 0.5f;
 
 @interface Wall : NSObject
 
@@ -43,10 +43,6 @@ static float const WALL_TRANS_TIME = 2.5f;
  * Initialize
  */
 -(id) init;
-/**
- * Transition all the wall rows up
- */
--(void) transitionUp;
 /**
  * Transition all the wall rows up
  * @param target where callback is located

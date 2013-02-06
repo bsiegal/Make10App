@@ -45,7 +45,6 @@ CCSprite*   _gain;
 CCLabelTTF* _gainLabel;
 LevelLayer* _levelLayer;
 Progress*   _progressBar;
-NSTimer*    _wallTimer;
 
 // Helper class method that creates a Scene with the Make10AppLayer as the only child.
 +(CCScene*) scene
@@ -71,13 +70,10 @@ NSTimer*    _wallTimer;
 }
 
 /**
- * Prepare a new level by adding 2 rows (to a cleared wall)
+ * Create tiles for a row and stick them in row 0
+ * (which are below the visible screen and will need to be transitioned up)
  */
--(void) prepNewLevel {
-    NSLog(@"prepNewLevel");
-    /*
-     * Create 2 full row of tiles
-     */
+-(void) createNewTilesForRow {
     for (int j = 0; j < MAX_COLS; j++) {
         int value = [self genRandomValue];
         Tile* wallTile = [[Tile alloc] initWithValueAndCol:value col:j];
@@ -85,8 +81,18 @@ NSTimer*    _wallTimer;
         
         [_wall addTile:wallTile row:0 col:j];
     }
+    
+}
+/**
+ * Prepare a new level by adding 2 rows (to a cleared wall)
+ */
+-(void) prepNewLevel {
+    NSLog(@"prepNewLevel");
+    /*
+     * Create 2 full row of tiles
+     */
+    [self createNewTilesForRow];
     [_wall transitionUpWithTarget:self callback:@selector(addWallRow)];
-//    [self addWallRow];
 }
 
 /**
@@ -98,13 +104,7 @@ NSTimer*    _wallTimer;
     /*
      * Create full row of tiles
      */
-    for (int j = 0; j < MAX_COLS; j++) {
-        int value = [self genRandomValue];
-        Tile* wallTile = [[Tile alloc] initWithValueAndCol:value col:j];
-        [self addChild:wallTile.sprite];
-        
-        [_wall addTile:wallTile row:0 col:j];
-    }
+    [self createNewTilesForRow];
 
     self.isTouchEnabled = NO;
     /*
@@ -197,10 +197,6 @@ NSTimer*    _wallTimer;
     self.isTouchEnabled = YES;
 }
 
-
--(void) startWallTimer {
-    _wallTimer = [NSTimer scheduledTimerWithTimeInterval:_score.wallTime target:self selector:@selector(addWallRow) userInfo:nil repeats:YES];
-}
 // on "init" you need to initialize your instance
 -(id) init {
 	// always call "super" init
@@ -217,10 +213,7 @@ NSTimer*    _wallTimer;
         
         [self createNextTile];
         [self createCurrentTile];
-        
-//        [self schedule:@selector(addWallRow) interval:12];
-//        [self startWallTimer];
-        
+                
 //
 //		//
 //		// Leaderboards and Achievements
@@ -352,7 +345,6 @@ NSTimer*    _wallTimer;
      * then restart the timer
      */
     if ([_score levelUp]) {
-        [_wallTimer invalidate];
         [_wall clearWall];
         
         _levelLayer = [[LevelLayer alloc] init];
@@ -436,10 +428,7 @@ NSTimer*    _wallTimer;
  */
 -(void) endGame {
     NSLog(@"endGame");
-    if (_wallTimer) {
-        [_wallTimer invalidate];
-        _wallTimer = nil;
-    }
+
     [self stopAllActions];
     
     GameOverScene* gameOverScene = [GameOverScene node];
@@ -465,10 +454,6 @@ NSTimer*    _wallTimer;
     _gainLabel = nil;
     [_gain removeFromParentAndCleanup:YES];
     _gain = nil;
-    if (_wallTimer) {
-        [_wallTimer release];
-    }
-    _wallTimer = nil;
     
     if (_levelLayer) {
         [_levelLayer removeFromParentAndCleanup:YES];
