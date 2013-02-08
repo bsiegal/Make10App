@@ -18,7 +18,7 @@
 
 
 #import "GameOverScene.h"
-#import "Make10AppLayer.h"
+#import "IntroLayer.h"
 #import <UIKit/UIKit.h>
 
 @implementation GameOverScene
@@ -63,9 +63,7 @@ CCLabelTTF* _hiScore;
         _hiScore.position = ccp(winSize.width / 2, winSize.height * (0.25));
         [self addChild:_hiScore];
         
-        
-        [self runAction:[CCSequence actions: [CCDelayTime actionWithDuration:5],
-                         [CCCallFunc actionWithTarget:self selector:@selector(gameOverDone)], nil]];
+        self.isTouchEnabled = YES;
     }
     return self;
 }
@@ -74,30 +72,36 @@ CCLabelTTF* _hiScore;
     [self.label setString:[NSString stringWithFormat:@"Your score: %d", score]];
     NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
     
-    NSNumber* highScore = [defaults objectForKey:@"HIGH_SCORE"];
+    NSNumber* highScore = [defaults objectForKey:PREF_HIGH_SCORE];
     if (!highScore || score > [highScore intValue]) {
+        
         [_hiScore setString:@"Congratulations!\nA new high!"];
-        [defaults setInteger:score forKey:@"HIGH_SCORE"];
+        
+        [defaults setInteger:score forKey:PREF_HIGH_SCORE];
+        
     } else if (score == [highScore intValue]) {
+        
         [_hiScore setString:@"Congratulations!\nTied the high!"];
+        
     } else {
+        
         [_hiScore setString:[NSString stringWithFormat:@"High score: %d", [highScore intValue]]];
     }
     
-//    [defaults setBool:TRUE forKey:[NSString stringWithFormat:@"%@-won", self.currentLevel.fileName]];
-//    [defaults synchronize];
 }
 
--(void) gameOverDone {
+#pragma mark Touches
+
+-(void) ccTouchesEnded:(NSSet*)touches withEvent:(UIEvent*)event {
     NSLog(@"GameOverLayer.gameOverDone");
-    [[CCDirector sharedDirector] replaceScene:[Make10AppLayer scene]];
-
+    [[CCDirector sharedDirector] replaceScene:[IntroLayer scene]];
 }
+
 
 -(void) dealloc {
-    [_label release];
+    [_label removeFromParentAndCleanup:YES];
     _label = nil;
-    [_hiScore release];
+    [_hiScore removeFromParentAndCleanup:YES];
     _hiScore = nil;
     [super dealloc];
 }

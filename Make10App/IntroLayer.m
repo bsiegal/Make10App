@@ -43,7 +43,37 @@
 	return scene;
 }
 
-// 
+-(id) init {
+    if (self = [super init]) {
+        /*
+         * Set all defaults if there were none so else where can just grab values
+         * instead of having to test existence
+         */
+        NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+        NSNumber* makeValue = [defaults objectForKey:PREF_MAKE_VALUE];
+        if (!makeValue) {
+            [defaults setInteger:MAKE_VALUE_DEFAULT forKey:PREF_MAKE_VALUE];
+        }
+        
+        NSNumber* startingLevel = [defaults objectForKey:PREF_START_LEVEL];
+        if (!startingLevel) {
+            [defaults setInteger:1 forKey:PREF_START_LEVEL];
+        }
+        
+        NSNumber* challenge = [defaults objectForKey:PREF_CHALLENGE_TYPE];
+        if (!challenge) {
+            [defaults setInteger:PREF_CHALLENGE_TYPE_SPEED forKey:PREF_CHALLENGE_TYPE];
+        }
+        
+        NSNumber* op = [defaults objectForKey:PREF_OPERATION];
+        if (!op) {
+            [defaults setInteger:PREF_OPERATION_ADDITION forKey:PREF_OPERATION];
+        }
+        
+    }
+    return self;
+}
+
 -(void) onEnter
 {
 	[super onEnter];
@@ -93,12 +123,10 @@
 
 -(void) settingsAction {
 	[[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInR transitionWithDuration:LAYER_TRANS_TIME scene:[SettingsLayer scene]]];
-     //CCTransitionFade transitionWithDuration:1.0 scene:[SettingsLayer scene] withColor:ccWHITE]];
 }
 
 -(void) aboutAction {
 	[[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInR transitionWithDuration:LAYER_TRANS_TIME scene:[AboutLayer scene]]];
-     //[CCTransitionFade transitionWithDuration:1.0 scene:[AboutLayer scene] withColor:ccWHITE]];
 }
 
 @end

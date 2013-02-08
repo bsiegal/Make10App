@@ -19,12 +19,7 @@
 
 // When you import this file, you import all the cocos2d classes
 #import "cocos2d.h"
-
-
-/**
- * The duration scenes to change
- */
-static float const LAYER_TRANS_TIME = 0.5f;
+#import "Make10Util.h"
 
 @interface IntroLayer : CCLayer
 {

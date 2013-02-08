@@ -59,6 +59,10 @@ NSMutableArray* _tiles;
 
 -(void) transitionUpWithTarget:(id)target callback:(SEL)callback {
     NSLog(@"Wall.transitionUpWithTarget");
+    /*
+     * Figure out what tiles need to be moved and do them
+     * all at once so we know when we get to the last one.
+     */
     NSMutableArray* tiles = [NSMutableArray array];
     for (int i = 0; i < MAX_ROWS; i++) {
         NSMutableArray* tileRow = [_tiles objectAtIndex:i];
@@ -73,13 +77,17 @@ NSMutableArray* _tiles;
         }
     }
 
+    /*
+     * Move all the tiles up except for the last one.
+     * Do the last one with the callback at the end of the function
+     */
     for (int index = 0, len = [tiles count]; index < len; index++) {
         Tile* tile = [tiles objectAtIndex:index];
-
+        
         int y = tile.sprite.contentSize.height;
-
+        
         id actionMove = [CCMoveBy actionWithDuration:WALL_TRANS_TIME position:ccp(0, y)];
-
+        
         if (target && index == len - 1) {
             id actionMoveDone = [CCCallFuncN actionWithTarget:target selector:callback];
             [tile.sprite runAction:[CCSequence actions:actionMove, actionMoveDone, nil]];
@@ -87,9 +95,8 @@ NSMutableArray* _tiles;
         } else {
             [tile.sprite runAction:actionMove];
         }
-        
-        
     }
+    
     /*
      * Unshift a new empty row
      */
@@ -106,7 +113,9 @@ NSMutableArray* _tiles;
     if (size > MAX_ROWS) {
         [_tiles removeObjectAtIndex:MAX_ROWS];
     }
+
     
+
 }
 
 -(int) removeTile:(Tile*)tile {

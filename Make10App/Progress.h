@@ -23,6 +23,12 @@
 @interface Progress : NSObject
 
 /**
+ * Allocate and initialize
+ */
++(Progress*) create;
+
+
+/**
  * The sprite of this tile
  */
 @property (readonly) CCSprite* sprite;

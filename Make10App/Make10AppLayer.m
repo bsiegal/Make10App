@@ -157,6 +157,7 @@ Progress*   _progressBar;
  * Create the score label and progress bar
  */
 -(void) placeScoreLabel {
+    NSLog(@"placeScoreLabel");
     CGSize winSize = [[CCDirector sharedDirector] winSize];
     CCSprite* bg = [CCSprite spriteWithFile:@"scoreLabelBg.png" rect:CGRectMake(0, 0, 308, 50)];
     bg.position = ccp(winSize.width / 2, winSize.height - 50 / 2 - 4);
@@ -167,7 +168,7 @@ Progress*   _progressBar;
     _scoreLabel.position = ccp(bg.contentSize.width / 2, bg.contentSize.height / 2);
     [bg addChild:_scoreLabel];
     
-    _progressBar = [[Progress alloc] init];
+    _progressBar = [Progress create];
     _progressBar.sprite.position = ccp(0, 0);
     [bg addChild:_progressBar.sprite];
 }
@@ -199,12 +200,16 @@ Progress*   _progressBar;
 
 // on "init" you need to initialize your instance
 -(id) init {
+    NSLog(@"Make10AppLayer.init");
 	// always call "super" init
 	// Apple recommends to re-assign "self" with the "super's" return value
 	if (self = [super initWithColor: ccc4(70, 130, 180, 255)]) {
         
-        _makeValue = 10;
-        _score = [[Score alloc] init];
+        NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+        NSNumber* makeValue = [defaults objectForKey:PREF_MAKE_VALUE];
+        _makeValue = [makeValue intValue];
+        
+        _score = [Score create];
         _wall = [[Wall alloc] init];
         
         [self placeScoreLabel];
@@ -264,9 +269,8 @@ Progress*   _progressBar;
 	return self;
 }
 
-/**
- * @Override
- */
+#pragma mark Touches
+
 -(void) ccTouchesEnded:(NSSet*)touches withEvent:(UIEvent*)event {
     UITouch* touch = [touches anyObject];
     CGPoint location = [touch locationInView:[touch view]];
@@ -345,9 +349,14 @@ Progress*   _progressBar;
      * then restart the timer
      */
     if ([_score levelUp]) {
+        self.isTouchEnabled = NO;
+        [self stopAllActions];
+        [_progressBar resetBar];
+        [_progressBar.sprite stopAllActions];
+
         [_wall clearWall];
         
-        _levelLayer = [[LevelLayer alloc] init];
+        _levelLayer = [LevelLayer node];
         [_levelLayer setLevel:_score.level];
         [self addChild:_levelLayer];
         
@@ -429,7 +438,9 @@ Progress*   _progressBar;
 -(void) endGame {
     NSLog(@"endGame");
 
+    self.isTouchEnabled = NO;
     [self stopAllActions];
+    [_progressBar.sprite stopAllActions];
     
     GameOverScene* gameOverScene = [GameOverScene node];
     [gameOverScene.layer setScore:_score.score];
@@ -461,6 +472,8 @@ Progress*   _progressBar;
     _levelLayer = nil;
     
     [_progressBar release];
+    _progressBar = nil;
+    
 	[super dealloc];
 }
 

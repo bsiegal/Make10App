@@ -21,6 +21,11 @@
 
 @implementation Progress
 
++(Progress*) create {
+    return [[self alloc] init];
+}
+
+
 float _scaleX;
 
 -(id) init {

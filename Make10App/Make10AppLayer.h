@@ -21,6 +21,7 @@
 
 // When you import this file, you import all the cocos2d classes
 #import "cocos2d.h"
+#import "Make10Util.h"
 
 // Make10AppLayer
 @interface Make10AppLayer : CCLayerColor <GKAchievementViewControllerDelegate, GKLeaderboardViewControllerDelegate>

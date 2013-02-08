@@ -32,6 +32,8 @@ static int const MAX_COLS = 7;
  */
 static float const WALL_TRANS_TIME = 0.5f;
 
+static NSString* const PREF_LEVEL = @"LEVEL";
+
 @interface Wall : NSObject
 
 /**

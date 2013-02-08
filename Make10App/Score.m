@@ -21,10 +21,18 @@
 
 @implementation Score
 
++(Score*) create {
+    return [[self alloc] init];
+}
+
 -(id) init {
     if (self = [super init]) {
         self.score = 0;
-        self.level = 1; //starts at 1 but should be based on NSUserDefaults
+
+        NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+        NSNumber* startLevel = [defaults objectForKey:PREF_START_LEVEL]; //default set in IntroLayer
+        self.level = [startLevel intValue];
+        
         [self initializeProperties];
     }
     return self;

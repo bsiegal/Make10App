@@ -18,14 +18,15 @@
 
 
 #import <Foundation/Foundation.h>
+#import "Make10Util.h"
 
-/**
- * Points needed to advance to next level
- */
-static int const LEVEL_MARKER = 500;
 
 @interface Score : NSObject
 
+/**
+ * Allocate and initialize
+ */
++(Score*) create;
 /**
  * The running score
  */
