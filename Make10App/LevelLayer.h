@@ -22,11 +22,15 @@
 
 @interface LevelLayer : CCLayerColor
 
-@property (nonatomic, retain) CCLabelTTF* label;
-
 /**
  * Set the level
  * @param level to show
  */
 -(void) setLevel:(int)level;
+
+/**
+ * Set the make value
+ * @param makeValue to show
+ */
+-(void) setMakeValue:(int)makeValue;
 @end

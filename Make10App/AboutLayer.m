@@ -21,7 +21,7 @@
 
 @implementation AboutLayer
 
-+(CCScene *) scene
++(CCScene*) scene
 {
 	// 'scene' is an autorelease object.
 	CCScene *scene = [CCScene node];
@@ -36,8 +36,7 @@
 	return scene;
 }
 
--(id) init
-{
+-(id) init {
     if (self = [super init]) {
     
         // ask director for the window size
@@ -55,8 +54,7 @@
          * Back button
          */
         CCMenuItemFont* back = [CCMenuItemFont itemWithString:@"Back" target:self selector:@selector(backAction)];
-        back.fontName = @"American Typewriter";
-        back.fontSize = 32;
+        [Make10Util styleMenuButton:back];
         
         /*
          * Create the menu

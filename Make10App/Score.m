@@ -41,13 +41,28 @@
 -(void) initializeProperties {
     self.pointValue = self.level * 10;
     /*
+     * If speed challenge, then
      * speed increases with every level if the challenge type is speed
      * up to max speed of 6 seconds
      */
-    if (self.level < 4) {
-        self.wallTime = 12 - 2 * (self.level - 1);
+    NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+    NSNumber* challengeType = [defaults objectForKey:PREF_CHALLENGE_TYPE]; //default set in IntroLayer
+    
+    if (PREF_CHALLENGE_TYPE_SPEED == [challengeType intValue]) {
+        
+        self.wallTime = 16 - 2 * (self.level - 1);
+        
+        if (self.wallTime < 6) {
+            self.wallTime = 6;
+        }
+        NSLog(@"Score.initializeProperties wallTime = %d", self.wallTime);
+        
     } else {
-        self.wallTime = 6;
+        
+        self.wallTime = 16;
+        /*
+         * Make value will be changed in Make10AppLayer
+         */
     }
 }
 /**

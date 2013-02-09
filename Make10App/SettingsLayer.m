@@ -21,13 +21,15 @@
 #import <UIKit/UIKit.h>
 @implementation SettingsLayer
 
+UIPickerView*      _makeValuePicker;
+NSMutableArray*    _makeValueArray;
+CCMenuItemToggle*  _levelToggle;
+CCMenuItemToggle*  _operationToggle;
+CCMenuItemToggle*  _challengeToggle;
+CCMenuItemFont*    _sumOrProduct;
+CCMenuItemToggle*  _styleToggle;
 
-UITextField* _makeValueTextField;
-UIPickerView* _makeValuePicker;
-
-NSMutableArray *arrayColors;
-
-+(CCScene *) scene
++(CCScene*) scene
 {
 	// 'scene' is an autorelease object.
 	CCScene *scene = [CCScene node];
@@ -42,8 +44,7 @@ NSMutableArray *arrayColors;
 	return scene;
 }
 
--(id) init
-{
+-(id) init {
     
 	if (self = [super init]) {
         
@@ -51,224 +52,208 @@ NSMutableArray *arrayColors;
         // ask director for the window size
         CGSize winSize = [[CCDirector sharedDirector] winSize];
         
-        CCLabelTTF* text = [CCLabelTTF labelWithString:@"Make 10 Settings" fontName:@"American Typewriter" fontSize:14];
+        CCLabelTTF* text = [CCLabelTTF labelWithString:@"Make" fontName:@"American Typewriter" fontSize:32];
         //title.color = ccc3(0, 0, 0);
-        text.position = ccp(winSize.width / 2, winSize.height - 14);
+        text.position = ccp(winSize.width / 2, winSize.height - 32);
         // add the label as a child to this Layer
         [self addChild:text];
         
+        /*
+         * UIView to which UIKit components can be added
+         */
         UIView* view = [[CCDirector sharedDirector] view];
         view.frame = CGRectMake(0, 0, winSize.width, winSize.height);
         
-        _makeValueTextField = [[UITextField alloc] initWithFrame:CGRectMake(60, 65, 280, 20)];
-        _makeValueTextField.font = [UIFont systemFontOfSize:12.0];
-        
-        _makeValueTextField.textColor = [UIColor blackColor];
-        _makeValueTextField.backgroundColor = [UIColor whiteColor];
-        _makeValueTextField.textAlignment = UITextAlignmentLeft;
-        _makeValueTextField.keyboardType = UIKeyboardTypeNumberPad;
-        _makeValueTextField.hidden = YES;
-        _makeValueTextField.delegate = self;
-        
         NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
-        NSNumber* makeValue = [defaults objectForKey:PREF_MAKE_VALUE]; //default set in IntroLayer
-        _makeValueTextField.text = [NSString stringWithFormat:@"%d", [makeValue intValue]];
         
-        [view addSubview:_makeValueTextField];
-
-        arrayColors = [[NSMutableArray alloc] init];
-        for (int i = 5; i <= 20; i++) {
-            [arrayColors addObject:[NSString stringWithFormat:@"%d", i]];
-        }
-        for (int i = 30; i <= 100; i += 10) {
-            [arrayColors addObject:[NSString stringWithFormat:@"%d", i]];
+        /*
+         * makeValue as a UIPickerView
+         */
+        NSNumber* makeValue = [defaults objectForKey:PREF_MAKE_VALUE]; //default set in IntroLayer
+        
+        //This will be the row to select
+        int makeValueRow = 0;
+        
+        //This will be an NSString array copy of getMakeValuesArray (which contains NSNumber)
+        _makeValueArray = [[NSMutableArray alloc] init];
+        NSArray* makeValuesNumbers = [Make10Util getMakeValuesArray];
+        for (int i = 0, len = [makeValuesNumbers count]; i < len; i++) {
+            
+            int value = [(NSNumber*) [makeValuesNumbers objectAtIndex:i] intValue];
+            [_makeValueArray addObject:[NSString stringWithFormat:@"%d", value]];
+            if ([makeValue intValue] == value) {
+                makeValueRow = i;
+            }
         }
         
         _makeValuePicker = [[UIPickerView alloc] initWithFrame:CGRectMake(winSize.width / 2 - 35, 50, 70, 1)];
         _makeValuePicker.delegate = self;
         _makeValuePicker.showsSelectionIndicator = YES;
         _makeValuePicker.hidden = YES;
-        
+
+        NSLog(@"should select makeValue of %d, at row %d", [makeValue intValue], makeValueRow);
+        [_makeValuePicker selectRow:makeValueRow inComponent:0 animated:NO];
+
         [view addSubview:_makeValuePicker];
         
         //Tile Style
         
-        //Starting level 1 2 3
-        // Create on/off buttons to go in toggle group
-        CCMenuItemFont *button1 = [CCMenuItemFont itemWithString:@"Level 1"];
-        CCMenuItemFont *button2 = [CCMenuItemFont itemWithString:@"Level 2"];
-        CCMenuItemFont *button3 = [CCMenuItemFont itemWithString:@"Level 3"];
-        CCMenuItemFont *button4 = [CCMenuItemFont itemWithString:@"Level 4"];
-        // Create toggle group that logs the active button - the group is then added to a menu same as any other menu item
-        CCMenuItemToggle *toggleGroupLevel = [CCMenuItemToggle itemWithTarget:self
-                                                                     selector:@selector(soundButtonTapped:)
-                                                                        items:button1, button2, button3, button4, nil];
+        /*
+         * Starting level as a toggle
+         */
+        CCMenuItemFont* level1 = [CCMenuItemFont itemWithString:@"Level 1"];
+        CCMenuItemFont* level2 = [CCMenuItemFont itemWithString:@"Level 2"];
+        CCMenuItemFont* level3 = [CCMenuItemFont itemWithString:@"Level 3"];
+        [Make10Util styleToggle:level1];
+        [Make10Util styleToggle:level2];
+        [Make10Util styleToggle:level3];
         
-        // Create on/off buttons to go in toggle group
-        CCMenuItemFont *buttonAdd = [CCMenuItemFont itemWithString:@"Addition"];
-        CCMenuItemFont *buttonMult = [CCMenuItemFont itemWithString:@"Multiplication"];
-        // Create toggle group that logs the active button - the group is then added to a menu same as any other menu item
-        CCMenuItemToggle *toggleGroupChall = [CCMenuItemToggle itemWithTarget:self
-                                                                selector:@selector(soundButtonTapped:)
-                                                                   items:buttonAdd, buttonMult, nil];
+        _levelToggle = [CCMenuItemToggle itemWithTarget:self selector:@selector(toggled:) items:level1, level2, level3, nil];
+        NSNumber* level = [defaults objectForKey:PREF_START_LEVEL];
+        [_levelToggle setSelectedIndex:[level intValue] - 1];
+        
+        /*
+         * Operation as a toggle
+         */
+        CCMenuItemFont* buttonAdd = [CCMenuItemFont itemWithString:@"Addition"];
+        CCMenuItemFont* buttonMult = [CCMenuItemFont itemWithString:@"Multiplication"];
+        [Make10Util styleToggle:buttonAdd];
+        [Make10Util styleToggle:buttonMult];
 
-        // Create on/off buttons to go in toggle group
-        CCMenuItemFont *buttonThree = [CCMenuItemFont itemWithString:@"Speed"];
-        CCMenuItemFont *buttonFour = [CCMenuItemFont itemWithString:@"Changing sums"];
-        // Create toggle group that logs the active button - the group is then added to a menu same as any other menu item
-        CCMenuItemToggle *toggleGroup = [CCMenuItemToggle itemWithTarget:self
-                                                                    selector:@selector(soundButtonTapped:)
-                                                                       items:buttonThree, buttonFour, nil];
+        _operationToggle = [CCMenuItemToggle itemWithTarget:self selector:@selector(toggled:) items:buttonAdd, buttonMult, nil];
+
+        NSNumber* operation = [defaults objectForKey:PREF_OPERATION];
+        [_operationToggle setSelectedIndex:[operation intValue]];
         
+        /*
+         * Challenge type as a toggle 
+         */
+        CCMenuItemFont* buttonSpeed = [CCMenuItemFont itemWithString:@"Speed"];
+        _sumOrProduct= [CCMenuItemFont itemWithString:@"Changing sums"];
+        [Make10Util styleToggle:buttonSpeed];
+        [Make10Util styleToggle:_sumOrProduct];
+
+        _challengeToggle = [CCMenuItemToggle itemWithTarget:self selector:@selector(toggled:) items:buttonSpeed, _sumOrProduct, nil];
+        
+        NSNumber* challenge = [defaults objectForKey:PREF_CHALLENGE_TYPE];
+        [_challengeToggle setSelectedIndex:[challenge intValue]];
+        
+        /*
+         * Tile style as a toggle
+         */
+        CCMenuItemFont* buttonNumber = [CCMenuItemFont itemWithString:@"Numbers"];
+        CCMenuItemFont* buttonDots = [CCMenuItemFont itemWithString:@"Mahjong dots"];
+        [Make10Util styleToggle:buttonNumber];
+        [Make10Util styleToggle:buttonDots];
+        
+        _styleToggle = [CCMenuItemToggle itemWithTarget:self selector:@selector(toggled:) items:buttonNumber, buttonDots, nil];
+        
+        NSNumber* style = [defaults objectForKey:PREF_TILE_STYLE];
+        [_styleToggle setSelectedIndex:[style intValue]];
         
         /*
          * Back button
          */
         CCMenuItemFont* back = [CCMenuItemFont itemWithString:@"Back" target:self selector:@selector(backAction)];
-        back.fontName = @"American Typewriter";
-        back.fontSize = 32;
+        [Make10Util styleMenuButton:back];
         
         /*
          * Create the menu
          */
-        CCMenu* menu = [CCMenu menuWithItems:toggleGroupLevel, toggleGroupChall, toggleGroup, back, nil];
-        menu.position = ccp(winSize.width / 2, winSize.height / 3);
-        [menu alignItemsVerticallyWithPadding:20];
+        CCMenu* menu = [CCMenu menuWithItems:_levelToggle, _operationToggle, _challengeToggle, _styleToggle, back, nil];
+        menu.position = ccp(winSize.width / 2, winSize.height / 4);
+        [menu alignItemsVerticallyWithPadding:15];
         [self addChild:menu];
         
-        self.isTouchEnabled = YES;
     }
     return self;
 }
 
--(void) soundButtonTapped: (id) sender
+-(void) operationChanged {
+    int op = [_operationToggle selectedIndex];
+    if (op == 0) {
+        [_sumOrProduct setString:@"Changing sums"];
+    } else {
+        [_sumOrProduct setString:@"Changing products"];
+    }
+}
+
+-(void) toggled: (id) sender
 {
- 	// do something… maybe even turn the sound on/off!
-	NSLog(@"Sound button tapped! %@", sender);
     NSLog(@"Selected button: %i", [(CCMenuItemToggle *)sender selectedIndex]);
+    CCMenuItemToggle* toggle = (CCMenuItemToggle*) sender;
+    
+    /*
+     * Save toggle settings
+     */
+    NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+    
+    if (toggle == _challengeToggle) {
+        [defaults setInteger:[_challengeToggle selectedIndex] forKey:PREF_CHALLENGE_TYPE];
+    } else if (toggle == _levelToggle) {
+        [defaults setInteger:[_levelToggle selectedIndex] + 1 forKey:PREF_START_LEVEL];
+    } else if (toggle == _operationToggle) {
+        [self operationChanged];
+        [defaults setInteger:[_operationToggle selectedIndex] forKey:PREF_OPERATION];
+    } else if (toggle == _styleToggle) {
+        [defaults setInteger:[_styleToggle selectedIndex] forKey:PREF_TILE_STYLE];
+    }
 
 }
 
 -(void) backAction {
+    
 	[[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInL transitionWithDuration:LAYER_TRANS_TIME scene:[IntroLayer scene]]];
 }
 
 -(void) onEnterTransitionDidFinish {
-    _makeValueTextField.hidden = NO;
+    /*
+     * Since the UIKit components do not respond to cocos scene changes, just using this as a workaround
+     */
     _makeValuePicker.hidden = NO;
     [super onEnterTransitionDidFinish];
 }
 
 -(void) onExitTransitionDidStart {
-    _makeValueTextField.hidden = YES;
+    /*
+     * Since the UIKit components do not respond to cocos transitions, just using this as a workaround
+     */
     _makeValuePicker.hidden = YES;
     [super onExitTransitionDidStart];
 }
 
-#pragma mark Touches
-
--(void)ccTouchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
-{
-    NSLog(@"SettingsLayer.touchesBegan");
-    [_makeValueTextField resignFirstResponder];
-}
-
-#pragma mark Text delegate
--(BOOL) textFieldShouldReturn:(UITextField*)textField {
-    //Terminate editing
-    NSLog(@"textFieldShouldReturn");
-    [_makeValueTextField resignFirstResponder];
-    return YES;
-}
-
--(void)textFieldDidEndEditing: (UITextField*)textField {
-    NSLog(@"textFieldDidEndEditing");
-    if(textField == _makeValueTextField) {
-        
-        [_makeValueTextField endEditing:YES];
-        
-        NSString* textValue = _makeValueTextField.text;
-        int makeValue = [textValue intValue];
-        if (makeValue < 5 || makeValue > 100) {
-            makeValue = 10;
-            _makeValueTextField.text = [NSString stringWithFormat:@"%d", makeValue];
-        }
-        
-        NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
-        [defaults setInteger:makeValue forKey:PREF_MAKE_VALUE];
-        
-    } else {
-        NSLog(@"textField did not match _makeValueTextField");
-    }
-}
 
 #pragma mark UIPickerViewDelegate
-//- (void)pickerView:(UIPickerView *)pickerView didSelectRow: (NSInteger)row inComponent:(NSInteger)component {
-//    // Handle the selection
-//    NSLog(@"void pickerView");
-//}
-//
-//// tell the picker how many rows are available for a given component
-//- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
-//    NSUInteger numRows = 5;
-//    NSLog(@"NSInteger pickerView");
-//    
-//    return numRows;
-//}
-//
-//// tell the picker how many components it will have
-//- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
-//    NSLog(@"numberOfComponentsInPickerView");
-//
-//    return 1;
-//}
-//
-//// tell the picker the title for a given component
-//- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
-//    NSLog(@"NSString pickerView");
-//    
-//    NSString *title;
-//    title = [@"" stringByAppendingFormat:@"%d",row];
-//    
-//    return title;
-//}
-//
-//// tell the picker the width of each row for a given component
-//- (CGFloat)pickerView:(UIPickerView *)pickerView widthForComponent:(NSInteger)component {
-//    int sectionWidth = 300;
-//    
-//    NSLog(@"CGFloat pickerView");
-//
-//    return sectionWidth;
-//}
 
 
-- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)thePickerView {
+-(NSInteger) numberOfComponentsInPickerView:(UIPickerView *)thePickerView {
 	
 	return 1;
 }
 
-- (NSInteger)pickerView:(UIPickerView *)thePickerView numberOfRowsInComponent:(NSInteger)component {
+-(NSInteger) pickerView:(UIPickerView *)thePickerView numberOfRowsInComponent:(NSInteger)component {
 	
-	return [arrayColors count];
+	return [_makeValueArray count];
 }
 
-- (NSString *)pickerView:(UIPickerView *)thePickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
+-(NSString*) pickerView:(UIPickerView *)thePickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
 	
-	return [arrayColors objectAtIndex:row];
+	return [_makeValueArray objectAtIndex:row];
 }
 
-- (void)pickerView:(UIPickerView *)thePickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
-    int makeValue = [[arrayColors objectAtIndex:row] intValue];
+-(void) pickerView:(UIPickerView *)thePickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
+
+    /*
+     * Save make value setting
+     */
+    int makeValue = [[_makeValueArray objectAtIndex:row] intValue];
     NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
     [defaults setInteger:makeValue forKey:PREF_MAKE_VALUE];
-
-	NSLog(@"Selected Color: %@. Index of selected color: %i", [arrayColors objectAtIndex:row], row);
+    NSLog(@"setting PREF_MAKE_VALUE = %d", makeValue);
+    
 }
 
 -(void) dealloc {
-    [_makeValueTextField release];
-    _makeValueTextField = nil;
     
     [_makeValuePicker release];
     _makeValuePicker = nil;

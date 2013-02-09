@@ -28,7 +28,7 @@
 @implementation IntroLayer
 
 // Helper class method that creates a Scene with the IntroLayer as the only child.
-+(CCScene *) scene
++(CCScene*) scene
 {
 	// 'scene' is an autorelease object.
 	CCScene *scene = [CCScene node];
@@ -51,6 +51,7 @@
          */
         NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
         NSNumber* makeValue = [defaults objectForKey:PREF_MAKE_VALUE];
+        NSLog(@"IntroLayer makeValue = %d", [makeValue intValue]);
         if (!makeValue) {
             [defaults setInteger:MAKE_VALUE_DEFAULT forKey:PREF_MAKE_VALUE];
         }
@@ -70,6 +71,11 @@
             [defaults setInteger:PREF_OPERATION_ADDITION forKey:PREF_OPERATION];
         }
         
+        NSNumber* style = [defaults objectForKey:PREF_TILE_STYLE];
+        if (!style) {
+            [defaults setInteger:PREF_TILE_STYLE_NUMBERS forKey:PREF_TILE_STYLE];
+        }
+        
     }
     return self;
 }
@@ -81,7 +87,10 @@
 	// ask director for the window size
 	CGSize winSize = [[CCDirector sharedDirector] winSize];
 
-	CCLabelTTF* title = [CCLabelTTF labelWithString:@"Make 10" fontName:@"American Typewriter" fontSize:64];
+    NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+    NSNumber* makeValue = [defaults objectForKey:PREF_MAKE_VALUE];
+    NSString* titleTxt = [NSString stringWithFormat:@"Make %d", [makeValue intValue]];
+	CCLabelTTF* title = [CCLabelTTF labelWithString:titleTxt fontName:@"American Typewriter" fontSize:64];
     //title.color = ccc3(0, 0, 0);
     title.position = ccp(winSize.width / 2, winSize.height * 2 / 3);
 	// add the label as a child to this Layer
@@ -91,22 +100,19 @@
      * Play button
      */
     CCMenuItemFont* play = [CCMenuItemFont itemWithString:@"Play" target:self selector:@selector(playAction)];
-    play.fontName = @"American Typewriter";
-    play.fontSize = 32;
+    [Make10Util styleMenuButton:play];
+    play.fontSize = 40;
     
     /*
      * Settings button
      */
     CCMenuItemFont* settings = [CCMenuItemFont itemWithString:@"Settings" target:self selector:@selector(settingsAction)];
-    settings.fontName = @"American Typewriter";
-    settings.fontSize = 24;
-    
+    [Make10Util styleMenuButton:settings];
     /*
      * About button
      */
     CCMenuItemFont* about = [CCMenuItemFont itemWithString:@"About" target:self selector:@selector(aboutAction)];
-    about.fontName = @"American Typewriter";
-    about.fontSize = 24;
+    [Make10Util styleMenuButton:about];
     
     /*
      * Create the menu

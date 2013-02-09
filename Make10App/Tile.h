@@ -19,6 +19,17 @@
 
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"
+#import "Make10Util.h"
+
+/**
+ * The duration for the next tile to become the current
+ */
+static float const NEXT_TO_CURRENT_TRANS_TIME = 0.25f;
+
+/**
+ * The duration for the current tile to knock a wall tile or become a part of the wall
+ */
+static float const CURRENT_TO_WALL_TRANS_TIME = 0.35f;
 
 @interface Tile : NSObject
 

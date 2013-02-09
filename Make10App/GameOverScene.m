@@ -41,7 +41,8 @@
 
 
 @implementation GameOverLayer
-@synthesize label = _label;
+
+CCLabelTTF* _yourScore;
 CCLabelTTF* _hiScore;
 
 -(id) init {
@@ -53,10 +54,10 @@ CCLabelTTF* _hiScore;
         gameOver.position = ccp(winSize.width / 2, winSize.height * (0.75));
         [self addChild:gameOver];
         
-        self.label = [CCLabelTTF labelWithString:@"" fontName:@"American Typewriter" fontSize:32];
-        _label.color = ccc3(0, 0, 0);
-        _label.position = ccp(winSize.width / 2, winSize.height / 2);
-        [self addChild:_label];
+        _yourScore = [CCLabelTTF labelWithString:@"" fontName:@"American Typewriter" fontSize:32];
+        _yourScore.color = ccc3(0, 0, 0);
+        _yourScore.position = ccp(winSize.width / 2, winSize.height / 2);
+        [self addChild:_yourScore];
         
         _hiScore = [CCLabelTTF labelWithString:@"" fontName:@"American Typewriter" fontSize:32];
         _hiScore.color = ccc3(0, 0, 0);
@@ -69,7 +70,7 @@ CCLabelTTF* _hiScore;
 }
 
 -(void) setScore:(int)score {
-    [self.label setString:[NSString stringWithFormat:@"Your score: %d", score]];
+    [_yourScore setString:[NSString stringWithFormat:@"Your score: %d", score]];
     NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
     
     NSNumber* highScore = [defaults objectForKey:PREF_HIGH_SCORE];
@@ -99,8 +100,8 @@ CCLabelTTF* _hiScore;
 
 
 -(void) dealloc {
-    [_label removeFromParentAndCleanup:YES];
-    _label = nil;
+    [_yourScore removeFromParentAndCleanup:YES];
+    _yourScore = nil;
     [_hiScore removeFromParentAndCleanup:YES];
     _hiScore = nil;
     [super dealloc];

@@ -107,16 +107,27 @@ Progress*   _progressBar;
     [self createNewTilesForRow];
 
     self.isTouchEnabled = NO;
-    /*
-     * Transition the wall up
-     */
-    [_wall transitionUpWithTarget:self callback:@selector(startProgressBar)];
     
     /*
-     * If the wall has reached the max, show the game over scene after a slight delay
+     * Delay the transition if the currentTile is in flight
      */
-    if ([_wall isMax]) {
-        [self scheduleOnce:@selector(endGame) delay:1];
+    if ([_currentTile.sprite numberOfRunningActions] > 0) {
+        
+        [self scheduleOnce:@selector(addWallRow) delay:CURRENT_TO_WALL_TRANS_TIME];
+        
+    } else {
+        /*
+         * Transition the wall up
+         */
+        [_wall transitionUpWithTarget:self callback:@selector(startProgressBar)];
+        
+        /*
+         * If the wall has reached the max, show the game over scene after a slight delay
+         */
+        if ([_wall isMax]) {
+            [self scheduleOnce:@selector(endGame) delay:1];
+        }
+    
     }
 }
 
@@ -284,6 +295,7 @@ Progress*   _progressBar;
     }
 }
 
+#pragma mark handle touch results
 /**
  * Handle when the value is made
  * @param wallTile the tile touched to make the value
@@ -356,15 +368,26 @@ Progress*   _progressBar;
 
         [_wall clearWall];
         
+        /*
+         * If the challenge type was changing sum/product,
+         * generate a new make value
+         */
+        NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+        NSNumber* challengeType = [defaults objectForKey:PREF_CHALLENGE_TYPE]; //default set in IntroLayer
+        
+        if (PREF_CHALLENGE_TYPE_CHANGING == [challengeType intValue]) {
+            _makeValue = [Make10Util genRandomMakeValue:_makeValue];
+        }
+        
         _levelLayer = [LevelLayer node];
         [_levelLayer setLevel:_score.level];
+        [_levelLayer setMakeValue:_makeValue];
         [self addChild:_levelLayer];
         
         id actionFadeOut = [CCFadeOut actionWithDuration:5];
         id actionFadeOutDone = [CCCallFuncN actionWithTarget:self selector:@selector(levelFadeOutDone)];
         [_levelLayer runAction:[CCSequence actions:actionFadeOut, actionFadeOutDone, nil]];
         
-        [_levelLayer.label runAction:[CCFadeOut actionWithDuration:5]];
     }
 }
 

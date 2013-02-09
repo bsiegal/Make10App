@@ -22,27 +22,52 @@
 
 @implementation LevelLayer
 
+CCLabelTTF* _levelLabel;
+CCLabelTTF* _makeValueLabel;
+
 -(id) init {
 	// always call "super" init
 	// Apple recommends to re-assign "self" with the "super's" return value
 	if (self = [super initWithColor: ccc4(0, 128, 0, 75)]) {
-        self.label = [CCLabelTTF labelWithString:@"" fontName:@"Arial" fontSize:24];
-        self.label.color = ccc3(0, 0, 0);
-        self.label.position = ccp(self.contentSize.width / 2, self.contentSize.height / 2);
-        [self addChild:self.label];
-        
+
+        CCLabelTTF* getReady = [CCLabelTTF labelWithString:@"Get ready!" fontName:@"Arial" fontSize:32];
+        getReady.color = ccc3(0, 0, 0);
+        getReady.position = ccp(self.contentSize.width / 2, self.contentSize.height * 0.7);
+        [self addChild:getReady];
+
+        _levelLabel = [CCLabelTTF labelWithString:@"" fontName:@"Arial" fontSize:32];
+        _levelLabel.color = ccc3(0, 0, 0);
+        _levelLabel.position = ccp(self.contentSize.width / 2, self.contentSize.height * 0.3);
+        [self addChild:_levelLabel];
+
+        _makeValueLabel = [CCLabelTTF labelWithString:@"" fontName:@"Arial" fontSize:32];
+        _makeValueLabel.color = ccc3(0, 0, 0);
+        _makeValueLabel.position = ccp(self.contentSize.width / 2, self.contentSize.height * 0.5);
+        [self addChild:_makeValueLabel];
+
     }
     return self;
 }
 
 -(void) setLevel:(int)level {
-    [self.label setString:[NSString stringWithFormat:@"Get ready for Level %d", level]];
+    [_levelLabel setString:[NSString stringWithFormat:@"Level %d", level]];
 }
 
+-(void) setMakeValue:(int)makeValue {
+    [_makeValueLabel setString:[NSString stringWithFormat:@"Make %d", makeValue]];
+}
+
+-(void) onExit {
+    [_levelLabel setString:@""];
+    [_makeValueLabel setString:@""];
+}
 // on "dealloc" you need to release all your retained objects
 -(void) dealloc {
-    [self.label removeFromParentAndCleanup:YES];
-    self.label = nil;
+    [_levelLabel removeFromParentAndCleanup:YES];
+    _levelLabel = nil;
+    
+    [_makeValueLabel removeFromParentAndCleanup:YES];
+    _makeValueLabel = nil;
     
 	[super dealloc];
 }

@@ -22,17 +22,27 @@
 @implementation Tile
 
 -(void) createSprite:(int)value {
-//        NSString* fileName = [NSString stringWithFormat:@"dot%d.png", value];
-    NSString* fileName = @"tile.png";
+    NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+    int style = [[defaults objectForKey:PREF_TILE_STYLE] intValue];
+    NSString* fileName;
+    if (style == PREF_TILE_STYLE_DOTS && value < 10) {
+        fileName = [NSString stringWithFormat:@"dot%d.png", value];
+    } else {
+        fileName = @"tile.png";
+    }
     
     _sprite = [CCSprite spriteWithFile:fileName rect:CGRectMake(0, 0, 44, 60)];
     
-    NSString* text = [NSString stringWithFormat:@"%d", value];
-    CCLabelTTF* label = [CCLabelTTF labelWithString:text fontName:@"Marker Felt" fontSize:32];
-    label.position = ccp(_sprite.contentSize.width / 2, _sprite.contentSize.height / 2);
-    label.color = ccBLACK;
-    
-    [_sprite addChild:label];}
+    if (style != PREF_TILE_STYLE_DOTS || value >= 10) {
+        
+        NSString* text = [NSString stringWithFormat:@"%d", value];
+        CCLabelTTF* label = [CCLabelTTF labelWithString:text fontName:@"Marker Felt" fontSize:32];
+        label.position = ccp(_sprite.contentSize.width / 2, _sprite.contentSize.height / 2);
+        label.color = ccBLACK;
+        
+        [_sprite addChild:label];
+    }
+}
 
 -(id) initWithValueAndCol:(int)value col:(int)col  {
     
@@ -88,13 +98,13 @@
 
 -(void) transitionToCurrent {
     CGSize winSize = [[CCDirector sharedDirector] winSize];
-    id actionMove = [CCMoveBy actionWithDuration:0.25 position:ccp(winSize.width / 2 - self.sprite.contentSize.width / 2, 0)];
+    id actionMove = [CCMoveBy actionWithDuration:NEXT_TO_CURRENT_TRANS_TIME position:ccp(winSize.width / 2 - self.sprite.contentSize.width / 2, 0)];
     id actionMoveDone = [CCCallFuncN actionWithTarget:self selector:@selector(spriteMoveFinished:)];
     [self.sprite runAction:[CCSequence actions:actionMove, actionMoveDone, nil]];
 }
 
 -(void) transitionToPoint:(CGPoint)point target:(id)target callback:(SEL)callback {
-    id actionMove = [CCMoveTo actionWithDuration:0.35 position:point];
+    id actionMove = [CCMoveTo actionWithDuration:CURRENT_TO_WALL_TRANS_TIME position:point];
     id actionMoveDone = [CCCallFuncN actionWithTarget:target selector:callback];
     [self.sprite runAction:[CCSequence actions:actionMove, actionMoveDone, nil]];
 }

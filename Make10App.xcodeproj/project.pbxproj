@@ -151,6 +151,7 @@
 		91A9B43E16C1B4ED0032F8C0 /* AboutLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 91A9B43D16C1B4ED0032F8C0 /* AboutLayer.m */; };
 		91A9B44116C1B7640032F8C0 /* SettingsLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 91A9B44016C1B7640032F8C0 /* SettingsLayer.m */; };
 		91E3EBBF16B81FEA0019D9CE /* Score.m in Sources */ = {isa = PBXBuildFile; fileRef = 91E3EBBE16B81FEA0019D9CE /* Score.m */; };
+		91ECDD2D16C550B80015587F /* Make10Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 91ECDD2C16C550B80015587F /* Make10Util.m */; };
 		91F9D13816B96E1900917B61 /* GameOverScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 91F9D13716B96E1900917B61 /* GameOverScene.m */; };
 /* End PBXBuildFile section */
 
@@ -442,6 +443,8 @@
 		91A9B44016C1B7640032F8C0 /* SettingsLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsLayer.m; sourceTree = "<group>"; };
 		91E3EBBD16B81FEA0019D9CE /* Score.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Score.h; sourceTree = "<group>"; };
 		91E3EBBE16B81FEA0019D9CE /* Score.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Score.m; sourceTree = "<group>"; };
+		91ECDD2B16C550B70015587F /* Make10Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Make10Util.h; sourceTree = "<group>"; };
+		91ECDD2C16C550B80015587F /* Make10Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Make10Util.m; sourceTree = "<group>"; };
 		91F9D13616B96E1900917B61 /* GameOverScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameOverScene.h; sourceTree = "<group>"; };
 		91F9D13716B96E1900917B61 /* GameOverScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameOverScene.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -510,6 +513,8 @@
 				915FEF8916B314C50045A15A /* Make10AppLayer.m */,
 				91E3EBBD16B81FEA0019D9CE /* Score.h */,
 				91E3EBBE16B81FEA0019D9CE /* Score.m */,
+				91ECDD2B16C550B70015587F /* Make10Util.h */,
+				91ECDD2C16C550B80015587F /* Make10Util.m */,
 				91A9B43416C058B50032F8C0 /* Progress.h */,
 				91A9B43516C058B50032F8C0 /* Progress.m */,
 				915FEF9D16B3351E0045A15A /* Tile.h */,
@@ -1109,6 +1114,7 @@
 				91A9B43616C058B50032F8C0 /* Progress.m in Sources */,
 				91A9B43E16C1B4ED0032F8C0 /* AboutLayer.m in Sources */,
 				91A9B44116C1B7640032F8C0 /* SettingsLayer.m in Sources */,
+				91ECDD2D16C550B80015587F /* Make10Util.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

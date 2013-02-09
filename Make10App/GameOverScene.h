@@ -18,11 +18,7 @@
 
 #import "cocos2d.h"
 
-@interface GameOverLayer : CCLayerColor {
-    CCLabelTTF* _label;
-}
-
-@property (nonatomic, retain) CCLabelTTF* label;
+@interface GameOverLayer : CCLayerColor 
 
 /**
  * The score to show
