@@ -35,13 +35,43 @@
 }
 
 +(NSArray*) getMakeValuesArray {
+    /*
+     * 5 - 20
+     */
     NSMutableArray* makeValuesArray = [[NSMutableArray alloc] init];
     for (int i = 5; i <= 20; i++) {
         [makeValuesArray addObject:[NSNumber numberWithInt:i]];
     }
-    for (int i = 30; i <= 100; i += 10) {
-        [makeValuesArray addObject:[NSNumber numberWithInt:i]];
-    }
+    /*
+     * 60
+     */
+    [makeValuesArray addObject:[NSNumber numberWithInt:60]];
+    /*
+     * 100
+     */
+    [makeValuesArray addObject:[NSNumber numberWithInt:100]];
+    return [NSArray arrayWithArray:makeValuesArray];
+}
+
++(NSArray*) getMultMakeValuesArray {
+    /*
+     * 12, 15, 16, 18, 20, 24, 30, 36, 60, 75, 100, 120, 180, 360
+     */
+    NSMutableArray* makeValuesArray = [[NSMutableArray alloc] init];
+    [makeValuesArray addObject:[NSNumber numberWithInt:12]];
+    [makeValuesArray addObject:[NSNumber numberWithInt:15]];
+    [makeValuesArray addObject:[NSNumber numberWithInt:16]];
+    [makeValuesArray addObject:[NSNumber numberWithInt:18]];
+    [makeValuesArray addObject:[NSNumber numberWithInt:20]];
+    [makeValuesArray addObject:[NSNumber numberWithInt:24]];
+    [makeValuesArray addObject:[NSNumber numberWithInt:30]];
+    [makeValuesArray addObject:[NSNumber numberWithInt:36]];
+    [makeValuesArray addObject:[NSNumber numberWithInt:60]];
+    [makeValuesArray addObject:[NSNumber numberWithInt:75]];
+    [makeValuesArray addObject:[NSNumber numberWithInt:100]];
+    [makeValuesArray addObject:[NSNumber numberWithInt:120]];
+    [makeValuesArray addObject:[NSNumber numberWithInt:180]];
+    [makeValuesArray addObject:[NSNumber numberWithInt:360]];
     return [NSArray arrayWithArray:makeValuesArray];
 }
 

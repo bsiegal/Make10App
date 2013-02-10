@@ -21,6 +21,8 @@
 
 @implementation AboutLayer
 
+UIWebView* _webView;
+
 +(CCScene*) scene
 {
 	// 'scene' is an autorelease object.
@@ -41,14 +43,26 @@
     
         // ask director for the window size
         CGSize winSize = [[CCDirector sharedDirector] winSize];
+                
+        /*
+         * UIView to which UIKit components can be added
+         */
+        UIView* view = [[CCDirector sharedDirector] view];
+        view.frame = CGRectMake(0, 0, winSize.width, winSize.height);
         
-        //    NSString body = [NSString stringWithContentsOfFile:@"filename.txt"]
-        NSString* body = @"Make 10 was built off of Cocos2d by Bess Siegal, etc";
-        CCLabelTTF* text = [CCLabelTTF labelWithString:body fontName:@"American Typewriter" fontSize:14];
-        //title.color = ccc3(0, 0, 0);
-        text.position = ccp(winSize.width / 2, winSize.height - 14);
-        // add the label as a child to this Layer
-        [self addChild: text];
+        _webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, winSize.width, winSize.height - 24)];
+        _webView.delegate = self;
+        _webView.hidden = YES;
+        
+//        NSURL *url = [[NSBundle mainBundle] URLForResource:@"about" withExtension:@".html"];
+//        [webView loadRequest:[NSURLRequest requestWithURL:url]];
+
+        NSString *htmlFile = [[NSBundle mainBundle] pathForResource:@"about" ofType:@"html"];
+        
+        NSString* htmlString = [NSString stringWithContentsOfFile:htmlFile encoding:NSUTF8StringEncoding error:nil];
+        [_webView loadHTMLString:htmlString baseURL:nil];
+        [view addSubview:_webView];
+                
         
         /*
          * Back button
@@ -60,16 +74,54 @@
          * Create the menu
          */
         CCMenu* menu = [CCMenu menuWithItems:back, nil];
-        menu.position = ccp(winSize.width / 2, winSize.height / 3);
+        menu.position = ccp(winSize.width / 2, 12);
         [self addChild:menu];
         
     }
     return self;
 }
 
+#pragma mark UIWebViewDelegate
+
+-(BOOL) webView:(UIWebView *)inWeb shouldStartLoadWithRequest:(NSURLRequest *)inRequest navigationType:(UIWebViewNavigationType)inType {
+    
+    /*
+     * This will cause links to be opened in Safari instead of in the app
+     */
+    if (inType == UIWebViewNavigationTypeLinkClicked) {
+        [[UIApplication sharedApplication] openURL:[inRequest URL]];
+        return NO;
+    }
+    
+    return YES;
+}
+ 
 -(void) backAction {
 	[[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInL transitionWithDuration:LAYER_TRANS_TIME scene:[IntroLayer scene]]];
 }
 
+-(void) onEnterTransitionDidFinish {
+    /*
+     * Since the UIKit components do not respond to cocos scene changes, just using this as a workaround
+     */
+    _webView.hidden = NO;
+    [super onEnterTransitionDidFinish];
+}
+
+-(void) onExitTransitionDidStart {
+    /*
+     * Since the UIKit components do not respond to cocos transitions, just using this as a workaround
+     */
+    _webView.hidden = YES;
+    [super onExitTransitionDidStart];
+}
+
+-(void) dealloc {
+    
+    [_webView release];
+    _webView = nil;
+        
+    [super dealloc];
+}
 
 @end

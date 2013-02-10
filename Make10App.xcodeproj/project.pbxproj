@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9101838416C7022900B4D11D /* about.html in Resources */ = {isa = PBXBuildFile; fileRef = 9101838316C7022900B4D11D /* about.html */; };
 		910CA95416B6BB34006BB0CD /* tile.png in Resources */ = {isa = PBXBuildFile; fileRef = 910CA95316B6BB34006BB0CD /* tile.png */; };
 		910CA95816B6C9A3006BB0CD /* Wall.m in Sources */ = {isa = PBXBuildFile; fileRef = 910CA95716B6C9A3006BB0CD /* Wall.m */; };
 		911368B916BD5FE400374AA6 /* LevelLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 911368B816BD5FE400374AA6 /* LevelLayer.m */; };
@@ -156,6 +157,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9101838316C7022900B4D11D /* about.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = about.html; sourceTree = "<group>"; };
 		910CA95316B6BB34006BB0CD /* tile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = tile.png; path = sprites/tile.png; sourceTree = "<group>"; };
 		910CA95616B6C9A3006BB0CD /* Wall.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Wall.h; sourceTree = "<group>"; };
 		910CA95716B6C9A3006BB0CD /* Wall.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Wall.m; sourceTree = "<group>"; };
@@ -906,6 +908,7 @@
 		91A9B43716C1A45B0032F8C0 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				9101838316C7022900B4D11D /* about.html */,
 				91F9D13616B96E1900917B61 /* GameOverScene.h */,
 				91F9D13716B96E1900917B61 /* GameOverScene.m */,
 				915FEF8016B30B800045A15A /* IntroLayer.h */,
@@ -992,6 +995,7 @@
 				914514E516BADF4A00B51357 /* scoreLabelBg.png in Resources */,
 				914514E916BB4A5D00B51357 /* gain.png in Resources */,
 				91A9B43316C04FB30032F8C0 /* progress.png in Resources */,
+				9101838416C7022900B4D11D /* about.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

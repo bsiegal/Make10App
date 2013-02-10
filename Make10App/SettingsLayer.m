@@ -160,7 +160,10 @@ CCMenuItemToggle*  _styleToggle;
         /*
          * Create the menu
          */
-        CCMenu* menu = [CCMenu menuWithItems:_levelToggle, _operationToggle, _challengeToggle, _styleToggle, back, nil];
+        CCMenu* menu = [CCMenu menuWithItems:_levelToggle,
+//                        _operationToggle,
+                        _challengeToggle,
+                        _styleToggle, back, nil];
         menu.position = ccp(winSize.width / 2, winSize.height / 4);
         [menu alignItemsVerticallyWithPadding:15];
         [self addChild:menu];
@@ -258,6 +261,24 @@ CCMenuItemToggle*  _styleToggle;
     [_makeValuePicker release];
     _makeValuePicker = nil;
     
+//    [_makeValueArray release];
+//    _makeValueArray = nil;
+//    
+//    [_levelToggle removeFromParentAndCleanup:YES];
+//    _levelToggle = nil;
+//    
+//    [_operationToggle removeFromParentAndCleanup:YES];
+//    _operationToggle = nil;
+//    
+//    [_challengeToggle removeFromParentAndCleanup:YES];
+//    _challengeToggle = nil;
+//    
+//    [_sumOrProduct removeFromParentAndCleanup:YES];
+//    _sumOrProduct = nil;
+//    
+//    [_styleToggle removeFromParentAndCleanup:YES];
+//    _styleToggle = nil;
+
     [super dealloc];
 }
 @end

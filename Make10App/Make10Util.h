@@ -27,7 +27,7 @@ static int const MAKE_VALUE_DEFAULT = 10;
 /**
  * Points needed to advance to next level
  */
-static int const LEVEL_MARKER = 50;
+static int const LEVEL_MARKER = 500;
 
 /**
  * The duration scenes to change
@@ -112,6 +112,12 @@ static NSString* const PREF_HIGH_SCORE = @"HIGH_SCORE";
  * Return an array of all possible make values
  */
 +(NSArray*) getMakeValuesArray;
+
+/**
+ * Return an array of all possible make values
+ * for multiplication
+ */
++(NSArray*) getMultMakeValuesArray;
 
 /**
  * Based on the possible make values, return one
