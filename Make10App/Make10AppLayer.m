@@ -384,13 +384,28 @@ Progress*   _progressBar;
         [_levelLayer setMakeValue:_makeValue];
         [self addChild:_levelLayer];
         
-        id actionFadeOut = [CCFadeOut actionWithDuration:5];
-        id actionFadeOutDone = [CCCallFuncN actionWithTarget:self selector:@selector(levelFadeOutDone)];
-        [_levelLayer runAction:[CCSequence actions:actionFadeOut, actionFadeOutDone, nil]];
+        [self startLevelLayerProgress];
         
     }
 }
 
+/**
+ * Starts the progress bar indicating how long before you have to be ready to play next level
+ */
+-(void) startLevelLayerProgress {
+    [_progressBar resetBar];
+    [_progressBar startWithDuration:5 target:self callback:@selector(startLevelFadeOut)];
+}
+
+/**
+ * Fade out the level layer
+ */
+-(void) startLevelFadeOut {
+    id actionFadeOut = [CCFadeOut actionWithDuration:LAYER_TRANS_TIME];
+    id actionFadeOutDone = [CCCallFuncN actionWithTarget:self selector:@selector(levelFadeOutDone)];
+    [_levelLayer runAction:[CCSequence actions:actionFadeOut, actionFadeOutDone, nil]];
+    
+}
 /**
  * Callback when the level layer fades out
  */
@@ -400,7 +415,6 @@ Progress*   _progressBar;
         _levelLayer = nil;
     }
     [self prepNewLevel];
-//    [self startWallTimer];
     
 }
 
