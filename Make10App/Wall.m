@@ -161,7 +161,8 @@ NSMutableArray* _tiles;
 
 -(int) removeAdjacentsWithValue:(int)value row:(int)row col:(int)col {
     self.removalCount = 0;
-    [self removeAdjacentsWithValue:value row:row col:col];
+    [self removeAdjacents:value row:row col:col];
+    [self transitionDown];
     return self.removalCount;
 }
 
@@ -187,7 +188,9 @@ NSMutableArray* _tiles;
 }
 
 -(void) transitionDown {
-    
+    /*
+     * Comb through and drop all tiles to fill any gaps
+     */
 }
 
 -(BOOL)isMax {

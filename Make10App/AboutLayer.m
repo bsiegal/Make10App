@@ -22,6 +22,7 @@
 @implementation AboutLayer
 
 UIWebView* _webView;
+CCSprite*          _home;
 
 +(CCScene*) scene
 {
@@ -39,7 +40,7 @@ UIWebView* _webView;
 }
 
 -(id) init {
-    if (self = [super init]) {
+    if (self = [super initWithColor: ccc4(70, 130, 180, 255)]) {
     
         // ask director for the window size
         CGSize winSize = [[CCDirector sharedDirector] winSize];
@@ -50,7 +51,7 @@ UIWebView* _webView;
         UIView* view = [[CCDirector sharedDirector] view];
         view.frame = CGRectMake(0, 0, winSize.width, winSize.height);
         
-        _webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, winSize.width, winSize.height - 24)];
+        _webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 50, winSize.width, winSize.height - 50)];
         _webView.delegate = self;
         _webView.hidden = YES;
         
@@ -62,23 +63,35 @@ UIWebView* _webView;
         NSString* htmlString = [NSString stringWithContentsOfFile:htmlFile encoding:NSUTF8StringEncoding error:nil];
         [_webView loadHTMLString:htmlString baseURL:nil];
         [view addSubview:_webView];
-                
+       
+        _home = [Make10Util createHomeSprite];
+        [self addChild:_home];
         
-        /*
-         * Back button
-         */
-        CCMenuItemFont* back = [CCMenuItemFont itemWithString:@"Back" target:self selector:@selector(backAction)];
-        [Make10Util styleMenuButton:back];
+        self.isTouchEnabled = YES;
         
-        /*
-         * Create the menu
-         */
-        CCMenu* menu = [CCMenu menuWithItems:back, nil];
-        menu.position = ccp(winSize.width / 2, 12);
-        [self addChild:menu];
+//        /*
+//         * Back button
+//         */
+//        CCMenuItemFont* back = [CCMenuItemFont itemWithString:@"Back" target:self selector:@selector(backAction)];
+//        [Make10Util styleMenuButton:back];
+//        
+//        /*
+//         * Create the menu
+//         */
+//        CCMenu* menu = [CCMenu menuWithItems:back, nil];
+//        menu.position = ccp(winSize.width / 2, 12);
+//        [self addChild:menu];
         
     }
     return self;
+}
+
+#pragma mark Touches
+
+-(void) ccTouchesEnded:(NSSet*)touches withEvent:(UIEvent*)event {
+    if ([Make10Util isSpriteTouched:_home touches:touches]) {
+        [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInL transitionWithDuration:LAYER_TRANS_TIME scene:[IntroLayer scene]]];
+    }
 }
 
 #pragma mark UIWebViewDelegate
@@ -120,7 +133,10 @@ UIWebView* _webView;
     
     [_webView release];
     _webView = nil;
-        
+    
+    [_home removeFromParentAndCleanup:YES];
+    _home = nil;
+    
     [super dealloc];
 }
 

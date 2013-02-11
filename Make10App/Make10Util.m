@@ -28,6 +28,28 @@
  4. Adv features in later paid edition 
  
  ******/
+
++(CCSprite*) createHomeSprite {
+    CGSize winSize = [[CCDirector sharedDirector] winSize];
+    CCSprite* home = [CCSprite spriteWithFile:@"home.png" rect:CGRectMake(0, 0, 50, 50)];
+    home.position = ccp(winSize.width - 25, winSize.height - 25);
+    return home;
+}
+
++(BOOL) isSpriteTouched:(CCSprite*)sprite touches:(NSSet*)touches {
+    UITouch* touch = [touches anyObject];
+    CGPoint location = [[CCDirector sharedDirector] convertToGL:[touch locationInView:[touch view]]];
+
+    float x = sprite.position.x - sprite.contentSize.width / 2;
+    float y = sprite.position.y - sprite.contentSize.height / 2;
+    
+    CGRect touchArea = CGRectMake(x, y, sprite.contentSize.width, sprite.contentSize.height);
+    if (CGRectContainsPoint(touchArea, location)) {
+        return YES;
+    }
+    return FALSE;
+}
+
 +(void) styleMenuButton:(CCMenuItemFont*)menuItem {
     
     menuItem.fontName = @"American Typewriter";

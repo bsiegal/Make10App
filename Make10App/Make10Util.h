@@ -97,6 +97,15 @@ static NSString* const PREF_HIGH_SCORE = @"HIGH_SCORE";
 @interface Make10Util : NSObject
 
 /**
+ * Create and place the home sprite
+ */
++(CCSprite*) createHomeSprite;
+
+/**
+ * Return YES if the touch is within the sprite
+ */
++(BOOL) isSpriteTouched:(CCSprite*)sprite touches:(NSSet*)touches;
+/**
  * Style a button menu item
  * @param menuItem the CCMenuItemFont to style
  */

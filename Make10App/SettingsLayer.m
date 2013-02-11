@@ -28,6 +28,7 @@ CCMenuItemToggle*  _operationToggle;
 CCMenuItemToggle*  _challengeToggle;
 CCMenuItemFont*    _sumOrProduct;
 CCMenuItemToggle*  _styleToggle;
+CCSprite*          _home;
 
 +(CCScene*) scene
 {
@@ -46,7 +47,7 @@ CCMenuItemToggle*  _styleToggle;
 
 -(id) init {
     
-	if (self = [super init]) {
+	if (self = [super initWithColor: ccc4(70, 130, 180, 255)]) {
         
     
         // ask director for the window size
@@ -128,7 +129,7 @@ CCMenuItemToggle*  _styleToggle;
         /*
          * Challenge type as a toggle 
          */
-        CCMenuItemFont* buttonSpeed = [CCMenuItemFont itemWithString:@"Speed"];
+        CCMenuItemFont* buttonSpeed = [CCMenuItemFont itemWithString:@"Speed challenge"];
         _sumOrProduct= [CCMenuItemFont itemWithString:@"Changing sums"];
         [Make10Util styleToggle:buttonSpeed];
         [Make10Util styleToggle:_sumOrProduct];
@@ -154,8 +155,8 @@ CCMenuItemToggle*  _styleToggle;
         /*
          * Back button
          */
-        CCMenuItemFont* back = [CCMenuItemFont itemWithString:@"Back" target:self selector:@selector(backAction)];
-        [Make10Util styleMenuButton:back];
+//        CCMenuItemFont* back = [CCMenuItemFont itemWithString:@"Back" target:self selector:@selector(backAction)];
+//        [Make10Util styleMenuButton:back];
         
         /*
          * Create the menu
@@ -163,10 +164,17 @@ CCMenuItemToggle*  _styleToggle;
         CCMenu* menu = [CCMenu menuWithItems:_levelToggle,
 //                        _operationToggle,
                         _challengeToggle,
-                        _styleToggle, back, nil];
+                        _styleToggle,
+//                        back,
+                        nil];
         menu.position = ccp(winSize.width / 2, winSize.height / 4);
         [menu alignItemsVerticallyWithPadding:15];
         [self addChild:menu];
+        
+        _home = [Make10Util createHomeSprite];
+        [self addChild:_home];
+        
+        self.isTouchEnabled = YES;
         
     }
     return self;
@@ -254,6 +262,14 @@ CCMenuItemToggle*  _styleToggle;
     [defaults setInteger:makeValue forKey:PREF_MAKE_VALUE];
     NSLog(@"setting PREF_MAKE_VALUE = %d", makeValue);
     
+}
+
+#pragma mark Touches
+
+-(void) ccTouchesEnded:(NSSet*)touches withEvent:(UIEvent*)event {
+    if ([Make10Util isSpriteTouched:_home touches:touches]) {
+        [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInL transitionWithDuration:LAYER_TRANS_TIME scene:[IntroLayer scene]]];
+    }
 }
 
 -(void) dealloc {

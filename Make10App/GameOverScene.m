@@ -44,9 +44,14 @@
 
 CCLabelTTF* _yourScore;
 CCLabelTTF* _hiScore;
+CCSprite*   _home;
 
 -(id) init {
-    if ((self = [super initWithColor:ccc4(255, 255, 255, 255)])) {
+    if ((self = [super initWithColor: ccc4(70, 130, 180, 255)])) {
+        _home = [Make10Util createHomeSprite];
+        [self addChild:_home];
+        NSLog(@"GameOverLayer.init _home = %@", _home);
+        
         CGSize winSize = [[CCDirector sharedDirector] winSize];
         
         CCLabelTTF* gameOver = [CCLabelTTF labelWithString:@"Game Over" fontName:@"American Typewriter" fontSize:32];
@@ -70,6 +75,7 @@ CCLabelTTF* _hiScore;
 }
 
 -(void) setScore:(int)score {
+    NSLog(@"GameOverLayer.setScore _home = %@", _home);
     [_yourScore setString:[NSString stringWithFormat:@"Your score: %d", score]];
     NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
     
@@ -94,16 +100,24 @@ CCLabelTTF* _hiScore;
 #pragma mark Touches
 
 -(void) ccTouchesEnded:(NSSet*)touches withEvent:(UIEvent*)event {
-    NSLog(@"GameOverLayer.gameOverDone");
-    [[CCDirector sharedDirector] replaceScene:[IntroLayer scene]];
+    NSLog(@"GameOverLayer.ccTouchesEnded _home = %@", _home);
+    //For some reason _home is null, so if just replace scene with any touch
+//    if ([Make10Util isSpriteTouched:_home touches:touches]) {
+        [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInL transitionWithDuration:LAYER_TRANS_TIME scene:[IntroLayer scene]]];
+//    }
 }
 
 
 -(void) dealloc {
+    NSLog(@"GameOverLayer.dealloc _home = %@", _home);
+
     [_yourScore removeFromParentAndCleanup:YES];
     _yourScore = nil;
     [_hiScore removeFromParentAndCleanup:YES];
     _hiScore = nil;
+    [_home removeFromParentAndCleanup:YES];
+    _home = nil;
+    
     [super dealloc];
 }
 @end

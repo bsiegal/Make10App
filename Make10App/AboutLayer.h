@@ -18,7 +18,7 @@
 
 #import "cocos2d.h"
 
-@interface AboutLayer : CCLayer <UIWebViewDelegate>
+@interface AboutLayer : CCLayerColor <UIWebViewDelegate>
 
 /**
  * returns a CCScene that contains the IntroLayer as the only child

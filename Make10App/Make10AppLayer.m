@@ -19,6 +19,7 @@
 
 // Import the interfaces
 #import "Make10AppLayer.h"
+#import "IntroLayer.h"
 #import "GameOverScene.h"
 #import "LevelLayer.h"
 // Needed to obtain the Navigation Controller
@@ -45,6 +46,7 @@ CCSprite*   _gain;
 CCLabelTTF* _gainLabel;
 LevelLayer* _levelLayer;
 Progress*   _progressBar;
+CCSprite*   _home;
 
 // Helper class method that creates a Scene with the Make10AppLayer as the only child.
 +(CCScene*) scene
@@ -182,6 +184,7 @@ Progress*   _progressBar;
     _progressBar = [Progress create];
     _progressBar.sprite.position = ccp(0, 0);
     [bg addChild:_progressBar.sprite];
+    
 }
 
 /**
@@ -224,6 +227,9 @@ Progress*   _progressBar;
         _wall = [[Wall alloc] init];
         
         [self placeScoreLabel];
+        _home = [Make10Util createHomeSprite];
+        [self addChild:_home];
+        
         [self createGain];
         [self prepNewLevel];
         
@@ -283,9 +289,23 @@ Progress*   _progressBar;
 #pragma mark Touches
 
 -(void) ccTouchesEnded:(NSSet*)touches withEvent:(UIEvent*)event {
+    
+    /*
+     * Check if it was the home
+     */
+    if ([Make10Util isSpriteTouched:_home touches:touches]) {
+        [self backToHome];
+        return;
+    }
+    
     UITouch* touch = [touches anyObject];
     CGPoint location = [touch locationInView:[touch view]];
     location = [[CCDirector sharedDirector] convertToGL:location];
+
+    
+    /*
+     * Find out where in the wall was touched
+     */
     Tile* tile = [_wall whichTileAtLocation:location];
     
     if (tile.value + _currentTile.value == _makeValue) {
@@ -296,6 +316,17 @@ Progress*   _progressBar;
 }
 
 #pragma mark handle touch results
+/**
+ * Back to the home scene
+ */
+-(void) backToHome {
+    NSLog(@"backToHome");
+    
+    [self stopAllActions];
+    [_progressBar.sprite stopAllActions];
+    
+    [[CCDirector sharedDirector] replaceScene:[IntroLayer node]];
+}
 /**
  * Handle when the value is made
  * @param wallTile the tile touched to make the value
@@ -487,6 +518,9 @@ Progress*   _progressBar;
 // on "dealloc" you need to release all your retained objects
 -(void) dealloc {
     [self stopAllActions];
+    
+    [_home removeFromParentAndCleanup:YES];
+    _home = nil;
     
     [_nextTile release];
     _nextTile = nil;

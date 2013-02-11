@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		9101838416C7022900B4D11D /* about.html in Resources */ = {isa = PBXBuildFile; fileRef = 9101838316C7022900B4D11D /* about.html */; };
+		910BF77916C97E5E0011825F /* home.png in Resources */ = {isa = PBXBuildFile; fileRef = 910BF77816C97E5E0011825F /* home.png */; };
 		910CA95416B6BB34006BB0CD /* tile.png in Resources */ = {isa = PBXBuildFile; fileRef = 910CA95316B6BB34006BB0CD /* tile.png */; };
 		910CA95816B6C9A3006BB0CD /* Wall.m in Sources */ = {isa = PBXBuildFile; fileRef = 910CA95716B6C9A3006BB0CD /* Wall.m */; };
 		911368B916BD5FE400374AA6 /* LevelLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 911368B816BD5FE400374AA6 /* LevelLayer.m */; };
@@ -158,6 +159,7 @@
 
 /* Begin PBXFileReference section */
 		9101838316C7022900B4D11D /* about.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = about.html; sourceTree = "<group>"; };
+		910BF77816C97E5E0011825F /* home.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = home.png; path = sprites/home.png; sourceTree = "<group>"; };
 		910CA95316B6BB34006BB0CD /* tile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = tile.png; path = sprites/tile.png; sourceTree = "<group>"; };
 		910CA95616B6C9A3006BB0CD /* Wall.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Wall.h; sourceTree = "<group>"; };
 		910CA95716B6C9A3006BB0CD /* Wall.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Wall.m; sourceTree = "<group>"; };
@@ -534,6 +536,7 @@
 		915FEE0316B30B7E0045A15A /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				910BF77816C97E5E0011825F /* home.png */,
 				91A9B43216C04FB30032F8C0 /* progress.png */,
 				914514E816BB4A5D00B51357 /* gain.png */,
 				914514E416BADF4A00B51357 /* scoreLabelBg.png */,
@@ -996,6 +999,7 @@
 				914514E916BB4A5D00B51357 /* gain.png in Resources */,
 				91A9B43316C04FB30032F8C0 /* progress.png in Resources */,
 				9101838416C7022900B4D11D /* about.html in Resources */,
+				910BF77916C97E5E0011825F /* home.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
