@@ -21,7 +21,7 @@
 #import "cocos2d.h"
 #import "Make10Util.h"
 
-@interface IntroLayer : CCLayer
+@interface IntroLayer : CCLayerColor
 {
 }
 

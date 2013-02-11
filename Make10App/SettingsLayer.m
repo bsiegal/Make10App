@@ -47,7 +47,7 @@ CCSprite*          _home;
 
 -(id) init {
     
-	if (self = [super initWithColor: ccc4(70, 130, 180, 255)]) {
+	if (self = [super initWithColor:ccc4(70, 130, 180, 255)]) {
         
     
         // ask director for the window size

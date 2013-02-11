@@ -19,7 +19,7 @@
 #import "cocos2d.h"
 
 @interface GameOverLayer : CCLayerColor 
-
+@property (nonatomic, retain) CCSprite* home;
 /**
  * The score to show
  */

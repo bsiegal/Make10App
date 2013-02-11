@@ -44,31 +44,30 @@
 
 CCLabelTTF* _yourScore;
 CCLabelTTF* _hiScore;
-CCSprite*   _home;
 
 -(id) init {
-    if ((self = [super initWithColor: ccc4(70, 130, 180, 255)])) {
-        _home = [Make10Util createHomeSprite];
-        [self addChild:_home];
-        NSLog(@"GameOverLayer.init _home = %@", _home);
+    if ((self = [super initWithColor:ccc4(250, 25, 250, 255)])) {
         
         CGSize winSize = [[CCDirector sharedDirector] winSize];
         
         CCLabelTTF* gameOver = [CCLabelTTF labelWithString:@"Game Over" fontName:@"American Typewriter" fontSize:32];
-        gameOver.color = ccc3(0, 0, 0);
+//        gameOver.color = ccc3(0, 0, 0);
         gameOver.position = ccp(winSize.width / 2, winSize.height * (0.75));
         [self addChild:gameOver];
         
         _yourScore = [CCLabelTTF labelWithString:@"" fontName:@"American Typewriter" fontSize:32];
-        _yourScore.color = ccc3(0, 0, 0);
+//        _yourScore.color = ccc3(0, 0, 0);
         _yourScore.position = ccp(winSize.width / 2, winSize.height / 2);
         [self addChild:_yourScore];
         
         _hiScore = [CCLabelTTF labelWithString:@"" fontName:@"American Typewriter" fontSize:32];
-        _hiScore.color = ccc3(0, 0, 0);
+//        _hiScore.color = ccc3(0, 0, 0);
         _hiScore.position = ccp(winSize.width / 2, winSize.height * (0.25));
         [self addChild:_hiScore];
         
+        _home = [Make10Util createHomeSprite];
+        NSLog(@"GameOverLayer.init _home = %@", _home);
+        [self addChild:_home];
         self.isTouchEnabled = YES;
     }
     return self;
@@ -95,21 +94,20 @@ CCSprite*   _home;
         [_hiScore setString:[NSString stringWithFormat:@"High score: %d", [highScore intValue]]];
     }
     
+
 }
 
 #pragma mark Touches
 
 -(void) ccTouchesEnded:(NSSet*)touches withEvent:(UIEvent*)event {
-    NSLog(@"GameOverLayer.ccTouchesEnded _home = %@", _home);
-    //For some reason _home is null, so if just replace scene with any touch
-//    if ([Make10Util isSpriteTouched:_home touches:touches]) {
-        [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInL transitionWithDuration:LAYER_TRANS_TIME scene:[IntroLayer scene]]];
-//    }
+    
+    if ([Make10Util isSpriteTouched:_home touches:touches]) {
+        [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:LAYER_TRANS_TIME scene:[IntroLayer scene] withColor:ccc3(70, 130, 180)]];
+    }
 }
 
 
 -(void) dealloc {
-    NSLog(@"GameOverLayer.dealloc _home = %@", _home);
 
     [_yourScore removeFromParentAndCleanup:YES];
     _yourScore = nil;

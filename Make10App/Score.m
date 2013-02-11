@@ -50,7 +50,7 @@
     
     if (PREF_CHALLENGE_TYPE_SPEED == [challengeType intValue]) {
         
-        self.wallTime = 16 - 2 * (self.level - 1);
+        self.wallTime = SLOWEST_WALL_SPEED - 2 * (self.level - 1);
         
         if (self.wallTime < 6) {
             self.wallTime = 6;

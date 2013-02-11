@@ -44,7 +44,7 @@
 }
 
 -(id) init {
-    if (self = [super init]) {
+    if (self = [super initWithColor:ccc4(70, 130, 180, 255)]) {
         /*
          * Set all defaults if there were none so else where can just grab values
          * instead of having to test existence

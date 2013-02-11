@@ -35,6 +35,11 @@ static int const LEVEL_MARKER = 500;
 static float const LAYER_TRANS_TIME = 0.5f;
 
 /**
+ * The duration between wall risings for level 1
+ */
+static float const SLOWEST_WALL_SPEED = 10;
+
+/**
  * Preference for the make value
  */
 static NSString* const PREF_MAKE_VALUE = @"MAKE_VALUE";
