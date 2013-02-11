@@ -22,21 +22,24 @@
 @implementation Tile
 
 -(void) createSprite:(int)value {
+    
+    _sprite = [CCSprite spriteWithFile:@"tile.png" rect:CGRectMake(0, 0, 40, 60)];
+    
+    
     NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
     int style = [[defaults objectForKey:PREF_TILE_STYLE] intValue];
-    NSString* fileName;
     if (style == PREF_TILE_STYLE_DOTS && value < 10) {
-        fileName = [NSString stringWithFormat:@"dot%d.png", value];
+        
+        NSString* fileName = [NSString stringWithFormat:@"dot%d.png", value];
+        CCSprite* dots = [CCSprite spriteWithFile:fileName rect:CGRectMake(0, 0, _sprite.contentSize.width, _sprite.contentSize.height)];
+        
+        dots.position = ccp(_sprite.contentSize.width / 2, _sprite.contentSize.height / 2);
+        [_sprite addChild:dots];
+        
     } else {
-        fileName = @"tile.png";
-    }
-    
-    _sprite = [CCSprite spriteWithFile:fileName rect:CGRectMake(0, 0, 44, 60)];
-    
-    if (style != PREF_TILE_STYLE_DOTS || value >= 10) {
         
         NSString* text = [NSString stringWithFormat:@"%d", value];
-        CCLabelTTF* label = [CCLabelTTF labelWithString:text fontName:@"Marker Felt" fontSize:32];
+        CCLabelTTF* label = [CCLabelTTF labelWithString:text fontName:@"Arial" fontSize:28];
         label.position = ccp(_sprite.contentSize.width / 2, _sprite.contentSize.height / 2);
         label.color = ccBLACK;
         

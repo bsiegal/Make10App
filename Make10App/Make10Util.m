@@ -20,6 +20,14 @@
 
 @implementation Make10Util
 
+/******
+  TODOs
+ 1. iPad - 96 x 128px for each tile
+ 2. bonus for clearing wall
+ 3. move wall 1 row higher???
+ 4. Adv features in later paid edition 
+ 
+ ******/
 +(void) styleMenuButton:(CCMenuItemFont*)menuItem {
     
     menuItem.fontName = @"American Typewriter";

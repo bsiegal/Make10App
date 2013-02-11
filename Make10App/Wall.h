@@ -26,7 +26,7 @@ static int const MAX_ROWS = 7;
 /**
  * Max columns in a row of tiles
  */
-static int const MAX_COLS = 7;
+static int const MAX_COLS = 8;
 /**
  * The duration for the wall to rise
  */

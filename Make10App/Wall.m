@@ -166,8 +166,24 @@ NSMutableArray* _tiles;
 }
 
 -(BOOL) removeAdjacents:(int)value row:(int)row col:(int)col {
-    self.removalCount++;
-    return YES;
+    /*
+     * If this row and column has the same value, remove this tile
+     * then check the rows above and below or the columns to the left and right
+     * Increment the removal count and return YES.
+     * Otherwise return no and stop recursion.
+     */
+    if (row < MAX_ROWS && col < MAX_COLS) {
+        NSMutableArray* tileRow = [_tiles objectAtIndex:row];
+        Tile* tile = [tileRow objectAtIndex:row];
+        if (tile && tile.value == value) {
+            self.removalCount++;
+            return [self removeAdjacents:value row:row + 1 col:col] ||
+            [self removeAdjacents:value row:row - 1 col:col] ||
+            [self removeAdjacents:value row:row col:col + 1] ||
+            [self removeAdjacents:value row:row col:col - 1];
+        }
+    }
+    return NO;
 }
 
 -(void) transitionDown {

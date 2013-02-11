@@ -27,7 +27,7 @@ static int const MAKE_VALUE_DEFAULT = 10;
 /**
  * Points needed to advance to next level
  */
-static int const LEVEL_MARKER = 50;
+static int const LEVEL_MARKER = 500;
 
 /**
  * The duration scenes to change
