@@ -44,14 +44,24 @@ CCSprite*          _home;
     
         // ask director for the window size
         CGSize winSize = [[CCDirector sharedDirector] winSize];
-                
+
+        CCLabelTTF* text = [CCLabelTTF labelWithString:@"About" fontName:@"American Typewriter" fontSize:32];
+        //title.color = ccc3(0, 0, 0);
+        text.position = ccp(winSize.width / 2, winSize.height - 32);
+        // add the label as a child to this Layer
+        [self addChild:text];
+
+        _home = [Make10Util createHomeSprite];
+        [self addChild:_home];
+
         /*
          * UIView to which UIKit components can be added
          */
         UIView* view = [[CCDirector sharedDirector] view];
         view.frame = CGRectMake(0, 0, winSize.width, winSize.height);
         
-        _webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 50, winSize.width, winSize.height - 50)];
+        int h = _home.contentSize.height + [Make10Util getUpperLabelPadding];
+        _webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, h, winSize.width, winSize.height - h)];
         _webView.delegate = self;
         _webView.hidden = YES;
         
@@ -64,8 +74,6 @@ CCSprite*          _home;
         [_webView loadHTMLString:htmlString baseURL:nil];
         [view addSubview:_webView];
        
-        _home = [Make10Util createHomeSprite];
-        [self addChild:_home];
         
         self.isTouchEnabled = YES;
         

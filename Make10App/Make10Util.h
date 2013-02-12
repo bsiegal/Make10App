@@ -37,7 +37,12 @@ static float const LAYER_TRANS_TIME = 0.5f;
 /**
  * The duration between wall risings for level 1
  */
-static float const SLOWEST_WALL_SPEED = 10;
+static float const SLOWEST_WALL_SPEED = 20;
+
+/**
+ * The wall will never be faster than 6 no matter the level
+ */
+static float const FASTEST_WALL_SPEED = 6;
 
 /**
  * Preference for the make value
@@ -102,6 +107,11 @@ static NSString* const PREF_HIGH_SCORE = @"HIGH_SCORE";
 @interface Make10Util : NSObject
 
 /**
+ * Get a rect for a tile based on device
+ */
++(CGRect) getTileRect;
+
+/**
  * Create and place the home sprite
  */
 +(CCSprite*) createHomeSprite;
@@ -110,6 +120,12 @@ static NSString* const PREF_HIGH_SCORE = @"HIGH_SCORE";
  * Return YES if the touch is within the sprite
  */
 +(BOOL) isSpriteTouched:(CCSprite*)sprite touches:(NSSet*)touches;
+
+/**
+ * Get padding for the home, progress bar, score label, etc
+ */
++(int) getUpperLabelPadding;
+
 /**
  * Style a button menu item
  * @param menuItem the CCMenuItemFont to style

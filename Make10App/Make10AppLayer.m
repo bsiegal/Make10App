@@ -180,13 +180,14 @@ CCSprite*   _home;
     _scoreLabel.color = ccc3(0, 0, 0);
     _scoreLabel.position = ccp(bg.contentSize.width / 2, bg.contentSize.height / 2);
     [bg addChild:_scoreLabel];
-    
-    _progressBar = [Progress create];
-    _progressBar.sprite.position = ccp(0, 0);
-    [bg addChild:_progressBar.sprite];
-    
 }
 
+-(void) createProgressBar {
+    CGSize winSize = [[CCDirector sharedDirector] winSize];
+    _progressBar = [Progress create];
+    _progressBar.sprite.position = ccp(0, winSize.height - [Make10Util getTileRect].size.height + _progressBar.sprite.contentSize.height / 2 + [Make10Util getUpperLabelPadding]);
+    [self addChild:_progressBar.sprite];
+}
 /**
  * Create the sprite to show for earned points
  */
@@ -227,6 +228,8 @@ CCSprite*   _home;
         _wall = [[Wall alloc] init];
         
         [self placeScoreLabel];
+        [self createProgressBar];
+        
         _home = [Make10Util createHomeSprite];
         [self addChild:_home];
         
@@ -376,7 +379,17 @@ CCSprite*   _home;
     [_gainLabel runAction:[CCFadeOut actionWithDuration:0.15]];
     
     _score.score += pointGain;
-    [_scoreLabel setString:[NSString stringWithFormat:@"%d", _score.score]];
+    
+    NSNumberFormatter* formatter = [[NSNumberFormatter alloc] init];
+    [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
+    [formatter setGroupingSeparator:[[NSLocale currentLocale] objectForKey:NSLocaleGroupingSeparator]];
+    [formatter setGroupingSize:3];
+    [formatter setAlwaysShowsDecimalSeparator:NO];
+    [formatter setUsesGroupingSeparator:YES];
+    
+    [_scoreLabel setString:[formatter stringFromNumber:[NSNumber numberWithInt:_score.score]]];
+
+    [formatter release];
 }
 
 /**

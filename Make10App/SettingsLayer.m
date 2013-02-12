@@ -167,7 +167,7 @@ CCSprite*          _home;
                         _styleToggle,
 //                        back,
                         nil];
-        menu.position = ccp(winSize.width / 2, winSize.height / 4);
+        menu.position = ccp(winSize.width / 2, winSize.height / 3);
         [menu alignItemsVerticallyWithPadding:15];
         [self addChild:menu];
         

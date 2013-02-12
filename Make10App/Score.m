@@ -52,14 +52,14 @@
         
         self.wallTime = SLOWEST_WALL_SPEED - 2 * (self.level - 1);
         
-        if (self.wallTime < 6) {
-            self.wallTime = 6;
+        if (self.wallTime < FASTEST_WALL_SPEED) {
+            self.wallTime = FASTEST_WALL_SPEED;
         }
         NSLog(@"Score.initializeProperties wallTime = %d", self.wallTime);
         
     } else {
         
-        self.wallTime = 16;
+        self.wallTime = SLOWEST_WALL_SPEED;
         /*
          * Make value will be changed in Make10AppLayer
          */

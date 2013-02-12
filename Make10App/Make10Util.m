@@ -28,11 +28,20 @@
  4. Adv features in later paid edition 
  
  ******/
++(CGRect) getTileRect {
+    CGRect rect;
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        rect = CGRectMake(0, 0, 96, 128);
+    } else {
+        rect= CGRectMake(0, 0, 40, 60);
+    }
+    return rect;
+}
 
 +(CCSprite*) createHomeSprite {
     CGSize winSize = [[CCDirector sharedDirector] winSize];
     CCSprite* home = [CCSprite spriteWithFile:@"home.png" rect:CGRectMake(0, 0, 50, 50)];
-    home.position = ccp(winSize.width - 25, winSize.height - 25);
+    home.position = ccp(winSize.width - 25 - [self getUpperLabelPadding], winSize.height - 25 - [self getUpperLabelPadding]);
     return home;
 }
 
@@ -48,6 +57,14 @@
         return YES;
     }
     return FALSE;
+}
+
++(int) getUpperLabelPadding {
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        return 10;
+    } else {
+        return 5;
+    }
 }
 
 +(void) styleMenuButton:(CCMenuItemFont*)menuItem {
