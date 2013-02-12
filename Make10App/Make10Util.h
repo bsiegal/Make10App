@@ -112,6 +112,16 @@ static NSString* const PREF_HIGH_SCORE = @"HIGH_SCORE";
 +(CGRect) getTileRect;
 
 /**
+ * Get a rect for the score label sprite based on device
+ */
++(CGRect) getScoreRect;
+
+/**
+ * Get a rect for the home sprite based on device
+ */
++(CGRect) getHomeRect;
+
+/**
  * Create and place the home sprite
  */
 +(CCSprite*) createHomeSprite;

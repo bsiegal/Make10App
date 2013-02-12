@@ -172,8 +172,9 @@ CCSprite*   _home;
 -(void) placeScoreLabel {
     NSLog(@"placeScoreLabel");
     CGSize winSize = [[CCDirector sharedDirector] winSize];
-    CCSprite* bg = [CCSprite spriteWithFile:@"scoreLabelBg.png" rect:CGRectMake(0, 0, 308, 50)];
-    bg.position = ccp(winSize.width / 2, winSize.height - 50 / 2 - 4);
+    CGRect rect = [Make10Util getScoreRect];
+    CCSprite* bg = [CCSprite spriteWithFile:@"scoreLabelBg.png" rect:rect];
+    bg.position = ccp(winSize.width / 2, winSize.height - rect.size.height / 2 - [Make10Util getUpperLabelPadding]);
     [self addChild:bg];
     
     _scoreLabel = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"Make %d", _makeValue] fontName:@"American Typewriter" fontSize:24];

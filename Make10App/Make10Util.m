@@ -38,10 +38,31 @@
     return rect;
 }
 
++(CGRect) getScoreRect; {
+    CGRect rect;
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        rect= CGRectMake(0, 0, 532, 88);
+    } else {
+        rect = CGRectMake(0, 0, 210, 35);
+    }
+    return rect;
+}
+
++(CGRect) getHomeRect {
+    CGRect rect;
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        rect = CGRectMake(0, 0, 108, 108);
+    } else {
+        rect= CGRectMake(0, 0, 50, 50);
+    }
+    return rect;
+}
+
 +(CCSprite*) createHomeSprite {
     CGSize winSize = [[CCDirector sharedDirector] winSize];
-    CCSprite* home = [CCSprite spriteWithFile:@"home.png" rect:CGRectMake(0, 0, 50, 50)];
-    home.position = ccp(winSize.width - 25 - [self getUpperLabelPadding], winSize.height - 25 - [self getUpperLabelPadding]);
+    CGRect rect = [self getHomeRect];
+    CCSprite* home = [CCSprite spriteWithFile:@"home.png" rect:rect];
+    home.position = ccp(winSize.width - rect.size.width / 2 - [self getUpperLabelPadding], winSize.height - rect.size.height / 2 - [self getUpperLabelPadding]);
     return home;
 }
 
