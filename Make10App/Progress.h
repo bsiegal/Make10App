@@ -29,9 +29,15 @@
 
 
 /**
- * The sprite of this tile
+ * The sprite of this progress
  */
 @property (readonly) CCSprite* sprite;
+
+/**
+ * The sprite of the background bar
+ */
+@property (readonly) CCSprite* spriteBg;
+
 /**
  * The action of the progress bar running
  */

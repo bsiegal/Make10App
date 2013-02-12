@@ -53,9 +53,9 @@ CCSprite*          _home;
         // ask director for the window size
         CGSize winSize = [[CCDirector sharedDirector] winSize];
         
-        CCLabelTTF* text = [CCLabelTTF labelWithString:@"Make" fontName:@"American Typewriter" fontSize:32];
+        CCLabelTTF* text = [CCLabelTTF labelWithString:@"Make" fontName:@"American Typewriter" fontSize:[Make10Util getTitleFontSize]];
         //title.color = ccc3(0, 0, 0);
-        text.position = ccp(winSize.width / 2, winSize.height - 32);
+        text.position = ccp(winSize.width / 2, winSize.height - [Make10Util getTitleFontSize]);
         // add the label as a child to this Layer
         [self addChild:text];
         
@@ -87,7 +87,7 @@ CCSprite*          _home;
             }
         }
         
-        _makeValuePicker = [[UIPickerView alloc] initWithFrame:CGRectMake(winSize.width / 2 - 35, 50, 70, 1)];
+        _makeValuePicker = [[UIPickerView alloc] initWithFrame:CGRectMake(winSize.width / 2 - 35, [Make10Util getTitleFontSize] * 2, 70, 1)];
         _makeValuePicker.delegate = self;
         _makeValuePicker.showsSelectionIndicator = YES;
         _makeValuePicker.hidden = YES;
@@ -168,7 +168,7 @@ CCSprite*          _home;
 //                        back,
                         nil];
         menu.position = ccp(winSize.width / 2, winSize.height / 3);
-        [menu alignItemsVerticallyWithPadding:15];
+        [menu alignItemsVerticallyWithPadding:[Make10Util getMenuPadding]];
         [self addChild:menu];
         
         _home = [Make10Util createHomeSprite];

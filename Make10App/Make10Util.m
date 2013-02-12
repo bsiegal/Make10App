@@ -88,18 +88,62 @@
     }
 }
 
++(int) getIntroTitleFontSize {
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        return 128;
+    } else {
+        return 64;
+    }
+}
+
++(int) getTitleFontSize {
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        return 64;
+    } else {
+        return 32;
+    }
+}
+
++(void) stylePlayButton:(CCMenuItemFont*)menuItem {
+    
+    menuItem.fontName = @"American Typewriter";
+    
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        menuItem.fontSize = 80;
+    } else {
+        menuItem.fontSize = 40;
+    }
+    
+}
+
 +(void) styleMenuButton:(CCMenuItemFont*)menuItem {
     
     menuItem.fontName = @"American Typewriter";
-    menuItem.fontSize = 24;
+    
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        menuItem.fontSize = 48;
+    } else {
+        menuItem.fontSize = 24;
+    }
 
 }
 
 +(void) styleToggle:(CCMenuItemFont*)menuItem {
     
     menuItem.fontName = @"American Typewriter";
-    menuItem.fontSize = 32;
-    
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        menuItem.fontSize = 64;
+    } else {
+        menuItem.fontSize = 32;
+    }
+}
+
++(int) getMenuPadding {
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        return 60;
+    } else {
+        return 20;
+    }    
 }
 
 +(NSArray*) getMakeValuesArray {

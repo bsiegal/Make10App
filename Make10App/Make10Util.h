@@ -137,16 +137,37 @@ static NSString* const PREF_HIGH_SCORE = @"HIGH_SCORE";
 +(int) getUpperLabelPadding;
 
 /**
+ * Get the font size for the IntroLayer's title label by device
+ */
++(int) getIntroTitleFontSize;
+
+/**
+ * Get the font size for a title label by device
+ */
++(int) getTitleFontSize;
+
+/**
+ * Style the Play menu item
+ * @param menuItem the CCMenuItemFont to style
+ */
++(void) stylePlayButton:(CCMenuItemFont*)menuItem;
+
+/**
  * Style a button menu item
  * @param menuItem the CCMenuItemFont to style
  */
-+(void)styleMenuButton:(CCMenuItemFont*)menuItem;
++(void) styleMenuButton:(CCMenuItemFont*)menuItem;
 
 /**
  * Style a toggle buttons
  * @param menuItem the CCMenuItemFont to style
  */
-+(void)styleToggle:(CCMenuItemFont*)menuItem;
++(void) styleToggle:(CCMenuItemFont*)menuItem;
+
+/**
+ * Get the padding between menu items
+ */
++(int) getMenuPadding;
 
 /**
  * Return an array of all possible make values

@@ -45,9 +45,9 @@ CCSprite*          _home;
         // ask director for the window size
         CGSize winSize = [[CCDirector sharedDirector] winSize];
 
-        CCLabelTTF* text = [CCLabelTTF labelWithString:@"About" fontName:@"American Typewriter" fontSize:32];
+        CCLabelTTF* text = [CCLabelTTF labelWithString:@"About" fontName:@"American Typewriter" fontSize:[Make10Util getTitleFontSize]];
         //title.color = ccc3(0, 0, 0);
-        text.position = ccp(winSize.width / 2, winSize.height - 32);
+        text.position = ccp(winSize.width / 2, winSize.height - [Make10Util getTitleFontSize]);
         // add the label as a child to this Layer
         [self addChild:text];
 

@@ -186,7 +186,11 @@ CCSprite*   _home;
 -(void) createProgressBar {
     CGSize winSize = [[CCDirector sharedDirector] winSize];
     _progressBar = [Progress create];
+    
     _progressBar.sprite.position = ccp(0, winSize.height - [Make10Util getTileRect].size.height + _progressBar.sprite.contentSize.height / 2 + [Make10Util getUpperLabelPadding]);
+    _progressBar.spriteBg.position = ccp(0, winSize.height - [Make10Util getTileRect].size.height + _progressBar.spriteBg.contentSize.height / 2 + [Make10Util getUpperLabelPadding] - 2);
+    
+    [self addChild:_progressBar.spriteBg];
     [self addChild:_progressBar.sprite];
 }
 /**

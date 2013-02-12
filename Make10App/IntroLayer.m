@@ -90,7 +90,7 @@
     NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
     NSNumber* makeValue = [defaults objectForKey:PREF_MAKE_VALUE];
     NSString* titleTxt = [NSString stringWithFormat:@"Make %d", [makeValue intValue]];
-	CCLabelTTF* title = [CCLabelTTF labelWithString:titleTxt fontName:@"American Typewriter" fontSize:64];
+	CCLabelTTF* title = [CCLabelTTF labelWithString:titleTxt fontName:@"American Typewriter" fontSize:[Make10Util getIntroTitleFontSize]];
     //title.color = ccc3(0, 0, 0);
     title.position = ccp(winSize.width / 2, winSize.height * 2 / 3);
 	// add the label as a child to this Layer
@@ -100,9 +100,7 @@
      * Play button
      */
     CCMenuItemFont* play = [CCMenuItemFont itemWithString:@"Play" target:self selector:@selector(playAction)];
-    [Make10Util styleMenuButton:play];
-    play.fontSize = 40;
-    
+    [Make10Util stylePlayButton:play];
     /*
      * Settings button
      */
@@ -120,7 +118,7 @@
     CCMenu* menu = [CCMenu menuWithItems:play, settings, about, nil];
     menu.position = ccp(winSize.width / 2, winSize.height / 3);
     [self addChild:menu];
-    [menu alignItemsVerticallyWithPadding:20];
+    [menu alignItemsVerticallyWithPadding:[Make10Util getMenuPadding]];
 }
 
 -(void) playAction {

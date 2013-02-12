@@ -32,7 +32,18 @@ float _scaleX;
     if (self = [super init]) {
         _sprite = [CCSprite spriteWithFile:@"progress.png" rect:CGRectMake(0, 0, 10, 10)];
         CGSize winSize = [[CCDirector sharedDirector] winSize];
+
+        /*
+         * How big the progress must grow
+         */
         _scaleX = 2 * winSize.width / _sprite.contentSize.width;
+        
+        /*
+         * Scale the background as well
+         */
+        _spriteBg = [CCSprite spriteWithFile:@"progressBar.png" rect:CGRectMake(0, 0, 14, 14)];
+        _spriteBg.scaleX = 2 * winSize.width / _spriteBg.contentSize.width;
+        
     }
     return self;
 }
@@ -53,6 +64,11 @@ float _scaleX;
     if (_sprite) {        
         [_sprite removeFromParentAndCleanup:YES];
         _sprite = nil;
+    }
+    
+    if (_spriteBg) {
+        [_spriteBg removeFromParentAndCleanup:YES];
+        _spriteBg = nil;
     }
 	[super dealloc];
 }
