@@ -140,7 +140,7 @@
 
 +(int) getMenuPadding {
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-        return 60;
+        return 65;
     } else {
         return 20;
     }    

@@ -18,7 +18,7 @@
 
 
 #import "LevelLayer.h"
-
+#import "Make10Util.h"
 
 @implementation LevelLayer
 
@@ -30,17 +30,17 @@ CCLabelTTF* _makeValueLabel;
 	// Apple recommends to re-assign "self" with the "super's" return value
 	if (self = [super initWithColor: ccc4(0, 128, 0, 75)]) {
 
-        CCLabelTTF* getReady = [CCLabelTTF labelWithString:@"Get ready!" fontName:@"Arial" fontSize:32];
+        CCLabelTTF* getReady = [CCLabelTTF labelWithString:@"Get ready!" fontName:@"Arial" fontSize:[Make10Util getTitleFontSize]];
         getReady.color = ccc3(0, 0, 0);
         getReady.position = ccp(self.contentSize.width / 2, self.contentSize.height * 0.7);
         [self addChild:getReady];
 
-        _levelLabel = [CCLabelTTF labelWithString:@"" fontName:@"Arial" fontSize:32];
+        _levelLabel = [CCLabelTTF labelWithString:@"" fontName:@"Arial" fontSize:[Make10Util getTitleFontSize]];
         _levelLabel.color = ccc3(0, 0, 0);
         _levelLabel.position = ccp(self.contentSize.width / 2, self.contentSize.height * 0.3);
         [self addChild:_levelLabel];
 
-        _makeValueLabel = [CCLabelTTF labelWithString:@"" fontName:@"Arial" fontSize:32];
+        _makeValueLabel = [CCLabelTTF labelWithString:@"" fontName:@"Arial" fontSize:[Make10Util getTitleFontSize]];
         _makeValueLabel.color = ccc3(0, 0, 0);
         _makeValueLabel.position = ccp(self.contentSize.width / 2, self.contentSize.height * 0.5);
         [self addChild:_makeValueLabel];

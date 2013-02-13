@@ -50,19 +50,19 @@ CCLabelTTF* _hiScore;
         
         CGSize winSize = [[CCDirector sharedDirector] winSize];
         
-        CCLabelTTF* gameOver = [CCLabelTTF labelWithString:@"Game Over" fontName:@"American Typewriter" fontSize:32];
+        CCLabelTTF* gameOver = [CCLabelTTF labelWithString:@"Game Over" fontName:@"American Typewriter" fontSize:[Make10Util getTitleFontSize]];
 //        gameOver.color = ccc3(0, 0, 0);
-        gameOver.position = ccp(winSize.width / 2, winSize.height * (0.75));
+        gameOver.position = ccp(winSize.width / 2, winSize.height * (0.7));
         [self addChild:gameOver];
         
-        _yourScore = [CCLabelTTF labelWithString:@"" fontName:@"American Typewriter" fontSize:32];
+        _yourScore = [CCLabelTTF labelWithString:@"" fontName:@"American Typewriter" fontSize:[Make10Util getTitleFontSize]];
 //        _yourScore.color = ccc3(0, 0, 0);
-        _yourScore.position = ccp(winSize.width / 2, winSize.height / 2);
+        _yourScore.position = ccp(winSize.width / 2, winSize.height * (0.5));
         [self addChild:_yourScore];
         
-        _hiScore = [CCLabelTTF labelWithString:@"" fontName:@"American Typewriter" fontSize:32];
+        _hiScore = [CCLabelTTF labelWithString:@"" fontName:@"American Typewriter" fontSize:[Make10Util getTitleFontSize]];
 //        _hiScore.color = ccc3(0, 0, 0);
-        _hiScore.position = ccp(winSize.width / 2, winSize.height * (0.25));
+        _hiScore.position = ccp(winSize.width / 2, winSize.height * (0.3));
         [self addChild:_hiScore];
         
         _home = [Make10Util createHomeSprite];
