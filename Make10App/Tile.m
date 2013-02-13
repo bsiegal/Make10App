@@ -40,7 +40,7 @@
     } else {
         
         NSString* text = [NSString stringWithFormat:@"%d", value];
-        CCLabelTTF* label = [CCLabelTTF labelWithString:text fontName:@"Arial" fontSize:28];
+        CCLabelTTF* label = [CCLabelTTF labelWithString:text fontName:@"Arial" fontSize:[Make10Util getTileFontSize]];
         label.position = ccp(_sprite.contentSize.width / 2, _sprite.contentSize.height / 2);
         label.color = ccBLACK;
         

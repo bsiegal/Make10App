@@ -112,6 +112,11 @@ static NSString* const PREF_HIGH_SCORE = @"HIGH_SCORE";
 +(CGRect) getTileRect;
 
 /**
+ * Get tile font size
+ */
++(int) getTileFontSize;
+
+/**
  * Get a rect for the score label sprite based on device
  */
 +(CGRect) getScoreRect;

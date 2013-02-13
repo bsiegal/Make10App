@@ -38,6 +38,14 @@
     return rect;
 }
 
++(int) getTileFontSize {
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        return 56;
+    } else {
+        return 28;
+    }
+}
+
 +(CGRect) getScoreRect; {
     CGRect rect;
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
