@@ -24,7 +24,7 @@
 #import "Make10Util.h"
 
 // Make10AppLayer
-@interface Make10AppLayer : CCLayerColor <GKAchievementViewControllerDelegate, GKLeaderboardViewControllerDelegate>
+@interface Make10AppLayer : CCLayer <GKAchievementViewControllerDelegate, GKLeaderboardViewControllerDelegate>
 {
 }
 

@@ -18,6 +18,7 @@
 
 
 #import "Progress.h"
+#import "Make10Util.h"
 
 @implementation Progress
 
@@ -30,19 +31,29 @@ float _scaleX;
 
 -(id) init {
     if (self = [super init]) {
-        _sprite = [CCSprite spriteWithFile:@"progress.png" rect:CGRectMake(0, 0, 10, 10)];
+        _sprite = [CCSprite spriteWithFile:@"progress.png"];
+//        _sprite setAnchorPoint:<#(CGPoint)#>
         CGSize winSize = [[CCDirector sharedDirector] winSize];
+        
+        
+
+//        _timeBar = [CCProgressTimer progressWithSprite:_sprite];
+//        //    timeBar.type = kCCProgressTimerTypeHorizontalBarLR;
+//        _timeBar.type = kCCProgressTimerTypeBar;
+//        _timeBar.midpoint = ccp(0, 0);
+//        _timeBar.barChangeRate = ccp(1, 0);
+//        _timeBar.percentage = 0;
 
         /*
          * How big the progress must grow
          */
-        _scaleX = 2 * winSize.width / _sprite.contentSize.width;
+//        _scaleX = 2 * (winSize.width - [Make10Util getMarginSide])/ _sprite.contentSize.width;
+        _scaleX = (winSize.width - 2 * [Make10Util getMarginSide])/ _sprite.contentSize.width;
         
-        /*
-         * Scale the background as well
-         */
-        _spriteBg = [CCSprite spriteWithFile:@"progressBar.png" rect:CGRectMake(0, 0, 14, 14)];
-        _spriteBg.scaleX = 2 * winSize.width / _spriteBg.contentSize.width;
+        _spriteBg = [CCSprite spriteWithFile:@"progressBar.png"];
+        
+//        [_spriteBg addChild:_timeBar z:1];
+//        [_timeBar setAnchorPoint: ccp(0,0)];
         
     }
     return self;
@@ -53,6 +64,12 @@ float _scaleX;
     _progressAction = [CCScaleTo actionWithDuration:duration scaleX:_scaleX scaleY:1];
     id actionScaleDone = [CCCallFuncN actionWithTarget:target selector:callback];
     [self.sprite runAction:[CCSequence actions:_progressAction, actionScaleDone, nil]];
+    
+//    CCCallFunc *cbDecrFinished = [CCCallFunc actionWithTarget:self selector:@selector(decreaseProgressBarFinished:)];
+//	CCProgressFromTo *progressToZero = [CCProgressFromTo actionWithDuration:duration from:0 to:100];
+//	CCSequence *asequence = [CCSequence actions:progressToZero, actionScaleDone, nil];
+//    
+//	[_timeBar runAction:asequence];
 
 }
 

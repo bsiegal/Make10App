@@ -28,7 +28,7 @@ CCLabelTTF* _makeValueLabel;
 -(id) init {
 	// always call "super" init
 	// Apple recommends to re-assign "self" with the "super's" return value
-	if (self = [super initWithColor: ccc4(0, 128, 0, 75)]) {
+	if (self = [super initWithColor: ccc4(93, 217, 4, 180)]) {
 
         CCLabelTTF* getReady = [CCLabelTTF labelWithString:@"Get ready!" fontName:@"Arial" fontSize:[Make10Util getTitleFontSize]];
         getReady.color = ccc3(0, 0, 0);

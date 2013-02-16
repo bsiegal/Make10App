@@ -26,6 +26,7 @@ NSMutableArray* _tiles;
 -(id) init {
     if (self = [super init]) {
         _tiles = [[NSMutableArray alloc] initWithCapacity:MAX_ROWS];
+        
         for (int i = 0; i < MAX_ROWS; i++) {
             NSMutableArray* tileRow = [[NSMutableArray alloc] initWithCapacity:MAX_COLS];
             for (int j = 0; j < MAX_COLS; j++) {
@@ -195,6 +196,7 @@ NSMutableArray* _tiles;
 
 -(BOOL)isMax {
     NSMutableArray* topRow = [_tiles objectAtIndex:MAX_ROWS - 1];
+
     for (int j = 0; j < MAX_COLS; j++) {
         if ([topRow objectAtIndex:j] != [NSNull null]) {
             return YES;
@@ -224,7 +226,7 @@ NSMutableArray* _tiles;
 
 -(Tile*) whichTileAtLocation:(CGPoint)location {
     NSLog(@"Wall.whichTileAtLocation");
-    
+
     for (int i = 0; i < MAX_ROWS; i++) {
         NSMutableArray* tileRow = [_tiles objectAtIndex:i];
         for (int j = 0; j < MAX_COLS; j++) {
@@ -263,8 +265,8 @@ NSMutableArray* _tiles;
             NSMutableArray* tileRow = [_tiles objectAtIndex:i];
             [tileRow replaceObjectAtIndex:col withObject:tileToAdd];
             
-            int x = refTile.sprite.contentSize.width * (col + 0.5);
-            int y = refTile.sprite.contentSize.height * (i - 0.5);
+            float x = refTile.sprite.contentSize.width * (col + 0.5) + [Make10Util getMarginSide];
+            float y = refTile.sprite.contentSize.height * (i - 0.5) + [Make10Util getMarginTop];
             
             return ccp(x, y);
         }
@@ -281,8 +283,8 @@ NSMutableArray* _tiles;
     int height = tileToAdd.sprite.contentSize.height;
     
     for (int j = 0; j < MAX_COLS; j++) {
-        int minX = width * j;
-        int maxX = width * (j + 1);
+        float minX = width * j + [Make10Util getMarginSide];
+        float maxX = width * (j + 1) + [Make10Util getMarginSide];
         if (location.x >= minX && location.x <= maxX) {
             col = j;
             break;
@@ -299,8 +301,8 @@ NSMutableArray* _tiles;
         NSMutableArray* tileRow = [_tiles objectAtIndex:1];
         [tileRow replaceObjectAtIndex:col withObject:tileToAdd];
         
-        int x = width * (col + 0.5);
-        int y = height * 0.5;
+        float x = width * (col + 0.5) + [Make10Util getMarginSide];
+        float y = height * 0.5 + [Make10Util getMarginTop];
         
         return ccp(x, y);
     }
@@ -318,8 +320,8 @@ NSMutableArray* _tiles;
             NSMutableArray* tileRow = [_tiles objectAtIndex:i];
             [tileRow replaceObjectAtIndex:col withObject:tileToAdd];
             
-            int x = width * (col + 0.5);
-            int y = height * (i - 0.5);
+            float x = width * (col + 0.5) + [Make10Util getMarginSide];
+            float y = height * (i - 0.5) + [Make10Util getMarginTop];
             
             return ccp(x, y);
 
@@ -334,6 +336,7 @@ NSMutableArray* _tiles;
 
 -(void) clearWall {
     NSLog(@"Wall.clearWall");
+
     for (int i = 0; i < MAX_ROWS; i++) {
         NSMutableArray* tileRow = [_tiles objectAtIndex:i];
         for (int j = 0; j < MAX_COLS; j++) {

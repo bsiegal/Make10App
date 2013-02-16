@@ -37,7 +37,7 @@ static float const LAYER_TRANS_TIME = 0.5f;
 /**
  * The duration between wall risings for level 1
  */
-static float const SLOWEST_WALL_SPEED = 20;
+static float const SLOWEST_WALL_SPEED = 6; //28;
 
 /**
  * The wall will never be faster than 6 no matter the level
@@ -107,24 +107,24 @@ static NSString* const PREF_HIGH_SCORE = @"HIGH_SCORE";
 @interface Make10Util : NSObject
 
 /**
- * Get a rect for a tile based on device
+ * Generate a textured background sprite with color
  */
-+(CGRect) getTileRect;
++(CCSprite*) genBackgroundWithColor:(ccColor4B)color;
+
+/**
+ * Get the margin on the top of the background (which is the same as the bottom)
+ */
++(float) getMarginTop;
+
+/**
+ * Get the margin on the left and right side of the background
+ */
++(float) getMarginSide;
 
 /**
  * Get tile font size
  */
 +(int) getTileFontSize;
-
-/**
- * Get a rect for the score label sprite based on device
- */
-+(CGRect) getScoreRect;
-
-/**
- * Get a rect for the home sprite based on device
- */
-+(CGRect) getHomeRect;
 
 /**
  * Create and place the home sprite

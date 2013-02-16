@@ -23,8 +23,8 @@
 
 -(void) createSprite:(int)value {
     
-    CGRect rect = [Make10Util getTileRect];
-    _sprite = [CCSprite spriteWithFile:@"tile.png" rect:rect];
+//    CGRect rect = [Make10Util getTileRect];
+    _sprite = [CCSprite spriteWithFile:@"tile.png"];
     
     
     NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
@@ -32,7 +32,7 @@
     if (style == PREF_TILE_STYLE_DOTS && value < 10) {
         
         NSString* fileName = [NSString stringWithFormat:@"dot%d.png", value];
-        CCSprite* dots = [CCSprite spriteWithFile:fileName rect:rect];
+        CCSprite* dots = [CCSprite spriteWithFile:fileName];
         
         dots.position = ccp(_sprite.contentSize.width / 2, _sprite.contentSize.height / 2);
         [_sprite addChild:dots];
@@ -60,7 +60,7 @@
          * The x position is the col * width of tile + half width of tile
          * The y position is -half * height of a tile so it starts below screen
          */
-        _sprite.position = ccp(_sprite.contentSize.width * (col + 0.5), _sprite.contentSize.height * (-0.5));
+        _sprite.position = ccp(_sprite.contentSize.width * (col + 0.5) + [Make10Util getMarginSide], [Make10Util getMarginTop] - _sprite.contentSize.height * (0.5));
 
     }
     return self;
@@ -79,7 +79,7 @@
          * The y position is top of screen - half the height of a tile
          */
         CGSize winSize = [[CCDirector sharedDirector] winSize];
-        _sprite.position = ccp(_sprite.contentSize.width / 2, winSize.height - _sprite.contentSize.height * (1.5));
+        _sprite.position = ccp(_sprite.contentSize.width / 2 + [Make10Util getMarginSide], winSize.height - [Make10Util getMarginTop] - _sprite.contentSize.height * (1.5));
     }
     return self;
 }
@@ -102,7 +102,7 @@
 
 -(void) transitionToCurrent {
     CGSize winSize = [[CCDirector sharedDirector] winSize];
-    id actionMove = [CCMoveBy actionWithDuration:NEXT_TO_CURRENT_TRANS_TIME position:ccp(winSize.width / 2 - self.sprite.contentSize.width / 2, 0)];
+    id actionMove = [CCMoveBy actionWithDuration:NEXT_TO_CURRENT_TRANS_TIME position:ccp(winSize.width / 2 - [Make10Util getMarginSide] - self.sprite.contentSize.width / 2, 0)];
     id actionMoveDone = [CCCallFuncN actionWithTarget:self selector:@selector(spriteMoveFinished:)];
     [self.sprite runAction:[CCSequence actions:actionMove, actionMoveDone, nil]];
 }

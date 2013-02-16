@@ -46,7 +46,10 @@ CCLabelTTF* _yourScore;
 CCLabelTTF* _hiScore;
 
 -(id) init {
-    if ((self = [super initWithColor:ccc4(250, 25, 250, 255)])) {
+    if (self = [super init]) {
+        
+        CCSprite* background = [Make10Util genBackgroundWithColor:ccc4(242, 5, 5, 255)];
+        [self addChild:background];
         
         CGSize winSize = [[CCDirector sharedDirector] winSize];
         

@@ -27,6 +27,7 @@
 
 @implementation IntroLayer
 
+
 // Helper class method that creates a Scene with the IntroLayer as the only child.
 +(CCScene*) scene
 {
@@ -44,7 +45,9 @@
 }
 
 -(id) init {
-    if (self = [super initWithColor:ccc4(70, 130, 180, 255)]) {
+    if (self = [super init]) {
+        CCSprite* background = [Make10Util genBackgroundWithColor:ccc4(93, 217, 4, 255)];
+        [self addChild:background];
         /*
          * Set all defaults if there were none so else where can just grab values
          * instead of having to test existence

@@ -48,6 +48,7 @@ LevelLayer* _levelLayer;
 Progress*   _progressBar;
 CCSprite*   _home;
 
+
 // Helper class method that creates a Scene with the Make10AppLayer as the only child.
 +(CCScene*) scene
 {
@@ -56,6 +57,7 @@ CCSprite*   _home;
 	
 	// 'layer' is an autorelease object.
 	Make10AppLayer* layer = [Make10AppLayer node];
+    
 	
 	// add layer as a child to scene
 	[scene addChild: layer];
@@ -167,28 +169,32 @@ CCSprite*   _home;
 }
 
 /**
- * Create the score label and progress bar
+ * Create the score label
  */
--(void) placeScoreLabel {
+-(void) createScoreLabelAndProgress {
     NSLog(@"placeScoreLabel");
     CGSize winSize = [[CCDirector sharedDirector] winSize];
-    CGRect rect = [Make10Util getScoreRect];
-    CCSprite* bg = [CCSprite spriteWithFile:@"scoreLabelBg.png" rect:rect];
-    bg.position = ccp(winSize.width / 2, winSize.height - rect.size.height / 2 - [Make10Util getUpperLabelPadding]);
-    [self addChild:bg];
+    
+    CCSprite* score = [CCSprite spriteWithFile:@"scoreLabelBg.png"];
+
+    float y = winSize.height - [Make10Util getMarginTop] - [Make10Util getUpperLabelPadding] - score.contentSize.height / 2;
+    score.position = ccp(winSize.width / 2, y);
+    [self addChild:score];
     
     _scoreLabel = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"Make %d", _makeValue] fontName:@"American Typewriter" fontSize:24];
     _scoreLabel.color = ccc3(0, 0, 0);
-    _scoreLabel.position = ccp(bg.contentSize.width / 2, bg.contentSize.height / 2);
-    [bg addChild:_scoreLabel];
-}
+    _scoreLabel.position = ccp(score.contentSize.width / 2, score.contentSize.height / 2);
+    [score addChild:_scoreLabel];
 
--(void) createProgressBar {
-    CGSize winSize = [[CCDirector sharedDirector] winSize];
+
+    /*
+     * Create the progress bar
+     */
     _progressBar = [Progress create];
     
-    _progressBar.sprite.position = ccp(0, winSize.height - [Make10Util getTileRect].size.height + _progressBar.sprite.contentSize.height / 2 + [Make10Util getUpperLabelPadding]);
-    _progressBar.spriteBg.position = ccp(0, winSize.height - [Make10Util getTileRect].size.height + _progressBar.spriteBg.contentSize.height / 2 + [Make10Util getUpperLabelPadding] - 2);
+    y = y - score.contentSize.height / 2 - [Make10Util getUpperLabelPadding] - _progressBar.spriteBg.contentSize.height / 2;
+    _progressBar.sprite.position = ccp(winSize.width / 2, y);
+    _progressBar.spriteBg.position = ccp(winSize.width / 2, y);
     
     [self addChild:_progressBar.spriteBg];
     [self addChild:_progressBar.sprite];
@@ -198,7 +204,7 @@ CCSprite*   _home;
  */
 -(void) createGain {
     NSLog(@"createGain");
-    _gain = [CCSprite spriteWithFile:@"gain.png" rect:CGRectMake(0, 0, 40, 40)];
+    _gain = [CCSprite spriteWithFile:@"gain.png"];
     _gain.position = ccp(100, 300);
     [self addChild:_gain];
     
@@ -223,7 +229,21 @@ CCSprite*   _home;
     NSLog(@"Make10AppLayer.init");
 	// always call "super" init
 	// Apple recommends to re-assign "self" with the "super's" return value
-	if (self = [super initWithColor: ccc4(70, 130, 180, 255)]) {
+	if (self = [super init]) {
+        
+        CCSprite* background = [Make10Util genBackgroundWithColor:ccc4(5, 151, 242, 255)];
+        [self addChild:background];
+        
+        CGSize winSize = [[CCDirector sharedDirector] winSize];
+        NSLog(@"background size = width:%f, height:%f", background.contentSize.width, background.contentSize.height);
+        NSLog(@"winSize size = width:%f, height:%f", winSize.width, winSize.height);
+        float diff = winSize.width - background.contentSize.width;
+        NSLog(@"diff = %f", diff);
+        
+//        [self setContentSize:CGSizeMake(background.contentSize.width, background.contentSize.height)];
+        
+//        NSLog(@"layer content size = width:%f, height:%f", self.contentSize.width, self.contentSize.height);
+        
         
         NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
         NSNumber* makeValue = [defaults objectForKey:PREF_MAKE_VALUE];
@@ -232,8 +252,7 @@ CCSprite*   _home;
         _score = [Score create];
         _wall = [[Wall alloc] init];
         
-        [self placeScoreLabel];
-        [self createProgressBar];
+        [self createScoreLabelAndProgress];
         
         _home = [Make10Util createHomeSprite];
         [self addChild:_home];
