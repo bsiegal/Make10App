@@ -18,7 +18,7 @@
 
 #import "cocos2d.h"
 
-@interface SettingsLayer : CCLayerColor <UIPickerViewDelegate>
+@interface SettingsLayer : CCLayer <UIPickerViewDelegate>
 {
 }
 

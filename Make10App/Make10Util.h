@@ -25,9 +25,9 @@
 static int const MAKE_VALUE_DEFAULT = 10;
 
 /**
- * Points needed to advance to next level
+ * Tiles needed to remove advance to next level
  */
-static int const LEVEL_MARKER = 500;
+static int const LEVEL_MARKER = 50;
 
 /**
  * The duration scenes to change
@@ -37,7 +37,7 @@ static float const LAYER_TRANS_TIME = 0.5f;
 /**
  * The duration between wall risings for level 1
  */
-static float const SLOWEST_WALL_SPEED = 16; //28;
+static float const SLOWEST_WALL_SPEED = 10;//28;
 
 /**
  * The wall will never be faster than 8 no matter the level

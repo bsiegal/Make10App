@@ -23,7 +23,9 @@
 /******
   TODOs
  o if you clear a wall you automatically get to the next level
- o when you clear 50 tiles, you get to the next level
+ o level layer
+ o settings
+ o about
  o Adv features in later paid edition
  ******/
 
@@ -158,7 +160,8 @@ static int   _menuPadding = 20;
 }
 
 +(NSArray*) getMakeValuesArray {
-    static NSArray* makeValues = nil;
+    NSArray* makeValues = nil;
+    NSLog(@"Make10Util getMakeValuesArray top makeValues=%@", makeValues);
     if (makeValues == nil) {
         /*
          * 5 - 20
@@ -178,11 +181,12 @@ static int   _menuPadding = 20;
         [makeValuesArray addObject:[NSNumber numberWithInt:100]];
         makeValues = [NSArray arrayWithArray:makeValuesArray];
     }
+    NSLog(@"Make10Util getMakeValuesArray bottom makeValues=%@", makeValues);
     return makeValues;
 }
 
 +(NSArray*) getMultMakeValuesArray {
-    static NSArray* multMakeValues = nil;
+    static NSArray* multMakeValues;
     if (multMakeValues == nil) {
         /*
          * 12, 15, 16, 18, 20, 24, 30, 36, 60, 75, 100, 120, 180, 360

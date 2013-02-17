@@ -105,21 +105,24 @@ CCSprite*   _home;
  */
 -(void) addWallRow {
     NSLog(@"addWallRow");
-    /*
-     * Create full row of tiles
-     */
-    [self createNewTilesForRow];
-
-    self.isTouchEnabled = NO;
     
+    self.isTouchEnabled = NO;
+    NSLog(@"isTouchEnabled set to NO");
+
     /*
-     * Delay the transition if the currentTile is in flight
+     * Delay if the currentTile is in flight,
+     * otherwise it could end up landing in too high
      */
-    if ([_currentTile.sprite numberOfRunningActions] > 0) {
-        
-        [self scheduleOnce:@selector(addWallRow) delay:CURRENT_TO_WALL_TRANS_TIME];
-        
-    } else {
+//    if ([_currentTile.sprite numberOfRunningActions] > 0) {
+//        NSLog(@"_currentTile.sprite was running so will call scheduleOnce to delay addWallRow");
+//        [self scheduleOnce:@selector(delayAddWallRow) delay:CURRENT_TO_WALL_TRANS_TIME];
+//        
+//    } else {
+        NSLog(@"addWallRow - going ahead with creating then transitioning");
+        /*
+         * Create full row of tiles
+         */
+        [self createNewTilesForRow];
         /*
          * Transition the wall up
          */
@@ -132,10 +135,12 @@ CCSprite*   _home;
             [self scheduleOnce:@selector(endGame) delay:1];
         }
     
-    }
+//    }
 }
 
-
+-(void) delayAddWallRow {
+    [self addWallRow];
+}
 /**
  * Create and place the next tile
  */
@@ -221,6 +226,7 @@ CCSprite*   _home;
     [_progressBar resetBar];
     [_progressBar startWithDuration:_score.wallTime target:self callback:@selector(addWallRow)];
     self.isTouchEnabled = YES;
+    NSLog(@"isTouchEnabled set to YES (startProgressBar)");
 }
 
 // on "init" you need to initialize your instance
@@ -384,6 +390,7 @@ CCSprite*   _home;
     int tileCount = [_wall removeTile:_knockedWallTile];
     _knockedWallTile = nil;
 
+    _score.tilesRemoved += tileCount;
     int pointGain = _score.pointValue * tileCount;
     [self updateScore:pointGain];
     [self levelUp];
@@ -416,12 +423,18 @@ CCSprite*   _home;
 }
 
 /**
- * Check if the next level point benchmark has been reached
+ * Check if the next level benchmark has been reached
  * and if so show the level layer with the new level
  */
 -(void) levelUp {
     /*
-     * If the score is enough to advance to the next level,
+     * If the wall was completely cleared, push score above benchmark
+     */
+    if ([_wall isWallClear]) {
+        _score.tilesRemoved = LEVEL_MARKER;
+    }
+    /*
+     * If enough to advance to the next level,
      * stop the timer, 
      * clear the wall and prep for a new level,
      * show the level layer
@@ -429,6 +442,8 @@ CCSprite*   _home;
      */
     if ([_score levelUp]) {
         self.isTouchEnabled = NO;
+        NSLog(@"isTouchEnabled is set to NO (levelUp)");
+        
         [self stopAllActions];
         [_progressBar resetBar];
         [_progressBar.timeBar stopAllActions];
@@ -543,6 +558,7 @@ CCSprite*   _home;
     NSLog(@"endGame");
 
     self.isTouchEnabled = NO;
+    NSLog(@"isTouchEnabled is set to NO (endGame)");
     [self stopAllActions];
     [_progressBar.timeBar stopAllActions];
     

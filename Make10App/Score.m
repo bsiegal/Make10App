@@ -39,6 +39,7 @@
 }
 
 -(void) initializeProperties {
+    self.tilesRemoved = 0;
     self.pointValue = self.level * 10;
     /*
      * If speed challenge, then
@@ -70,7 +71,7 @@
  */
 -(BOOL) levelUp {
     NSLog(@"Score.levelUp");
-    if (self.score >= LEVEL_MARKER * pow(2, self.level - 1)) {
+    if (self.tilesRemoved >= LEVEL_MARKER) {
         self.level++;
         [self initializeProperties];
         return YES;

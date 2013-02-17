@@ -40,8 +40,11 @@ CCSprite*          _home;
 }
 
 -(id) init {
-    if (self = [super initWithColor: ccc4(70, 130, 180, 255)]) {
+    if (self = [super init]) {
     
+        CCSprite* background = [Make10Util genBackgroundWithColor:ccc4(5, 151, 242, 255)];
+        [self addChild:background];
+
         // ask director for the window size
         CGSize winSize = [[CCDirector sharedDirector] winSize];
 
@@ -60,8 +63,8 @@ CCSprite*          _home;
         UIView* view = [[CCDirector sharedDirector] view];
         view.frame = CGRectMake(0, 0, winSize.width, winSize.height);
         
-        int h = _home.contentSize.height + [Make10Util getUpperLabelPadding];
-        _webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, h, winSize.width, winSize.height - h)];
+        int h = _home.contentSize.height + [Make10Util getUpperLabelPadding] + [Make10Util getMarginTop];
+        _webView = [[UIWebView alloc] initWithFrame:CGRectMake([Make10Util getMarginSide], h, winSize.width - 2 * [Make10Util getMarginSide], winSize.height - h)];
         _webView.delegate = self;
         _webView.hidden = YES;
         

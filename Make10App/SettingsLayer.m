@@ -23,6 +23,7 @@
 
 UIPickerView*      _makeValuePicker;
 NSMutableArray*    _makeValueArray;
+CCMenuItemFont*    _makeValueToggle;
 CCMenuItemToggle*  _levelToggle;
 CCMenuItemToggle*  _operationToggle;
 CCMenuItemToggle*  _challengeToggle;
@@ -47,13 +48,14 @@ CCSprite*          _home;
 
 -(id) init {
     
-	if (self = [super initWithColor:ccc4(70, 130, 180, 255)]) {
+	if (self = [super init]) {
+        CCSprite* background = [Make10Util genBackgroundWithColor:ccc4(5, 151, 242, 255)];
+        [self addChild:background];
         
-    
         // ask director for the window size
         CGSize winSize = [[CCDirector sharedDirector] winSize];
         
-        CCLabelTTF* text = [CCLabelTTF labelWithString:@"Make" fontName:@"American Typewriter" fontSize:[Make10Util getTitleFontSize]];
+        CCLabelTTF* text = [CCLabelTTF labelWithString:@"Settings" fontName:@"American Typewriter" fontSize:[Make10Util getTitleFontSize]];
         //title.color = ccc3(0, 0, 0);
         text.position = ccp(winSize.width / 2, winSize.height - [Make10Util getTitleFontSize]);
         // add the label as a child to this Layer
@@ -78,6 +80,7 @@ CCSprite*          _home;
         //This will be an NSString array copy of getMakeValuesArray (which contains NSNumber)
         _makeValueArray = [[NSMutableArray alloc] init];
         NSArray* makeValuesNumbers = [Make10Util getMakeValuesArray];
+        NSLog(@"makeValuesNumbers = %@", makeValuesNumbers);
         for (int i = 0, len = [makeValuesNumbers count]; i < len; i++) {
             
             int value = [(NSNumber*) [makeValuesNumbers objectAtIndex:i] intValue];
@@ -87,7 +90,8 @@ CCSprite*          _home;
             }
         }
         
-        _makeValuePicker = [[UIPickerView alloc] initWithFrame:CGRectMake(winSize.width / 2 - 35, [Make10Util getTitleFontSize] * 2, 70, 1)];
+        int pickerWidth = 100;
+        _makeValuePicker = [[UIPickerView alloc] initWithFrame:CGRectMake(winSize.width / 2 - pickerWidth / 2, winSize.height / 2 - 100, pickerWidth, winSize.height)];
         _makeValuePicker.delegate = self;
         _makeValuePicker.showsSelectionIndicator = YES;
         _makeValuePicker.hidden = YES;
@@ -97,7 +101,12 @@ CCSprite*          _home;
 
         [view addSubview:_makeValuePicker];
         
-        //Tile Style
+        /*
+         * Make value as a button that will show the picker view
+         */
+        NSString* makeString = [NSString stringWithFormat:@"Make %d", [makeValue intValue]];
+        _makeValueToggle = [CCMenuItemFont itemWithString:makeString target:self selector:@selector(makeValueAction)];
+        [Make10Util styleToggle:_makeValueToggle];
         
         /*
          * Starting level as a toggle
@@ -153,21 +162,16 @@ CCSprite*          _home;
         [_styleToggle setSelectedIndex:[style intValue]];
         
         /*
-         * Back button
-         */
-//        CCMenuItemFont* back = [CCMenuItemFont itemWithString:@"Back" target:self selector:@selector(backAction)];
-//        [Make10Util styleMenuButton:back];
-        
-        /*
          * Create the menu
          */
-        CCMenu* menu = [CCMenu menuWithItems:_levelToggle,
+        CCMenu* menu = [CCMenu menuWithItems:
+                        _makeValueToggle,
+                        _levelToggle,
 //                        _operationToggle,
                         _challengeToggle,
                         _styleToggle,
-//                        back,
                         nil];
-        menu.position = ccp(winSize.width / 2, winSize.height / 3);
+        menu.position = ccp(winSize.width / 2, winSize.height / 2);
         [menu alignItemsVerticallyWithPadding:[Make10Util getMenuPadding]];
         [self addChild:menu];
         
@@ -212,26 +216,30 @@ CCSprite*          _home;
 
 }
 
+-(void) makeValueAction {
+    _makeValuePicker.hidden = NO;
+}
+
 -(void) backAction {
     
 	[[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInL transitionWithDuration:LAYER_TRANS_TIME scene:[IntroLayer scene]]];
 }
 
--(void) onEnterTransitionDidFinish {
-    /*
-     * Since the UIKit components do not respond to cocos scene changes, just using this as a workaround
-     */
-    _makeValuePicker.hidden = NO;
-    [super onEnterTransitionDidFinish];
-}
-
--(void) onExitTransitionDidStart {
-    /*
-     * Since the UIKit components do not respond to cocos transitions, just using this as a workaround
-     */
-    _makeValuePicker.hidden = YES;
-    [super onExitTransitionDidStart];
-}
+//-(void) onEnterTransitionDidFinish {
+//    /*
+//     * Since the UIKit components do not respond to cocos scene changes, just using this as a workaround
+//     */
+////    _makeValuePicker.hidden = NO;
+////    [super onEnterTransitionDidFinish];
+//}
+//
+//-(void) onExitTransitionDidStart {
+//    /*
+//     * Since the UIKit components do not respond to cocos transitions, just using this as a workaround
+//     */
+////    _makeValuePicker.hidden = YES;
+////    [super onExitTransitionDidStart];
+//}
 
 
 #pragma mark UIPickerViewDelegate
@@ -262,11 +270,17 @@ CCSprite*          _home;
     [defaults setInteger:makeValue forKey:PREF_MAKE_VALUE];
     NSLog(@"setting PREF_MAKE_VALUE = %d", makeValue);
     
+    NSString* makeString = [NSString stringWithFormat:@"Make %d", makeValue];
+    [_makeValueToggle setString:makeString];
+    
 }
 
 #pragma mark Touches
 
 -(void) ccTouchesEnded:(NSSet*)touches withEvent:(UIEvent*)event {
+    
+    _makeValuePicker.hidden = YES;
+
     if ([Make10Util isSpriteTouched:_home touches:touches]) {
         [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInL transitionWithDuration:LAYER_TRANS_TIME scene:[IntroLayer scene]]];
     }
@@ -277,21 +291,27 @@ CCSprite*          _home;
     [_makeValuePicker release];
     _makeValuePicker = nil;
     
-//    [_makeValueArray release];
-//    _makeValueArray = nil;
+    [_home removeFromParentAndCleanup:YES];
+    _home = nil;
+    
+    [_makeValueArray release];
+    _makeValueArray = nil;
+
+//    [_makeValueToggle removeFromParentAndCleanup:YES];
+//    _makeValueToggle = nil;
 //    
 //    [_levelToggle removeFromParentAndCleanup:YES];
 //    _levelToggle = nil;
-//    
+//
 //    [_operationToggle removeFromParentAndCleanup:YES];
 //    _operationToggle = nil;
-//    
+//
 //    [_challengeToggle removeFromParentAndCleanup:YES];
 //    _challengeToggle = nil;
-//    
+//
 //    [_sumOrProduct removeFromParentAndCleanup:YES];
 //    _sumOrProduct = nil;
-//    
+//
 //    [_styleToggle removeFromParentAndCleanup:YES];
 //    _styleToggle = nil;
 

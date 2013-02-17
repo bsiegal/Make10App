@@ -350,6 +350,21 @@ NSMutableArray* _tiles;
 
 }
 
+-(BOOL) isWallClear {
+    
+    for (int i = 0; i < MAX_ROWS; i++) {
+        for (int j = 0; j < MAX_COLS; j++) {
+            if (![self isEmptyAtRow:i col:j]) {
+                NSLog(@"Wall.isWallClear NO");
+                return NO;
+            }
+        }
+    }
+    NSLog(@"Wall.isWallClear YES");
+
+    return YES;
+}
+
 -(void) dealloc {
     [_tiles release];
     _tiles = nil;

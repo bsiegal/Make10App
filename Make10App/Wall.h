@@ -32,8 +32,6 @@ static int const MAX_COLS = 8;
  */
 static float const WALL_TRANS_TIME = 0.5f;
 
-static NSString* const PREF_LEVEL = @"LEVEL";
-
 @interface Wall : NSObject
 
 /**
@@ -104,4 +102,8 @@ static NSString* const PREF_LEVEL = @"LEVEL";
  * Remove all the tiles from the wall
  */
 -(void) clearWall;
+/**
+ * Return YES if the wall is clear
+ */
+-(BOOL) isWallClear;
 @end

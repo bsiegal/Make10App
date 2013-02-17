@@ -43,7 +43,10 @@
  * The time in seconds a wall row is added
  */
 @property int wallTime;
-
+/**
+ * The number of tiles removed
+ */
+@property int tilesRemoved;
 /**
  * Increase the level, point value and wall speed
  * if the score passes the bench mark

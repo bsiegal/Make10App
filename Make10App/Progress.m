@@ -27,8 +27,6 @@
 }
 
 
-float _scaleX;
-
 -(id) init {
     if (self = [super init]) {
         CCSprite* sprite = [CCSprite spriteWithFile:@"progress.png"];
