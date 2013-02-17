@@ -138,9 +138,7 @@ CCSprite*   _home;
 //    }
 }
 
--(void) delayAddWallRow {
-    [self addWallRow];
-}
+
 /**
  * Create and place the next tile
  */
@@ -543,6 +541,15 @@ CCSprite*   _home;
  */
 -(void) currentBecomesWallTileDone:(id)sender {
     NSLog(@"currentBecomesWallTileDone");
+
+    /*
+     * If the current tile transitioned to a point when the
+     * when the wall was moving, we still need to position it
+     * so it is in the exact grid location
+     */
+    int row = _currentTile.row;
+    int col = _currentTile.col;
+    [_wall snapTileToGrid:_currentTile row:row col:col];
     /*
      * Create the next current tile
      */

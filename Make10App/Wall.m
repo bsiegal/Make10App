@@ -365,6 +365,16 @@ NSMutableArray* _tiles;
     return YES;
 }
 
+-(void) snapTileToGrid:(Tile*)tile row:(int)row col:(int)col {
+    int width = tile.sprite.contentSize.width;
+    int height = tile.sprite.contentSize.height;
+    
+    float x = width * (col + 0.5) + [Make10Util getMarginSide];
+    float y = height * (row - 0.5) + [Make10Util getMarginTop];
+    
+    tile.sprite.position = ccp(x, y);
+}
+
 -(void) dealloc {
     [_tiles release];
     _tiles = nil;

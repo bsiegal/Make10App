@@ -106,4 +106,11 @@ static float const WALL_TRANS_TIME = 0.5f;
  * Return YES if the wall is clear
  */
 -(BOOL) isWallClear;
+/**
+ * Snap the tile to the grid at the row and col
+ * @param tile to snap
+ * @param row of the grid
+ * @param col of the grid
+ */
+-(void) snapTileToGrid:(Tile*)tile row:(int)row col:(int)col;
 @end
