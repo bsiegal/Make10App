@@ -22,7 +22,8 @@
 
 /******
   TODOs
- o bonus for clearing wall
+ o if you clear a wall you automatically get to the next level
+ o when you clear 50 tiles, you get to the next level
  o Adv features in later paid edition
  ******/
 

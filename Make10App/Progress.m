@@ -31,56 +31,44 @@ float _scaleX;
 
 -(id) init {
     if (self = [super init]) {
-        _sprite = [CCSprite spriteWithFile:@"progress.png"];
-//        _sprite setAnchorPoint:<#(CGPoint)#>
-        CGSize winSize = [[CCDirector sharedDirector] winSize];
-        
-        
+        CCSprite* sprite = [CCSprite spriteWithFile:@"progress.png"];
 
-//        _timeBar = [CCProgressTimer progressWithSprite:_sprite];
-//        //    timeBar.type = kCCProgressTimerTypeHorizontalBarLR;
-//        _timeBar.type = kCCProgressTimerTypeBar;
-//        _timeBar.midpoint = ccp(0, 0);
-//        _timeBar.barChangeRate = ccp(1, 0);
-//        _timeBar.percentage = 0;
-
-        /*
-         * How big the progress must grow
-         */
-//        _scaleX = 2 * (winSize.width - [Make10Util getMarginSide])/ _sprite.contentSize.width;
-        _scaleX = (winSize.width - 2 * [Make10Util getMarginSide])/ _sprite.contentSize.width;
+        _timeBar = [CCProgressTimer progressWithSprite:sprite];
+        _timeBar.type = kCCProgressTimerTypeBar;
+        _timeBar.midpoint = ccp(0, 0);
+        _timeBar.barChangeRate = ccp(1, 0);
+        _timeBar.percentage = 0;
         
         _spriteBg = [CCSprite spriteWithFile:@"progressBar.png"];
         
-//        [_spriteBg addChild:_timeBar z:1];
-//        [_timeBar setAnchorPoint: ccp(0,0)];
-        
+        [_spriteBg addChild:_timeBar z:1];
+        [_timeBar setAnchorPoint: ccp(0,0)];
+        [_timeBar setPosition:ccp(2, 2)];
     }
     return self;
 }
 
 
 -(void) startWithDuration:(int)duration target:(id)target callback:(SEL)callback {
-    _progressAction = [CCScaleTo actionWithDuration:duration scaleX:_scaleX scaleY:1];
+
     id actionScaleDone = [CCCallFuncN actionWithTarget:target selector:callback];
-    [self.sprite runAction:[CCSequence actions:_progressAction, actionScaleDone, nil]];
-    
-//    CCCallFunc *cbDecrFinished = [CCCallFunc actionWithTarget:self selector:@selector(decreaseProgressBarFinished:)];
-//	CCProgressFromTo *progressToZero = [CCProgressFromTo actionWithDuration:duration from:0 to:100];
-//	CCSequence *asequence = [CCSequence actions:progressToZero, actionScaleDone, nil];
-//    
-//	[_timeBar runAction:asequence];
+	CCProgressFromTo *progressToFull = [CCProgressFromTo actionWithDuration:duration from:0 to:100];
+	CCSequence *asequence = [CCSequence actions:progressToFull, actionScaleDone, nil];
+
+	[_timeBar runAction:asequence];
 
 }
 
 -(void) resetBar {
-    _sprite.scale = 1.0f;
+    /*
+     * do nothing
+     */
 }
 
 -(void) dealloc {
-    if (_sprite) {        
-        [_sprite removeFromParentAndCleanup:YES];
-        _sprite = nil;
+    if (_timeBar) {
+        [_timeBar removeFromParentAndCleanup:YES];
+        _timeBar = nil;
     }
     
     if (_spriteBg) {

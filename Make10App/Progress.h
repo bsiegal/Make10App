@@ -28,10 +28,6 @@
 +(Progress*) create;
 
 @property (readonly) CCProgressTimer* timeBar;
-/**
- * The sprite of this progress
- */
-@property (readonly) CCSprite* sprite;
 
 /**
  * The sprite of the background bar

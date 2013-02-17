@@ -193,11 +193,10 @@ CCSprite*   _home;
     _progressBar = [Progress create];
     
     y = y - score.contentSize.height / 2 - [Make10Util getUpperLabelPadding] - _progressBar.spriteBg.contentSize.height / 2;
-    _progressBar.sprite.position = ccp(winSize.width / 2, y);
     _progressBar.spriteBg.position = ccp(winSize.width / 2, y);
     
     [self addChild:_progressBar.spriteBg];
-    [self addChild:_progressBar.sprite];
+//    [self addChild:_progressBar.sprite];
 }
 /**
  * Create the sprite to show for earned points
@@ -350,7 +349,7 @@ CCSprite*   _home;
     NSLog(@"backToHome");
     
     [self stopAllActions];
-    [_progressBar.sprite stopAllActions];
+    [_progressBar.timeBar stopAllActions];
     
     [[CCDirector sharedDirector] replaceScene:[IntroLayer node]];
 }
@@ -432,7 +431,7 @@ CCSprite*   _home;
         self.isTouchEnabled = NO;
         [self stopAllActions];
         [_progressBar resetBar];
-        [_progressBar.sprite stopAllActions];
+        [_progressBar.timeBar stopAllActions];
 
         [_wall clearWall];
         
@@ -545,7 +544,7 @@ CCSprite*   _home;
 
     self.isTouchEnabled = NO;
     [self stopAllActions];
-    [_progressBar.sprite stopAllActions];
+    [_progressBar.timeBar stopAllActions];
     
     GameOverScene* gameOverScene = [GameOverScene node];
     [gameOverScene.layer setScore:_score.score];
