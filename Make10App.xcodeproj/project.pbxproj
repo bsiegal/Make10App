@@ -27,6 +27,10 @@
 		3C687A8B16CAC57500F1834E /* home-ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 3C687A8016CAC57500F1834E /* home-ipad.png */; };
 		3C687A8C16CAC57500F1834E /* scoreLabelBg-ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 3C687A8116CAC57500F1834E /* scoreLabelBg-ipad.png */; };
 		3C94F50316CACECB00FEE0EA /* progressBar.png in Resources */ = {isa = PBXBuildFile; fileRef = 3C94F50216CACECB00FEE0EA /* progressBar.png */; };
+		3C95BE6B16D1C843000C9C20 /* pause-ipadhd.png in Resources */ = {isa = PBXBuildFile; fileRef = 3C95BE6716D1C843000C9C20 /* pause-ipadhd.png */; };
+		3C95BE6C16D1C843000C9C20 /* pause-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 3C95BE6816D1C843000C9C20 /* pause-hd.png */; };
+		3C95BE6D16D1C843000C9C20 /* pause-ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 3C95BE6916D1C843000C9C20 /* pause-ipad.png */; };
+		3C95BE6E16D1C843000C9C20 /* pause.png in Resources */ = {isa = PBXBuildFile; fileRef = 3C95BE6A16D1C843000C9C20 /* pause.png */; };
 		3C978B0016CC0D1700EDE247 /* noise.png in Resources */ = {isa = PBXBuildFile; fileRef = 3C978AFF16CC0D1700EDE247 /* noise.png */; };
 		3CEEF74A16CF0D8B00435430 /* progressBar-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 3CEEF74716CF0D8B00435430 /* progressBar-hd.png */; };
 		3CEEF74B16CF0D8B00435430 /* progressBar-ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 3CEEF74816CF0D8B00435430 /* progressBar-ipad.png */; };
@@ -211,6 +215,10 @@
 		3C687A8016CAC57500F1834E /* home-ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "home-ipad.png"; path = "sprites/home-ipad.png"; sourceTree = "<group>"; };
 		3C687A8116CAC57500F1834E /* scoreLabelBg-ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "scoreLabelBg-ipad.png"; path = "sprites/scoreLabelBg-ipad.png"; sourceTree = "<group>"; };
 		3C94F50216CACECB00FEE0EA /* progressBar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = progressBar.png; path = sprites/progressBar.png; sourceTree = "<group>"; };
+		3C95BE6716D1C843000C9C20 /* pause-ipadhd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "pause-ipadhd.png"; path = "sprites/pause-ipadhd.png"; sourceTree = "<group>"; };
+		3C95BE6816D1C843000C9C20 /* pause-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "pause-hd.png"; path = "sprites/pause-hd.png"; sourceTree = "<group>"; };
+		3C95BE6916D1C843000C9C20 /* pause-ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "pause-ipad.png"; path = "sprites/pause-ipad.png"; sourceTree = "<group>"; };
+		3C95BE6A16D1C843000C9C20 /* pause.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = pause.png; path = sprites/pause.png; sourceTree = "<group>"; };
 		3C978AFF16CC0D1700EDE247 /* noise.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = noise.png; path = sprites/noise.png; sourceTree = "<group>"; };
 		3CEEF74716CF0D8B00435430 /* progressBar-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "progressBar-hd.png"; path = "sprites/progressBar-hd.png"; sourceTree = "<group>"; };
 		3CEEF74816CF0D8B00435430 /* progressBar-ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "progressBar-ipad.png"; path = "sprites/progressBar-ipad.png"; sourceTree = "<group>"; };
@@ -602,6 +610,10 @@
 		915FEE0316B30B7E0045A15A /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				3C95BE6716D1C843000C9C20 /* pause-ipadhd.png */,
+				3C95BE6816D1C843000C9C20 /* pause-hd.png */,
+				3C95BE6916D1C843000C9C20 /* pause-ipad.png */,
+				3C95BE6A16D1C843000C9C20 /* pause.png */,
 				3C978AFF16CC0D1700EDE247 /* noise.png */,
 				3C4FD89816CDD20300B717E6 /* noise-hd.png */,
 				3C4FD89916CDD20300B717E6 /* noise-ipad.png */,
@@ -1132,6 +1144,10 @@
 				3CEEF76016CF340400435430 /* home-hd.png in Resources */,
 				3CEEF76116CF340400435430 /* home-ipad.png in Resources */,
 				3CEEF76216CF340400435430 /* home-ipadhd.png in Resources */,
+				3C95BE6B16D1C843000C9C20 /* pause-ipadhd.png in Resources */,
+				3C95BE6C16D1C843000C9C20 /* pause-hd.png in Resources */,
+				3C95BE6D16D1C843000C9C20 /* pause-ipad.png in Resources */,
+				3C95BE6E16D1C843000C9C20 /* pause.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

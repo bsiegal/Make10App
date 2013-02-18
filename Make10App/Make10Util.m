@@ -22,10 +22,9 @@
 
 /******
   TODOs
- o if you clear a wall you automatically get to the next level
- o level layer
- o settings
- o about
+ o level layer style?
+ o pause layer style
+ o remove tile when wall transitioning up -- orphaned tile
  o Adv features in later paid edition
  ******/
 

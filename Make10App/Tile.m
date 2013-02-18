@@ -23,7 +23,6 @@
 
 -(void) createSprite:(int)value {
     
-//    CGRect rect = [Make10Util getTileRect];
     _sprite = [CCSprite spriteWithFile:@"tile.png"];
     
     
@@ -84,26 +83,12 @@
     return self;
 }
 
--(void) spriteMoveFinished:(id)sender {
-    NSLog(@"Tile.spriteMoveFinished");
-    //    CCSprite *sprite = (CCSprite *)sender;
-    //    [self removeChild:sprite cleanup:YES];
-    //
-    //
-    //    if (sprite.tag == 1) {
-    //        [_targets removeObject:sprite];
-    //        GameOverScene *gameOverScene = [GameOverScene node];
-    //        [gameOverScene.layer.label setString:@"You lose :["];
-    //        [[CCDirector sharedDirector] replaceScene:gameOverScene];
-    //    } else if (sprite.tag == 2) {
-    //        [_projectiles removeObject:sprite];
-    //    }
-}
 
--(void) transitionToCurrent {
+
+-(void) transitionToCurrentWithTarget:(id)target callback:(SEL)callback {
     CGSize winSize = [[CCDirector sharedDirector] winSize];
     id actionMove = [CCMoveBy actionWithDuration:NEXT_TO_CURRENT_TRANS_TIME position:ccp(winSize.width / 2 - [Make10Util getMarginSide] - self.sprite.contentSize.width / 2, 0)];
-    id actionMoveDone = [CCCallFuncN actionWithTarget:self selector:@selector(spriteMoveFinished:)];
+    id actionMoveDone = [CCCallFuncN actionWithTarget:target selector:callback];
     [self.sprite runAction:[CCSequence actions:actionMove, actionMoveDone, nil]];
 }
 

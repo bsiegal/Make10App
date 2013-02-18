@@ -34,28 +34,14 @@ NSMutableArray* _tiles;
             }
             [_tiles addObject:tileRow];
         }
+        
     }
     return self;
 }
 
 -(void) addTile: (Tile*)tile row:(int)row col:(int)col {
     NSMutableArray* tileRow = [_tiles objectAtIndex:row];
-    [tileRow setObject:tile atIndexedSubscript:col];
-}
-
--(void) spriteMoveFinished:(id)sender {
-//    CCSprite* sprite = (CCSprite* )sender;
-//    [self removeChild:sprite cleanup:YES];
-//    
-//    
-//    if (sprite.tag == 1) {
-//        [_targets removeObject:sprite];
-//        GameOverScene* gameOverScene = [GameOverScene node];
-//        [gameOverScene.layer.label setString:@"You lose :["];
-//        [[CCDirector sharedDirector] replaceScene:gameOverScene];
-//    } else if (sprite.tag == 2) {
-//        [_projectiles removeObject:sprite];
-//    }
+    [tileRow replaceObjectAtIndex:col withObject:tile];
 }
 
 -(void) transitionUpWithTarget:(id)target callback:(SEL)callback {
@@ -85,16 +71,18 @@ NSMutableArray* _tiles;
     for (int index = 0, len = [tiles count]; index < len; index++) {
         Tile* tile = [tiles objectAtIndex:index];
         
-        int y = tile.sprite.contentSize.height;
-        
-        id actionMove = [CCMoveBy actionWithDuration:WALL_TRANS_TIME position:ccp(0, y)];
-        
+//        int y = tile.sprite.contentSize.height;
+//        
+//        id actionMove = [CCMoveBy actionWithDuration:WALL_TRANS_TIME position:ccp(0, y)];
+//
+        id actionMove = [CCMoveTo actionWithDuration:WALL_TRANS_TIME position:[self getPointInGrid:tile row:tile.row col:tile.col]];
         if (target && index == len - 1) {
             id actionMoveDone = [CCCallFuncN actionWithTarget:target selector:callback];
             [tile.sprite runAction:[CCSequence actions:actionMove, actionMoveDone, nil]];
             
         } else {
-            [tile.sprite runAction:actionMove];
+            id actionMoveDone = [CCCallFunc actionWithTarget:self selector:@selector(snapAllToGrid)];
+            [tile.sprite runAction:[CCSequence actions:actionMove, actionMoveDone, nil]];
         }
     }
     
@@ -114,9 +102,6 @@ NSMutableArray* _tiles;
     if (size > MAX_ROWS) {
         [_tiles removeObjectAtIndex:MAX_ROWS];
     }
-
-    
-
 }
 
 -(int) removeTile:(Tile*)tile {
@@ -132,7 +117,7 @@ NSMutableArray* _tiles;
 
     NSLog(@"Wall.removeTile tileRow at row:%d = %@", row, tileRow);
     /*
-     * Move all the ones above in the same col down one row
+     * Drop all the tiles in the column in rows above by height of 1 tile
      */
     for (int i = row + 1; i < MAX_ROWS; i++) {
         NSMutableArray* tileRow = [_tiles objectAtIndex:i];
@@ -140,13 +125,20 @@ NSMutableArray* _tiles;
             Tile* tile = [tileRow objectAtIndex:col];
             tile.row--;
             
+            
             NSMutableArray* tileRowBelow = [_tiles objectAtIndex:tile.row];
             [tileRowBelow replaceObjectAtIndex:col withObject:tile];
 
-            int y = tile.sprite.contentSize.height;
-                
-            id actionMove = [CCMoveBy actionWithDuration:0.25 position:ccp(0, -y)];
-            id actionMoveDone = [CCCallFuncN actionWithTarget:self selector:@selector(spriteMoveFinished:)];
+//            int y = tile.sprite.contentSize.height;
+            
+            /*
+             * It would be nice to use moveBy negative 1 height of the tile,
+             * but if the wall is transitioning up at the time, the it can end
+             * up mis-aligned.  Let's use an exact move To
+             */
+//            id actionMove = [CCMoveBy actionWithDuration:TILE_DROP_TIME position:ccp(0, -y)];
+            id actionMove = [CCMoveTo actionWithDuration:TILE_DROP_TIME position:[self getPointInGrid:tile row:tile.row col:tile.col]];
+            id actionMoveDone = [CCCallFunc actionWithTarget:self selector:@selector(snapAllToGrid)];
             [tile.sprite runAction:[CCSequence actions:actionMove, actionMoveDone, nil]];
             
             /*
@@ -156,7 +148,7 @@ NSMutableArray* _tiles;
         }
         
     }
-    
+
     return 1;
 }
 
@@ -255,6 +247,83 @@ NSMutableArray* _tiles;
     return YES;
 }
 
+-(CGPoint) getPointAtopTile:(Tile*) tileToAdd referenceTile:(Tile*)refTile {
+    int col = refTile.col;
+    for (int i = refTile.row + 1; i < MAX_ROWS; i++) {
+        if ([self isEmptyAtRow:i col:col]) {
+            
+            tileToAdd.row = i;
+            tileToAdd.col = col;
+            
+//            float x = refTile.sprite.contentSize.width * (col + 0.5) + [Make10Util getMarginSide];
+//            float y = refTile.sprite.contentSize.height * (i - 0.5) + [Make10Util getMarginTop];
+//            
+//            return ccp(x, y);
+            return [self getPointInGrid:tileToAdd row:tileToAdd.row col:tileToAdd.col];
+        }
+    }
+    return ccp(0, 0);
+
+}
+-(CGPoint) getPointInEmptySpot:(Tile*) tileToAdd location:(CGPoint)location {
+    /*
+     * Find the column and row that the location is closest to
+     */
+    int col = 0;
+    int width = tileToAdd.sprite.contentSize.width;
+    int height = tileToAdd.sprite.contentSize.height;
+    
+    for (int j = 0; j < MAX_COLS; j++) {
+        float minX = width * j + [Make10Util getMarginSide];
+        float maxX = width * (j + 1) + [Make10Util getMarginSide];
+        if (location.x >= minX && location.x <= maxX) {
+            col = j;
+            break;
+        }
+    }
+    
+    /*
+     * If the column is empty (check row 1) and the location
+     * was no higher than row 1
+     */
+    if ([self isEmptyAtRow:1 col:col] && location.y >= 0 && location.y < height) {
+        tileToAdd.row = 1;
+        tileToAdd.col = col;
+        
+//        float x = width * (col + 0.5) + [Make10Util getMarginSide];
+//        float y = height * 0.5 + [Make10Util getMarginTop];
+//        
+//        return ccp(x, y);
+        return [self getPointInGrid:tileToAdd row:1 col:col];
+    }
+    
+    /*
+     * If the column is empty at the row and the column directly below is not empty
+     */
+    for (int i = 2; i < MAX_ROWS; i++) {
+        int minY = height * (i - 1);
+        int maxY = height * i;
+        if (location.y >= minY && location.y <= maxY &&
+            ![self isEmptyAtRow:(i - 1) col:col]) {
+            tileToAdd.row = i;
+            tileToAdd.col = col;
+            
+//            float x = width * (col + 0.5) + [Make10Util getMarginSide];
+//            float y = height * (i - 0.5) + [Make10Util getMarginTop];
+//            
+//            return ccp(x, y);
+            return [self getPointInGrid:tileToAdd row:tileToAdd.row col:tileToAdd.col];
+            
+        }
+    }
+    
+    /*
+     * Column wasn't empty so return 0, 0
+     */
+    return ccp(0, 0);
+
+}
+
 -(CGPoint) addTileAtopTile:(Tile*) tileToAdd referenceTile:(Tile*)refTile {
     int col = refTile.col;
     for (int i = refTile.row + 1; i < MAX_ROWS; i++) {
@@ -301,10 +370,11 @@ NSMutableArray* _tiles;
         NSMutableArray* tileRow = [_tiles objectAtIndex:1];
         [tileRow replaceObjectAtIndex:col withObject:tileToAdd];
         
-        float x = width * (col + 0.5) + [Make10Util getMarginSide];
-        float y = height * 0.5 + [Make10Util getMarginTop];
-        
-        return ccp(x, y);
+//        float x = width * (col + 0.5) + [Make10Util getMarginSide];
+//        float y = height * 0.5 + [Make10Util getMarginTop];
+//        
+//        return ccp(x, y);
+        [self getPointInGrid:tileToAdd row:tileToAdd.row col:tileToAdd.col];
     }
     
     /*
@@ -320,10 +390,11 @@ NSMutableArray* _tiles;
             NSMutableArray* tileRow = [_tiles objectAtIndex:i];
             [tileRow replaceObjectAtIndex:col withObject:tileToAdd];
             
-            float x = width * (col + 0.5) + [Make10Util getMarginSide];
-            float y = height * (i - 0.5) + [Make10Util getMarginTop];
-            
-            return ccp(x, y);
+//            float x = width * (col + 0.5) + [Make10Util getMarginSide];
+//            float y = height * (i - 0.5) + [Make10Util getMarginTop];
+//            
+//            return ccp(x, y);
+            [self getPointInGrid:tileToAdd row:tileToAdd.row col:tileToAdd.col];
 
         }
     }
@@ -365,14 +436,34 @@ NSMutableArray* _tiles;
     return YES;
 }
 
--(void) snapTileToGrid:(Tile*)tile row:(int)row col:(int)col {
+-(CGPoint) getPointInGrid:(Tile*) tile row:(int)row col:(int)col {
     int width = tile.sprite.contentSize.width;
     int height = tile.sprite.contentSize.height;
     
     float x = width * (col + 0.5) + [Make10Util getMarginSide];
     float y = height * (row - 0.5) + [Make10Util getMarginTop];
     
-    tile.sprite.position = ccp(x, y);
+    return ccp(x, y);
+}
+
+-(void) snapAllToGrid {
+    NSLog(@"snapAllToGrid");
+    
+    for (int i = 0; i < MAX_ROWS; i++) {
+        NSMutableArray* tileRow = [_tiles objectAtIndex:i];
+        
+        for (int j = 0; j < MAX_COLS; j++) {
+            if ([tileRow objectAtIndex:j] != [NSNull null]) {
+                Tile* tile = [tileRow objectAtIndex:j];
+                [self snapTileToGrid:tile row:tile.row col:tile.col];
+            }
+        }
+    }
+    
+}
+
+-(void) snapTileToGrid:(Tile*)tile row:(int)row col:(int)col {
+    tile.sprite.position = [self getPointInGrid:tile row:row col:col];
 }
 
 -(void) dealloc {

@@ -47,6 +47,8 @@ CCLabelTTF* _gainLabel;
 LevelLayer* _levelLayer;
 Progress*   _progressBar;
 CCSprite*   _home;
+CCSprite*   _pause;
+BOOL        _paused;
 
 
 // Helper class method that creates a Scene with the Make10AppLayer as the only child.
@@ -109,15 +111,17 @@ CCSprite*   _home;
     self.isTouchEnabled = NO;
     NSLog(@"isTouchEnabled set to NO");
 
-    /*
-     * Delay if the currentTile is in flight,
-     * otherwise it could end up landing in too high
-     */
+//    /*
+//     * Delay if the currentTile is in flight,
+//     * otherwise it could end up landing in too high
+//     */
 //    if ([_currentTile.sprite numberOfRunningActions] > 0) {
 //        NSLog(@"_currentTile.sprite was running so will call scheduleOnce to delay addWallRow");
 //        [self scheduleOnce:@selector(delayAddWallRow) delay:CURRENT_TO_WALL_TRANS_TIME];
 //        
 //    } else {
+    
+
         NSLog(@"addWallRow - going ahead with creating then transitioning");
         /*
          * Create full row of tiles
@@ -132,10 +136,22 @@ CCSprite*   _home;
          * If the wall has reached the max, show the game over scene after a slight delay
          */
         if ([_wall isMax]) {
-            [self scheduleOnce:@selector(endGame) delay:1];
+            [self endGame];
         }
     
 //    }
+    /*
+     * If the current tile has a row and is in flight, increment its
+     * row because it is not yet a part of the wall and the wall will be transitioning up
+     */
+    NSLog(@"addWallRow currentTile.sprite numberOfRunningActions = %d, currentTile.row = %d, currentTile.col = %d", [_currentTile.sprite numberOfRunningActions], _currentTile.row, _currentTile.col);
+
+    if ([_currentTile.sprite numberOfRunningActions] > 0 && _currentTile.row > 0) {
+        _currentTile.row++;
+        
+        NSLog(@"addWallRow in if block currentTile.sprite numberOfRunningActions > 0, currentTile.row incremented to %d", _currentTile.row);
+
+    }
 }
 
 
@@ -165,9 +181,15 @@ CCSprite*   _home;
  */
 -(void) createCurrentTile {
     NSLog(@"createCurrentTile");
-    [_nextTile transitionToCurrent];
+    [_nextTile transitionToCurrentWithTarget:self callback:@selector(nextMovedToCurrentPosition)];
     _currentTile = _nextTile;
     _nextTile = nil;
+}
+
+/**
+ * Callback of createCurrentTile
+ */
+-(void) nextMovedToCurrentPosition {
     [self createNextTile];
 }
 
@@ -260,6 +282,11 @@ CCSprite*   _home;
         _home = [Make10Util createHomeSprite];
         [self addChild:_home];
         
+        _pause = [CCSprite spriteWithFile:@"pause.png"];
+        _pause.position = ccp([Make10Util getMarginSide] + [Make10Util getUpperLabelPadding] + _pause.contentSize.width / 2, winSize.height - [Make10Util getMarginTop] - [Make10Util getUpperLabelPadding] - _pause.contentSize.height / 2);
+        [self addChild:_pause];
+        _paused = NO;
+        
         [self createGain];
         [self prepNewLevel];
         
@@ -326,6 +353,23 @@ CCSprite*   _home;
     if ([Make10Util isSpriteTouched:_home touches:touches]) {
         [self backToHome];
         return;
+    }
+    
+    /*
+     * Check if it was the pause
+     */
+    if (!_paused && [Make10Util isSpriteTouched:_pause touches:touches]) {
+        _paused = YES;
+        [[CCDirector sharedDirector] pause];
+        return;
+    }
+    
+    /*
+     * If it was paused, then any touch will resume
+     */
+    if (_paused) {
+        _paused = NO;
+        [[CCDirector sharedDirector] resume];
     }
     
     UITouch* touch = [touches anyObject];
@@ -512,23 +556,29 @@ CCSprite*   _home;
      * otherwise do nothing (ignore the touch)
      */
     if (wallTile) {
-        CGPoint newPosition = [_wall addTileAtopTile:_currentTile referenceTile:wallTile];
+        CGPoint newPosition = [_wall getPointAtopTile: _currentTile referenceTile:wallTile];
         
         if (newPosition.x != 0 && newPosition.y != 0) {
+            
             [_currentTile transitionToPoint:newPosition target:self callback:@selector(currentBecomesWallTileDone:)];
+            NSLog(@"valueNotMade wallTile !nil, currentTile.row = %d, currentTile.col = %d", _currentTile.row, _currentTile.col);
+            
         } else {
             /*
-             * No empty spot found (wall at max), so end game after slight delay
+             * No empty spot found (wall at max), so end game
              */
-            [self scheduleOnce:@selector(endGame) delay:1];
+            [self endGame];
         }
         
     } else {
-        CGPoint newPosition = [_wall addTileToEmptyColumn:_currentTile location:point];
+        CGPoint newPosition = [_wall getPointInEmptySpot:_currentTile location:point];
         if (newPosition.x != 0 && newPosition.y != 0) {
+            
             [_currentTile transitionToPoint:newPosition target:self callback:@selector(currentBecomesWallTileDone:)];
-                        
-        } 
+            
+            NSLog(@"valueNotMade wallTile nil, currentTile.row = %d, currentTile.col = %d", _currentTile.row, _currentTile.col);
+
+        }
         /*
          * else clicked too high, just ignore and do nothing
          */
@@ -550,6 +600,7 @@ CCSprite*   _home;
     int row = _currentTile.row;
     int col = _currentTile.col;
     [_wall snapTileToGrid:_currentTile row:row col:col];
+    [_wall addTile:_currentTile row:row col:col];
     /*
      * Create the next current tile
      */
@@ -559,7 +610,7 @@ CCSprite*   _home;
 }
 
 /**
- * Show the game over scene
+ * End the game
  */
 -(void) endGame {
     NSLog(@"endGame");
@@ -569,9 +620,19 @@ CCSprite*   _home;
     [self stopAllActions];
     [_progressBar.timeBar stopAllActions];
     
+    [self scheduleOnce:@selector(showGameOver) delay:GAME_OVER_DELAY];
+    
+}
+
+/**
+ * Switch to the game over scene
+ */
+-(void) showGameOver {
+
     GameOverScene* gameOverScene = [GameOverScene node];
     [gameOverScene.layer setScore:_score.score];
     [[CCDirector sharedDirector] replaceScene:gameOverScene];
+
 }
 
 // on "dealloc" you need to release all your retained objects

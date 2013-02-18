@@ -31,6 +31,10 @@ static int const MAX_COLS = 8;
  * The duration for the wall to rise
  */
 static float const WALL_TRANS_TIME = 0.5f;
+/**
+ * The duration for tiles to drop when inner tile removed
+ */
+static float const TILE_DROP_TIME = 0.25f;
 
 @interface Wall : NSObject
 
@@ -85,19 +89,34 @@ static float const WALL_TRANS_TIME = 0.5f;
  */
 -(BOOL) isEmptyAtRow:(int)row col:(int)col;
 /**
- * Add a tile to the top of the column where the reference tile is
- * @param tileToAdd Tile* the current tile to add
+ * Get the point where the tile should be added to the top of the column where the reference tile is
+ * @param tileToAdd Tile* the current tile to set the row and column
  * @param refTile Tile* the tile used to determine the column
  * @return CGPoint where to position the tile or 0,0 if no empty spots found
  */
--(CGPoint) addTileAtopTile:(Tile*) tileToAdd referenceTile:(Tile*)refTile;
+-(CGPoint) getPointAtopTile:(Tile*) tileToAdd referenceTile:(Tile*)refTile;
 /**
  * Add a tile to the top of the column where touch point is
- * @param tileToAdd Tile* the current tile to add
+ * @param tileToAdd Tile* the current tile to set the row and column
  * @param location CGPoint the point used to determine the column
  * @return CGPoint where to position the tile or 0,0 if no empty spots found
  */
--(CGPoint) addTileToEmptyColumn:(Tile*) tileToAdd location:(CGPoint)location;
+-(CGPoint) getPointInEmptySpot:(Tile*) tileToAdd location:(CGPoint)location;
+
+///**
+// * Add a tile to the top of the column where the reference tile is
+// * @param tileToAdd Tile* the current tile to add
+// * @param refTile Tile* the tile used to determine the column
+// * @return CGPoint where to position the tile or 0,0 if no empty spots found
+// */
+//-(CGPoint) addTileAtopTile:(Tile*) tileToAdd referenceTile:(Tile*)refTile;
+///**
+// * Add a tile to the top of the column where touch point is
+// * @param tileToAdd Tile* the current tile to add
+// * @param location CGPoint the point used to determine the column
+// * @return CGPoint where to position the tile or 0,0 if no empty spots found
+// */
+//-(CGPoint) addTileToEmptyColumn:(Tile*) tileToAdd location:(CGPoint)location;
 /**
  * Remove all the tiles from the wall
  */
@@ -106,6 +125,17 @@ static float const WALL_TRANS_TIME = 0.5f;
  * Return YES if the wall is clear
  */
 -(BOOL) isWallClear;
+/**
+ * Get a point in the grid based on the row and col
+ * @param tile - Tile needed for sprite size
+ * @param row the row in the grid
+ * @param col the column in the grid
+ */
+-(CGPoint) getPointInGrid:(Tile*) tile row:(int)row col:(int)col;
+/**
+ * Snap all the tiles to the grid
+ */
+-(void) snapAllToGrid;
 /**
  * Snap the tile to the grid at the row and col
  * @param tile to snap
