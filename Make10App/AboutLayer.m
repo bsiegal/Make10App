@@ -141,7 +141,8 @@ CCSprite*          _home;
 }
 
 -(void) dealloc {
-    
+    NSLog(@"About dealloc");
+
     [_webView release];
     _webView = nil;
     

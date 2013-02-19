@@ -33,4 +33,9 @@
  * @param makeValue to show
  */
 -(void) setMakeValue:(int)makeValue;
+
+/**
+ * Set the mode as pause
+ */
+-(void) setPause:(BOOL)pause;
 @end

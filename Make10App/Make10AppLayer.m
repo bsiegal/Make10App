@@ -47,8 +47,8 @@ CCLabelTTF* _gainLabel;
 LevelLayer* _levelLayer;
 Progress*   _progressBar;
 CCSprite*   _home;
-CCSprite*   _pause;
-BOOL        _paused;
+//CCSprite*   _pause;
+//BOOL        _paused;
 
 
 // Helper class method that creates a Scene with the Make10AppLayer as the only child.
@@ -282,10 +282,10 @@ BOOL        _paused;
         _home = [Make10Util createHomeSprite];
         [self addChild:_home];
         
-        _pause = [CCSprite spriteWithFile:@"pause.png"];
-        _pause.position = ccp([Make10Util getMarginSide] + [Make10Util getUpperLabelPadding] + _pause.contentSize.width / 2, winSize.height - [Make10Util getMarginTop] - [Make10Util getUpperLabelPadding] - _pause.contentSize.height / 2);
-        [self addChild:_pause];
-        _paused = NO;
+//        _pause = [CCSprite spriteWithFile:@"pause.png"];
+//        _pause.position = ccp([Make10Util getMarginSide] + [Make10Util getUpperLabelPadding] + _pause.contentSize.width / 2, winSize.height - [Make10Util getMarginTop] - [Make10Util getUpperLabelPadding] - _pause.contentSize.height / 2);
+//        [self addChild:_pause];
+//        _paused = NO;
         
         [self createGain];
         [self prepNewLevel];
@@ -351,26 +351,28 @@ BOOL        _paused;
      * Check if it was the home
      */
     if ([Make10Util isSpriteTouched:_home touches:touches]) {
-        [self backToHome];
-        return;
-    }
-    
-    /*
-     * Check if it was the pause
-     */
-    if (!_paused && [Make10Util isSpriteTouched:_pause touches:touches]) {
-        _paused = YES;
+//        [self backToHome];
         [[CCDirector sharedDirector] pause];
+        [self showLevelLayer:YES];
         return;
     }
     
-    /*
-     * If it was paused, then any touch will resume
-     */
-    if (_paused) {
-        _paused = NO;
-        [[CCDirector sharedDirector] resume];
-    }
+//    /*
+//     * Check if it was the pause
+//     */
+//    if (!_paused && [Make10Util isSpriteTouched:_pause touches:touches]) {
+//        _paused = YES;
+//        [[CCDirector sharedDirector] pause];
+//        return;
+//    }
+//    
+//    /*
+//     * If it was paused, then any touch will resume
+//     */
+//    if (_paused) {
+//        _paused = NO;
+//        [[CCDirector sharedDirector] resume];
+//    }
     
     UITouch* touch = [touches anyObject];
     CGPoint location = [touch locationInView:[touch view]];
@@ -503,14 +505,24 @@ BOOL        _paused;
             _makeValue = [Make10Util genRandomMakeValue:_makeValue];
         }
         
-        _levelLayer = [LevelLayer node];
-        [_levelLayer setLevel:_score.level];
-        [_levelLayer setMakeValue:_makeValue];
-        [self addChild:_levelLayer];
-        
+        [self showLevelLayer:NO];
         [self startLevelLayerProgress];
         
     }
+}
+/**
+ * Show the level layer
+ * @param pause YES if it is pause mode
+ */
+-(void) showLevelLayer:(BOOL)pause {
+    if (!_levelLayer) {
+        _levelLayer = [LevelLayer node];
+    }
+    [_levelLayer setLevel:_score.level];
+    [_levelLayer setMakeValue:_makeValue];
+    [_levelLayer setPause:pause];
+    [self addChild:_levelLayer];
+
 }
 
 /**
@@ -637,6 +649,7 @@ BOOL        _paused;
 
 // on "dealloc" you need to release all your retained objects
 -(void) dealloc {
+    NSLog(@"Make10AppLayer dealloc");
     [self stopAllActions];
     
     [_home removeFromParentAndCleanup:YES];

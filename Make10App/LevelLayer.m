@@ -19,29 +19,53 @@
 
 #import "LevelLayer.h"
 #import "Make10Util.h"
+#import "IntroLayer.h"
 
 @implementation LevelLayer
 
+CCLabelTTF* _getReady;
 CCLabelTTF* _levelLabel;
 CCLabelTTF* _makeValueLabel;
+CCMenu*     _menu;
 
 -(id) init {
 	// always call "super" init
 	// Apple recommends to re-assign "self" with the "super's" return value
 	if (self = [super initWithColor: ccc4(93, 217, 4, 180)]) {
 
-        CCLabelTTF* getReady = [CCLabelTTF labelWithString:@"Get ready!" fontName:@"Arial" fontSize:[Make10Util getTitleFontSize]];
-        getReady.color = ccc3(0, 0, 0);
-        getReady.position = ccp(self.contentSize.width / 2, self.contentSize.height * 0.7);
-        [self addChild:getReady];
+        CGSize winSize = [[CCDirector sharedDirector] winSize];
+        
+        /*
+         * Play button
+         */
+        CCMenuItemFont* play = [CCMenuItemFont itemWithString:@"Resume" target:self selector:@selector(playAction)];
+        [Make10Util stylePlayButton:play];
+        /*
+         * Home button
+         */
+        CCMenuItemFont* home = [CCMenuItemFont itemWithString:@"New game" target:self selector:@selector(homeAction)];
+        [Make10Util styleMenuButton:home];
+                
+        /*
+         * Create the menu
+         */
+        _menu = [CCMenu menuWithItems:play, home, nil];
+        _menu.position = ccp(winSize.width / 2, winSize.height / 2);
+        [self addChild:_menu];
+        [_menu alignItemsVerticallyWithPadding:[Make10Util getMenuPadding]];
+        
+        _getReady = [CCLabelTTF labelWithString:@"Get ready!" fontName:@"American Typewriter" fontSize:[Make10Util getTitleFontSize]];
+//        _getReady.color = ccc3(0, 0, 0);
+        _getReady.position = ccp(self.contentSize.width / 2, self.contentSize.height * 0.7);
+        [self addChild:_getReady];
 
-        _levelLabel = [CCLabelTTF labelWithString:@"" fontName:@"Arial" fontSize:[Make10Util getTitleFontSize]];
-        _levelLabel.color = ccc3(0, 0, 0);
+        _levelLabel = [CCLabelTTF labelWithString:@"" fontName:@"American Typewriter" fontSize:[Make10Util getTitleFontSize]];
+//        _levelLabel.color = ccc3(0, 0, 0);
         _levelLabel.position = ccp(self.contentSize.width / 2, self.contentSize.height * 0.3);
         [self addChild:_levelLabel];
 
-        _makeValueLabel = [CCLabelTTF labelWithString:@"" fontName:@"Arial" fontSize:[Make10Util getTitleFontSize]];
-        _makeValueLabel.color = ccc3(0, 0, 0);
+        _makeValueLabel = [CCLabelTTF labelWithString:@"" fontName:@"American Typewriter" fontSize:[Make10Util getTitleFontSize]];
+//        _makeValueLabel.color = ccc3(0, 0, 0);
         _makeValueLabel.position = ccp(self.contentSize.width / 2, self.contentSize.height * 0.5);
         [self addChild:_makeValueLabel];
 
@@ -57,6 +81,40 @@ CCLabelTTF* _makeValueLabel;
     [_makeValueLabel setString:[NSString stringWithFormat:@"Make %d", makeValue]];
 }
 
+-(void) setPause:(BOOL)pause {
+    _menu.visible = pause;
+    _getReady.visible = !pause;
+}
+
+-(void) playAction {
+    NSLog(@"LevelLayer playAction");
+    [[CCDirector sharedDirector] resume];
+    [self startLevelFadeOut];
+}
+
+/**
+ * Fade out the level layer
+ */
+-(void) startLevelFadeOut {
+    id actionFadeOut = [CCFadeOut actionWithDuration:LAYER_TRANS_TIME];
+    id actionFadeOutDone = [CCCallFuncN actionWithTarget:self selector:@selector(levelFadeOutDone)];
+    [self runAction:[CCSequence actions:actionFadeOut, actionFadeOutDone, nil]];
+    
+}
+/**
+ * Callback when the level layer fades out
+ */
+-(void) levelFadeOutDone {
+    [self removeFromParentAndCleanup:YES];
+    [[CCDirector sharedDirector] resume];
+}
+
+
+-(void) homeAction {
+    [[CCDirector sharedDirector] resume];
+	[[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInR transitionWithDuration:LAYER_TRANS_TIME scene:[IntroLayer scene]]];
+}
+
 -(void) onExit {
     [_levelLabel setString:@""];
     [_makeValueLabel setString:@""];
@@ -69,6 +127,12 @@ CCLabelTTF* _makeValueLabel;
     [_makeValueLabel removeFromParentAndCleanup:YES];
     _makeValueLabel = nil;
     
+    [_getReady removeFromParentAndCleanup:YES];
+    _getReady = nil;
+    
+    [_menu removeFromParentAndCleanup:YES];
+    _menu = nil;
+
 	[super dealloc];
 }
 

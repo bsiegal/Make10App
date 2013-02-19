@@ -287,7 +287,8 @@ CCSprite*          _home;
 }
 
 -(void) dealloc {
-    
+    NSLog(@"Settings dealloc");
+
     [_makeValuePicker release];
     _makeValuePicker = nil;
     

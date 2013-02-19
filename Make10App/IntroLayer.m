@@ -136,4 +136,8 @@
 	[[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInR transitionWithDuration:LAYER_TRANS_TIME scene:[AboutLayer scene]]];
 }
 
+-(void) dealloc {
+    NSLog(@"IntroLayer dealloc");
+    [super dealloc];
+}
 @end

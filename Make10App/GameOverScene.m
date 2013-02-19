@@ -111,6 +111,7 @@ CCLabelTTF* _hiScore;
 
 
 -(void) dealloc {
+    NSLog(@"GameOverScene dealloc");
 
     [_yourScore removeFromParentAndCleanup:YES];
     _yourScore = nil;

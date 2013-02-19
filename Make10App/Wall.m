@@ -81,7 +81,7 @@ NSMutableArray* _tiles;
             [tile.sprite runAction:[CCSequence actions:actionMove, actionMoveDone, nil]];
             
         } else {
-            id actionMoveDone = [CCCallFunc actionWithTarget:self selector:@selector(snapAllToGrid)];
+            id actionMoveDone = [CCCallFuncN actionWithTarget:self selector:@selector(snapAllToGrid)];
             [tile.sprite runAction:[CCSequence actions:actionMove, actionMoveDone, nil]];
         }
     }
@@ -138,7 +138,7 @@ NSMutableArray* _tiles;
              */
 //            id actionMove = [CCMoveBy actionWithDuration:TILE_DROP_TIME position:ccp(0, -y)];
             id actionMove = [CCMoveTo actionWithDuration:TILE_DROP_TIME position:[self getPointInGrid:tile row:tile.row col:tile.col]];
-            id actionMoveDone = [CCCallFunc actionWithTarget:self selector:@selector(snapAllToGrid)];
+            id actionMoveDone = [CCCallFuncN actionWithTarget:self selector:@selector(snapAllToGrid)];
             [tile.sprite runAction:[CCSequence actions:actionMove, actionMoveDone, nil]];
             
             /*
