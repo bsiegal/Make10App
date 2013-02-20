@@ -23,11 +23,10 @@
 
 UIPickerView*      _makeValuePicker;
 NSMutableArray*    _makeValueArray;
-CCMenuItemFont*    _makeValueToggle;
+CCMenuItemImage*   _makeValueToggle;
 CCMenuItemToggle*  _levelToggle;
-CCMenuItemToggle*  _operationToggle;
+//CCMenuItemToggle*  _operationToggle;
 CCMenuItemToggle*  _challengeToggle;
-CCMenuItemFont*    _sumOrProduct;
 CCMenuItemToggle*  _styleToggle;
 CCSprite*          _home;
 
@@ -105,18 +104,22 @@ CCSprite*          _home;
          * Make value as a button that will show the picker view
          */
         NSString* makeString = [NSString stringWithFormat:@"Make %d", [makeValue intValue]];
-        _makeValueToggle = [CCMenuItemFont itemWithString:makeString target:self selector:@selector(makeValueAction)];
-        [Make10Util styleToggle:_makeValueToggle];
+        _makeValueToggle = [Make10Util createButtonWithText:makeString target:self selector:@selector(makeValueAction)];
+//        _makeValueToggle = [CCMenuItemFont itemWithString:makeString target:self selector:@selector(makeValueAction)];
+//        [Make10Util styleToggle:_makeValueToggle];
         
         /*
          * Starting level as a toggle
          */
-        CCMenuItemFont* level1 = [CCMenuItemFont itemWithString:@"Level 1"];
-        CCMenuItemFont* level2 = [CCMenuItemFont itemWithString:@"Level 2"];
-        CCMenuItemFont* level3 = [CCMenuItemFont itemWithString:@"Level 3"];
-        [Make10Util styleToggle:level1];
-        [Make10Util styleToggle:level2];
-        [Make10Util styleToggle:level3];
+//        CCMenuItemFont* level1 = [CCMenuItemFont itemWithString:@"Level 1"];
+//        CCMenuItemFont* level2 = [CCMenuItemFont itemWithString:@"Level 2"];
+//        CCMenuItemFont* level3 = [CCMenuItemFont itemWithString:@"Level 3"];
+//        [Make10Util styleToggle:level1];
+//        [Make10Util styleToggle:level2];
+//        [Make10Util styleToggle:level3];
+        CCMenuItemImage* level1 = [Make10Util createToggleWithText:@"Level 1"];
+        CCMenuItemImage* level2 = [Make10Util createToggleWithText:@"Level 2"];
+        CCMenuItemImage* level3 = [Make10Util createToggleWithText:@"Level 3"];
         
         _levelToggle = [CCMenuItemToggle itemWithTarget:self selector:@selector(toggled:) items:level1, level2, level3, nil];
         NSNumber* level = [defaults objectForKey:PREF_START_LEVEL];
@@ -125,25 +128,23 @@ CCSprite*          _home;
         /*
          * Operation as a toggle
          */
-        CCMenuItemFont* buttonAdd = [CCMenuItemFont itemWithString:@"Addition"];
-        CCMenuItemFont* buttonMult = [CCMenuItemFont itemWithString:@"Multiplication"];
-        [Make10Util styleToggle:buttonAdd];
-        [Make10Util styleToggle:buttonMult];
-
-        _operationToggle = [CCMenuItemToggle itemWithTarget:self selector:@selector(toggled:) items:buttonAdd, buttonMult, nil];
-
-        NSNumber* operation = [defaults objectForKey:PREF_OPERATION];
-        [_operationToggle setSelectedIndex:[operation intValue]];
+//        CCMenuItemImage* buttonAdd = [Make10Util createToggleWithText:@"Addition"];
+//        CCMenuItemImage* buttonMult = [Make10Util createToggleWithText:@"Multiplication"];
+//
+//        _operationToggle = [CCMenuItemToggle itemWithTarget:self selector:@selector(toggled:) items:buttonAdd, buttonMult, nil];
+//
+//        NSNumber* operation = [defaults objectForKey:PREF_OPERATION];
+//        [_operationToggle setSelectedIndex:[operation intValue]];
         
         /*
          * Challenge type as a toggle 
          */
-        CCMenuItemFont* buttonSpeed = [CCMenuItemFont itemWithString:@"Speed challenge"];
-        _sumOrProduct= [CCMenuItemFont itemWithString:@"Changing sums"];
-        [Make10Util styleToggle:buttonSpeed];
-        [Make10Util styleToggle:_sumOrProduct];
+        CCMenuItemImage* buttonSpeed = [Make10Util createToggleWithText:@"Speed challenge"];
+        CCMenuItemImage* buttonTotal = [Make10Util createToggleWithText:@"Changing total"];
+//        [Make10Util styleToggle:buttonSpeed];
+//        [Make10Util styleToggle:_sumOrProduct];
 
-        _challengeToggle = [CCMenuItemToggle itemWithTarget:self selector:@selector(toggled:) items:buttonSpeed, _sumOrProduct, nil];
+        _challengeToggle = [CCMenuItemToggle itemWithTarget:self selector:@selector(toggled:) items:buttonSpeed, buttonTotal, nil];
         
         NSNumber* challenge = [defaults objectForKey:PREF_CHALLENGE_TYPE];
         [_challengeToggle setSelectedIndex:[challenge intValue]];
@@ -151,10 +152,10 @@ CCSprite*          _home;
         /*
          * Tile style as a toggle
          */
-        CCMenuItemFont* buttonNumber = [CCMenuItemFont itemWithString:@"Numbers"];
-        CCMenuItemFont* buttonDots = [CCMenuItemFont itemWithString:@"Mahjong dots"];
-        [Make10Util styleToggle:buttonNumber];
-        [Make10Util styleToggle:buttonDots];
+        CCMenuItemImage* buttonNumber = [Make10Util createToggleWithText:@"Numbers"];
+        CCMenuItemImage* buttonDots = [Make10Util createToggleWithText:@"Mahjong dots"];
+//        [Make10Util styleToggle:buttonNumber];
+//        [Make10Util styleToggle:buttonDots];
         
         _styleToggle = [CCMenuItemToggle itemWithTarget:self selector:@selector(toggled:) items:buttonNumber, buttonDots, nil];
         
@@ -184,14 +185,15 @@ CCSprite*          _home;
     return self;
 }
 
--(void) operationChanged {
-    int op = [_operationToggle selectedIndex];
-    if (op == 0) {
-        [_sumOrProduct setString:@"Changing sums"];
-    } else {
-        [_sumOrProduct setString:@"Changing products"];
-    }
-}
+//-(void) operationChanged {
+//    int op = [_operationToggle selectedIndex];
+//    CCLabelTTF* label = (CCLabelTTF*) [_sumOrProduct getChildByTag:1];
+//    if (op == 0) {        
+//        [label setString:@"Changing sum"];
+//    } else {
+//        [label setString:@"Changing product"];
+//    }
+//}
 
 -(void) toggled: (id) sender
 {
@@ -207,9 +209,8 @@ CCSprite*          _home;
         [defaults setInteger:[_challengeToggle selectedIndex] forKey:PREF_CHALLENGE_TYPE];
     } else if (toggle == _levelToggle) {
         [defaults setInteger:[_levelToggle selectedIndex] + 1 forKey:PREF_START_LEVEL];
-    } else if (toggle == _operationToggle) {
-        [self operationChanged];
-        [defaults setInteger:[_operationToggle selectedIndex] forKey:PREF_OPERATION];
+//    } else if (toggle == _operationToggle) {
+//        [defaults setInteger:[_operationToggle selectedIndex] forKey:PREF_OPERATION];
     } else if (toggle == _styleToggle) {
         [defaults setInteger:[_styleToggle selectedIndex] forKey:PREF_TILE_STYLE];
     }
@@ -271,7 +272,8 @@ CCSprite*          _home;
     NSLog(@"setting PREF_MAKE_VALUE = %d", makeValue);
     
     NSString* makeString = [NSString stringWithFormat:@"Make %d", makeValue];
-    [_makeValueToggle setString:makeString];
+    CCLabelTTF* label = (CCLabelTTF*) [_makeValueToggle getChildByTag:1];
+    [label setString:makeString];
     
 }
 

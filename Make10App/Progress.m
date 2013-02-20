@@ -22,11 +22,6 @@
 
 @implementation Progress
 
-+(Progress*) create {
-    return [[self alloc] init];
-}
-
-
 -(id) init {
     if (self = [super init]) {
         CCSprite* sprite = [CCSprite spriteWithFile:@"progress.png"];

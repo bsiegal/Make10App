@@ -77,8 +77,17 @@ CCLabelTTF* _hiScore;
 }
 
 -(void) setScore:(int)score {
-    NSLog(@"GameOverLayer.setScore _home = %@", _home);
-    [_yourScore setString:[NSString stringWithFormat:@"Your score: %d", score]];
+    
+    NSNumberFormatter* formatter = [[NSNumberFormatter alloc] init];
+    [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
+    [formatter setGroupingSeparator:[[NSLocale currentLocale] objectForKey:NSLocaleGroupingSeparator]];
+    [formatter setGroupingSize:3];
+    [formatter setAlwaysShowsDecimalSeparator:NO];
+    [formatter setUsesGroupingSeparator:YES];
+    
+    [_yourScore setString:[NSString stringWithFormat:@"Your score: %@", [formatter stringFromNumber:[NSNumber numberWithInt:score]]]];
+    
+
     NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
     
     NSNumber* highScore = [defaults objectForKey:PREF_HIGH_SCORE];
@@ -94,9 +103,10 @@ CCLabelTTF* _hiScore;
         
     } else {
         
-        [_hiScore setString:[NSString stringWithFormat:@"High score: %d", [highScore intValue]]];
+        [_hiScore setString:[NSString stringWithFormat:@"High score: %@", [formatter stringFromNumber:[NSNumber numberWithInt:[highScore intValue]]]]];
     }
     
+    [formatter release];
 
 }
 

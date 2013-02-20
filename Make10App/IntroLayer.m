@@ -102,18 +102,21 @@
     /*
      * Play button
      */
-    CCMenuItemFont* play = [CCMenuItemFont itemWithString:@"Play" target:self selector:@selector(playAction)];
-    [Make10Util stylePlayButton:play];
+    CCMenuItemImage* play = [Make10Util createPlayButtonWithText:@"Play" target:self selector:@selector(playAction)];
+//    CCMenuItemFont* play = [CCMenuItemFont itemWithString:@"Play" target:self selector:@selector(playAction)];
+//    [Make10Util stylePlayButton:play];
     /*
      * Settings button
      */
-    CCMenuItemFont* settings = [CCMenuItemFont itemWithString:@"Settings" target:self selector:@selector(settingsAction)];
-    [Make10Util styleMenuButton:settings];
+//    CCMenuItemFont* settings = [CCMenuItemFont itemWithString:@"Settings" target:self selector:@selector(settingsAction)];
+//    [Make10Util styleMenuButton:settings];
+    CCMenuItemImage* settings = [Make10Util createButtonWithText:@"Settings" target:self selector:@selector(settingsAction)];
     /*
      * About button
      */
-    CCMenuItemFont* about = [CCMenuItemFont itemWithString:@"About" target:self selector:@selector(aboutAction)];
-    [Make10Util styleMenuButton:about];
+//    CCMenuItemFont* about = [CCMenuItemFont itemWithString:@"About" target:self selector:@selector(aboutAction)];
+//    [Make10Util styleMenuButton:about];
+    CCMenuItemImage* about = [Make10Util createButtonWithText:@"About" target:self selector:@selector(aboutAction)];
     
     /*
      * Create the menu
@@ -137,6 +140,7 @@
 }
 
 -(void) dealloc {
+    [self removeAllChildrenWithCleanup:YES];
     NSLog(@"IntroLayer dealloc");
     [super dealloc];
 }

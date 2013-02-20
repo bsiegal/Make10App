@@ -21,10 +21,6 @@
 
 @implementation Score
 
-+(Score*) create {
-    return [[self alloc] init];
-}
-
 -(id) init {
     if (self = [super init]) {
         self.score = 0;

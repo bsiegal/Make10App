@@ -215,7 +215,7 @@ CCSprite*   _home;
     /*
      * Create the progress bar
      */
-    _progressBar = [Progress create];
+    _progressBar = [[Progress alloc] init];
     
     y = y - score.contentSize.height / 2 - [Make10Util getUpperLabelPadding] - _progressBar.spriteBg.contentSize.height / 2;
     _progressBar.spriteBg.position = ccp(winSize.width / 2, y);
@@ -274,7 +274,7 @@ CCSprite*   _home;
         NSNumber* makeValue = [defaults objectForKey:PREF_MAKE_VALUE];
         _makeValue = [makeValue intValue];
         
-        _score = [Score create];
+        _score = [[Score alloc] init];
         _wall = [[Wall alloc] init];
         
         [self createScoreLabelAndProgress];
@@ -515,13 +515,12 @@ CCSprite*   _home;
  * @param pause YES if it is pause mode
  */
 -(void) showLevelLayer:(BOOL)pause {
-    if (!_levelLayer) {
-        _levelLayer = [LevelLayer node];
-    }
-    [_levelLayer setLevel:_score.level];
-    [_levelLayer setMakeValue:_makeValue];
-    [_levelLayer setPause:pause];
-    [self addChild:_levelLayer];
+    LevelLayer* pauseLayer = [LevelLayer node];
+    [pauseLayer setLevel:_score.level];
+    [pauseLayer setMakeValue:_makeValue];
+    [pauseLayer setPause:pause];
+    [self addChild:pauseLayer];
+    _levelLayer = pauseLayer;
 
 }
 

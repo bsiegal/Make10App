@@ -109,6 +109,37 @@ static int   _menuPadding = 20;
     return home;
 }
 
++(CCMenuItemImage*) createPlayButtonWithText:(NSString *)text target:(id)target selector:(SEL)selector {
+    CCMenuItemImage* play = [CCMenuItemImage itemWithNormalImage:@"button.png" selectedImage:@"buttonPressed.png"target:target selector:selector];
+    CCLabelTTF* label = [CCLabelTTF labelWithString:text fontName:@"American Typewriter" fontSize:[Make10Util getTitleFontSize]];
+    label.position = ccp(play.contentSize.width / 2, play.contentSize.height / 2);
+    label.color = ccc3(0, 0, 0);
+    label.tag = 1;
+    [play addChild:label];
+    return play;
+}
+
++(CCMenuItemImage*) createButtonWithText:(NSString *)text target:(id)target selector:(SEL)selector {
+    CCMenuItemImage* button = [CCMenuItemImage itemWithNormalImage:@"button-short.png" selectedImage:@"buttonPressed-short.png"target:target selector:selector];
+    CCLabelTTF* label = [CCLabelTTF labelWithString:text fontName:@"American Typewriter" fontSize:_menuItemFontSize];
+    label.position = ccp(button.contentSize.width / 2, button.contentSize.height / 2);
+    label.color = ccc3(0, 0, 0);
+    label.tag = 1;
+    [button addChild:label];
+    return button;
+}
+
++(CCMenuItemImage*) createToggleWithText:(NSString *)text {
+    CCMenuItemImage* button = [CCMenuItemImage itemWithNormalImage:@"button-short.png" selectedImage:@"buttonPressed-short.png"];
+    CCLabelTTF* label = [CCLabelTTF labelWithString:text fontName:@"American Typewriter" fontSize:_menuItemFontSize];
+    label.position = ccp(button.contentSize.width / 2, button.contentSize.height / 2);
+    label.color = ccc3(0, 0, 0);
+    label.tag = 1; //use this to change label
+    [button addChild:label];
+    return button;
+}
+
+
 +(BOOL) isSpriteTouched:(CCSprite*)sprite touches:(NSSet*)touches {
     UITouch* touch = [touches anyObject];
     CGPoint location = [[CCDirector sharedDirector] convertToGL:[touch locationInView:[touch view]]];
@@ -179,6 +210,7 @@ static int   _menuPadding = 20;
          */
         [makeValuesArray addObject:[NSNumber numberWithInt:100]];
         makeValues = [NSArray arrayWithArray:makeValuesArray];
+        
     }
     NSLog(@"Make10Util getMakeValuesArray bottom makeValues=%@", makeValues);
     return makeValues;

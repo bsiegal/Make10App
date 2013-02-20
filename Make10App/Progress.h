@@ -22,10 +22,6 @@
 
 @interface Progress : NSObject
 
-/**
- * Allocate and initialize
- */
-+(Progress*) create;
 
 @property (readonly) CCProgressTimer* timeBar;
 

@@ -447,7 +447,6 @@ NSMutableArray* _tiles;
 }
 
 -(void) snapAllToGrid {
-    NSLog(@"snapAllToGrid");
     
     for (int i = 0; i < MAX_ROWS; i++) {
         NSMutableArray* tileRow = [_tiles objectAtIndex:i];

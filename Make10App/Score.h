@@ -24,10 +24,6 @@
 @interface Score : NSObject
 
 /**
- * Allocate and initialize
- */
-+(Score*) create;
-/**
  * The running score
  */
 @property int score;

@@ -38,35 +38,38 @@ CCMenu*     _menu;
         /*
          * Play button
          */
-        CCMenuItemFont* play = [CCMenuItemFont itemWithString:@"Resume" target:self selector:@selector(playAction)];
-        [Make10Util stylePlayButton:play];
+        CCMenuItemImage* play = [Make10Util createPlayButtonWithText:@"Resume" target:self selector:@selector(playAction)];
+//        CCMenuItemFont* play = [CCMenuItemFont itemWithString:@"Resume" target:self selector:@selector(playAction)];
+//        [Make10Util stylePlayButton:play];
+        
         /*
          * Home button
          */
-        CCMenuItemFont* home = [CCMenuItemFont itemWithString:@"New game" target:self selector:@selector(homeAction)];
-        [Make10Util styleMenuButton:home];
-                
+//        CCMenuItemFont* home = [CCMenuItemFont itemWithString:@"New game" target:self selector:@selector(homeAction)];
+//        [Make10Util styleMenuButton:home];
+        CCMenuItemImage* home = [Make10Util createButtonWithText:@"New game" target:self selector:@selector(homeAction)];
+        
         /*
          * Create the menu
          */
         _menu = [CCMenu menuWithItems:play, home, nil];
-        _menu.position = ccp(winSize.width / 2, winSize.height / 2);
+        _menu.position = ccp(winSize.width / 2, winSize.height * 0.25);
         [self addChild:_menu];
         [_menu alignItemsVerticallyWithPadding:[Make10Util getMenuPadding]];
         
         _getReady = [CCLabelTTF labelWithString:@"Get ready!" fontName:@"American Typewriter" fontSize:[Make10Util getTitleFontSize]];
 //        _getReady.color = ccc3(0, 0, 0);
-        _getReady.position = ccp(self.contentSize.width / 2, self.contentSize.height * 0.7);
+        _getReady.position = ccp(self.contentSize.width / 2, self.contentSize.height * 0.3);
         [self addChild:_getReady];
 
         _levelLabel = [CCLabelTTF labelWithString:@"" fontName:@"American Typewriter" fontSize:[Make10Util getTitleFontSize]];
 //        _levelLabel.color = ccc3(0, 0, 0);
-        _levelLabel.position = ccp(self.contentSize.width / 2, self.contentSize.height * 0.3);
+        _levelLabel.position = ccp(self.contentSize.width / 2, self.contentSize.height * 0.5);
         [self addChild:_levelLabel];
 
-        _makeValueLabel = [CCLabelTTF labelWithString:@"" fontName:@"American Typewriter" fontSize:[Make10Util getTitleFontSize]];
+        _makeValueLabel = [CCLabelTTF labelWithString:@"" fontName:@"American Typewriter" fontSize:[Make10Util getIntroTitleFontSize]];
 //        _makeValueLabel.color = ccc3(0, 0, 0);
-        _makeValueLabel.position = ccp(self.contentSize.width / 2, self.contentSize.height * 0.5);
+        _makeValueLabel.position = ccp(self.contentSize.width / 2, self.contentSize.height * 0.7);
         [self addChild:_makeValueLabel];
 
     }
