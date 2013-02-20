@@ -20,6 +20,9 @@
 
 @interface SettingsLayer : CCLayer <UIPickerViewDelegate>
 {
+    UIPickerView*      _makeValuePicker;
+    NSMutableArray*    _makeValueArray;
+
 }
 
 /**

@@ -28,7 +28,7 @@ static int const MAKE_VALUE_DEFAULT = 10;
  * Tiles needed to remove advance to next level
  * (MAX_COLS x MAX_ROWS)
  */
-static int const LEVEL_MARKER = 56;
+static int const LEVEL_MARKER = 5;//56;
 
 /**
  * The duration scenes to change
@@ -38,7 +38,7 @@ static float const LAYER_TRANS_TIME = 0.5f;
 /**
  * The duration between wall risings for level 1
  */
-static float const SLOWEST_WALL_SPEED = 28;
+static float const SLOWEST_WALL_SPEED = 12;//28;
 
 /**
  * The wall will never be faster than 8 no matter the level
@@ -201,12 +201,12 @@ static NSString* const PREF_HIGH_SCORE = @"HIGH_SCORE";
  * Return an array of all possible make values
  */
 +(NSArray*) getMakeValuesArray;
-
-/**
- * Return an array of all possible make values
- * for multiplication
- */
-+(NSArray*) getMultMakeValuesArray;
+//
+///**
+// * Return an array of all possible make values
+// * for multiplication
+// */
+//+(NSArray*) getMultMakeValuesArray;
 
 /**
  * Based on the possible make values, return one

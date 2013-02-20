@@ -98,20 +98,15 @@
     [self.sprite runAction:[CCSequence actions:actionMove, actionMoveDone, nil]];
 }
 
--(void) destroy {
-    [_sprite removeFromParentAndCleanup:YES];
-    _sprite = nil;
-}
-
 -(NSString*) description {
     return [NSString stringWithFormat:@"Tile row:%d col:%d value:%d",
             self.row, self.col, self.value];
 }
 
 -(void) dealloc {
-    if (_sprite) {
-        [self destroy];
-    }
+    [_sprite removeFromParentAndCleanup:YES];
+    _sprite = nil;
+
 	[super dealloc];
 }
 

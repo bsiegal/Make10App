@@ -22,7 +22,7 @@
 @implementation AboutLayer
 
 UIWebView* _webView;
-CCSprite*          _home;
+CCSprite*  _home;
 
 +(CCScene*) scene
 {
@@ -71,13 +71,12 @@ CCSprite*          _home;
 //        NSURL *url = [[NSBundle mainBundle] URLForResource:@"about" withExtension:@".html"];
 //        [webView loadRequest:[NSURLRequest requestWithURL:url]];
 
-        NSString *htmlFile = [[NSBundle mainBundle] pathForResource:@"about" ofType:@"html"];
+        NSString* htmlFile = [[NSBundle mainBundle] pathForResource:@"about" ofType:@"html"];
         
         NSString* htmlString = [NSString stringWithContentsOfFile:htmlFile encoding:NSUTF8StringEncoding error:nil];
         [_webView loadHTMLString:htmlString baseURL:nil];
         [view addSubview:_webView];
        
-        
         self.isTouchEnabled = YES;
         
 //        /*
@@ -149,6 +148,7 @@ CCSprite*          _home;
     [_home removeFromParentAndCleanup:YES];
     _home = nil;
     
+    [self removeFromParentAndCleanup:YES];
     [super dealloc];
 }
 

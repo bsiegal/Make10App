@@ -47,8 +47,6 @@ CCLabelTTF* _gainLabel;
 LevelLayer* _levelLayer;
 Progress*   _progressBar;
 CCSprite*   _home;
-//CCSprite*   _pause;
-//BOOL        _paused;
 
 
 // Helper class method that creates a Scene with the Make10AppLayer as the only child.
@@ -99,6 +97,9 @@ CCSprite*   _home;
      */
     [self createNewTilesForRow];
     [_wall transitionUpWithTarget:self callback:@selector(addWallRow)];
+    
+    [self createNextTile];
+    [self createCurrentTile];
 }
 
 /**
@@ -282,63 +283,9 @@ CCSprite*   _home;
         _home = [Make10Util createHomeSprite];
         [self addChild:_home];
         
-//        _pause = [CCSprite spriteWithFile:@"pause.png"];
-//        _pause.position = ccp([Make10Util getMarginSide] + [Make10Util getUpperLabelPadding] + _pause.contentSize.width / 2, winSize.height - [Make10Util getMarginTop] - [Make10Util getUpperLabelPadding] - _pause.contentSize.height / 2);
-//        [self addChild:_pause];
-//        _paused = NO;
-        
         [self createGain];
         [self prepNewLevel];
-        
-        [self createNextTile];
-        [self createCurrentTile];
-                
-//
-//		//
-//		// Leaderboards and Achievements
-//		//
-//		
-//		// Default font size will be 28 points.
-//		[CCMenuItemFont setFontSize:28];
-//		
-//		// Achievement Menu Item using blocks
-//		CCMenuItem *itemAchievement = [CCMenuItemFont itemWithString:@"Achievements" block:^(id sender) {
-//			
-//			
-//			GKAchievementViewController *achivementViewController = [[GKAchievementViewController alloc] init];
-//			achivementViewController.achievementDelegate = self;
-//			
-//			AppController *app = (AppController*) [[UIApplication sharedApplication] delegate];
-//			
-//			[[app navController] presentModalViewController:achivementViewController animated:YES];
-//			
-//			[achivementViewController release];
-//		}
-//									   ];
-//
-//		// Leaderboard Menu Item using blocks
-//		CCMenuItem *itemLeaderboard = [CCMenuItemFont itemWithString:@"Leaderboard" block:^(id sender) {
-//			
-//			
-//			GKLeaderboardViewController *leaderboardViewController = [[GKLeaderboardViewController alloc] init];
-//			leaderboardViewController.leaderboardDelegate = self;
-//			
-//			AppController *app = (AppController*) [[UIApplication sharedApplication] delegate];
-//			
-//			[[app navController] presentModalViewController:leaderboardViewController animated:YES];
-//			
-//			[leaderboardViewController release];
-//		}
-//									   ];
-//		
-//		CCMenu *menu = [CCMenu menuWithItems:itemAchievement, itemLeaderboard, nil];
-//		
-//		[menu alignItemsHorizontallyWithPadding:20];
-//		[menu setPosition:ccp( size.width/2, size.height/2 - 50)];
-//		
-//		// Add the menu to the layer
-//		[self addChild:menu];
-//
+
 	}
 	return self;
 }
@@ -349,30 +296,14 @@ CCSprite*   _home;
     
     /*
      * Check if it was the home
+     * (and there's no levelLayer showing)
      */
-    if ([Make10Util isSpriteTouched:_home touches:touches]) {
-//        [self backToHome];
+    if (!_levelLayer && [Make10Util isSpriteTouched:_home touches:touches]) {
         [[CCDirector sharedDirector] pause];
         [self showLevelLayer:YES];
         return;
     }
     
-//    /*
-//     * Check if it was the pause
-//     */
-//    if (!_paused && [Make10Util isSpriteTouched:_pause touches:touches]) {
-//        _paused = YES;
-//        [[CCDirector sharedDirector] pause];
-//        return;
-//    }
-//    
-//    /*
-//     * If it was paused, then any touch will resume
-//     */
-//    if (_paused) {
-//        _paused = NO;
-//        [[CCDirector sharedDirector] resume];
-//    }
     
     UITouch* touch = [touches anyObject];
     CGPoint location = [touch locationInView:[touch view]];
@@ -493,6 +424,10 @@ CCSprite*   _home;
         [_progressBar.timeBar stopAllActions];
 
         [_wall clearWall];
+        [_nextTile release];
+        _nextTile = nil;
+        [_currentTile release];
+        _currentTile = nil;
         
         /*
          * If the challenge type was changing sum/product,
@@ -549,6 +484,7 @@ CCSprite*   _home;
         [_levelLayer removeFromParentAndCleanup:YES];
         _levelLayer = nil;
     }
+    
     [self prepNewLevel];
     
 }

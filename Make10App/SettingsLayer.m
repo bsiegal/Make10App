@@ -21,8 +21,6 @@
 #import <UIKit/UIKit.h>
 @implementation SettingsLayer
 
-UIPickerView*      _makeValuePicker;
-NSMutableArray*    _makeValueArray;
 CCMenuItemImage*   _makeValueToggle;
 CCMenuItemToggle*  _levelToggle;
 //CCMenuItemToggle*  _operationToggle;
@@ -77,8 +75,8 @@ CCSprite*          _home;
         int makeValueRow = 0;
         
         //This will be an NSString array copy of getMakeValuesArray (which contains NSNumber)
-        _makeValueArray = [[NSMutableArray alloc] init];
         NSArray* makeValuesNumbers = [Make10Util getMakeValuesArray];
+        _makeValueArray = [[NSMutableArray alloc] initWithCapacity:[makeValuesNumbers count]];
         NSLog(@"makeValuesNumbers = %@", makeValuesNumbers);
         for (int i = 0, len = [makeValuesNumbers count]; i < len; i++) {
             
@@ -141,8 +139,6 @@ CCSprite*          _home;
          */
         CCMenuItemImage* buttonSpeed = [Make10Util createToggleWithText:@"Speed challenge"];
         CCMenuItemImage* buttonTotal = [Make10Util createToggleWithText:@"Changing total"];
-//        [Make10Util styleToggle:buttonSpeed];
-//        [Make10Util styleToggle:_sumOrProduct];
 
         _challengeToggle = [CCMenuItemToggle itemWithTarget:self selector:@selector(toggled:) items:buttonSpeed, buttonTotal, nil];
         
@@ -154,8 +150,6 @@ CCSprite*          _home;
          */
         CCMenuItemImage* buttonNumber = [Make10Util createToggleWithText:@"Numbers"];
         CCMenuItemImage* buttonDots = [Make10Util createToggleWithText:@"Mahjong dots"];
-//        [Make10Util styleToggle:buttonNumber];
-//        [Make10Util styleToggle:buttonDots];
         
         _styleToggle = [CCMenuItemToggle itemWithTarget:self selector:@selector(toggled:) items:buttonNumber, buttonDots, nil];
         
@@ -225,22 +219,6 @@ CCSprite*          _home;
     
 	[[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInL transitionWithDuration:LAYER_TRANS_TIME scene:[IntroLayer scene]]];
 }
-
-//-(void) onEnterTransitionDidFinish {
-//    /*
-//     * Since the UIKit components do not respond to cocos scene changes, just using this as a workaround
-//     */
-////    _makeValuePicker.hidden = NO;
-////    [super onEnterTransitionDidFinish];
-//}
-//
-//-(void) onExitTransitionDidStart {
-//    /*
-//     * Since the UIKit components do not respond to cocos transitions, just using this as a workaround
-//     */
-////    _makeValuePicker.hidden = YES;
-////    [super onExitTransitionDidStart];
-//}
 
 
 #pragma mark UIPickerViewDelegate

@@ -47,14 +47,21 @@
 -(id) init {
     if (self = [super init]) {
         CCSprite* background = [Make10Util genBackgroundWithColor:ccc4(93, 217, 4, 255)];
+        
+//        CCSprite* background = [CCSprite spriteWithFile:@"noise.png"];
+//        CGSize winSize = [[CCDirector sharedDirector] winSize];
+//        background.position = ccp(winSize.width / 2, winSize.height / 2);
+        
         [self addChild:background];
+        
+        
         /*
          * Set all defaults if there were none so else where can just grab values
          * instead of having to test existence
          */
         NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
         NSNumber* makeValue = [defaults objectForKey:PREF_MAKE_VALUE];
-        NSLog(@"IntroLayer makeValue = %d", [makeValue intValue]);
+
         if (!makeValue) {
             [defaults setInteger:MAKE_VALUE_DEFAULT forKey:PREF_MAKE_VALUE];
         }
@@ -86,7 +93,7 @@
 -(void) onEnter
 {
 	[super onEnter];
-
+    NSLog(@"IntroLayer onEnter");
 	// ask director for the window size
 	CGSize winSize = [[CCDirector sharedDirector] winSize];
 
@@ -103,19 +110,13 @@
      * Play button
      */
     CCMenuItemImage* play = [Make10Util createPlayButtonWithText:@"Play" target:self selector:@selector(playAction)];
-//    CCMenuItemFont* play = [CCMenuItemFont itemWithString:@"Play" target:self selector:@selector(playAction)];
-//    [Make10Util stylePlayButton:play];
     /*
      * Settings button
      */
-//    CCMenuItemFont* settings = [CCMenuItemFont itemWithString:@"Settings" target:self selector:@selector(settingsAction)];
-//    [Make10Util styleMenuButton:settings];
     CCMenuItemImage* settings = [Make10Util createButtonWithText:@"Settings" target:self selector:@selector(settingsAction)];
     /*
      * About button
      */
-//    CCMenuItemFont* about = [CCMenuItemFont itemWithString:@"About" target:self selector:@selector(aboutAction)];
-//    [Make10Util styleMenuButton:about];
     CCMenuItemImage* about = [Make10Util createButtonWithText:@"About" target:self selector:@selector(aboutAction)];
     
     /*
@@ -139,9 +140,4 @@
 	[[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInR transitionWithDuration:LAYER_TRANS_TIME scene:[AboutLayer scene]]];
 }
 
--(void) dealloc {
-    [self removeAllChildrenWithCleanup:YES];
-    NSLog(@"IntroLayer dealloc");
-    [super dealloc];
-}
 @end

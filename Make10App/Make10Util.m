@@ -58,7 +58,7 @@ static int   _menuPadding = 20;
 
 +(CCSprite*) genBackgroundWithColor:(ccColor4B)color {
     CCSprite* noise = [CCSprite spriteWithFile:@"noise.png"];
-    NSLog(@"genBackgroundWithColor noise size = width:%f, height:%f", noise.contentSize.width, noise.contentSize.height);
+    
     float textureWidth = noise.contentSize.width;
     float textureHeight = noise.contentSize.height;
     
@@ -110,12 +110,16 @@ static int   _menuPadding = 20;
 }
 
 +(CCMenuItemImage*) createPlayButtonWithText:(NSString *)text target:(id)target selector:(SEL)selector {
+    
     CCMenuItemImage* play = [CCMenuItemImage itemWithNormalImage:@"button.png" selectedImage:@"buttonPressed.png"target:target selector:selector];
+    
     CCLabelTTF* label = [CCLabelTTF labelWithString:text fontName:@"American Typewriter" fontSize:[Make10Util getTitleFontSize]];
     label.position = ccp(play.contentSize.width / 2, play.contentSize.height / 2);
     label.color = ccc3(0, 0, 0);
     label.tag = 1;
+    
     [play addChild:label];
+    
     return play;
 }
 
@@ -211,36 +215,38 @@ static int   _menuPadding = 20;
         [makeValuesArray addObject:[NSNumber numberWithInt:100]];
         makeValues = [NSArray arrayWithArray:makeValuesArray];
         
+        [makeValuesArray release];
+        
     }
     NSLog(@"Make10Util getMakeValuesArray bottom makeValues=%@", makeValues);
     return makeValues;
 }
 
-+(NSArray*) getMultMakeValuesArray {
-    static NSArray* multMakeValues;
-    if (multMakeValues == nil) {
-        /*
-         * 12, 15, 16, 18, 20, 24, 30, 36, 60, 75, 100, 120, 180, 360
-         */
-        NSMutableArray* makeValuesArray = [[NSMutableArray alloc] init];
-        [makeValuesArray addObject:[NSNumber numberWithInt:12]];
-        [makeValuesArray addObject:[NSNumber numberWithInt:15]];
-        [makeValuesArray addObject:[NSNumber numberWithInt:16]];
-        [makeValuesArray addObject:[NSNumber numberWithInt:18]];
-        [makeValuesArray addObject:[NSNumber numberWithInt:20]];
-        [makeValuesArray addObject:[NSNumber numberWithInt:24]];
-        [makeValuesArray addObject:[NSNumber numberWithInt:30]];
-        [makeValuesArray addObject:[NSNumber numberWithInt:36]];
-        [makeValuesArray addObject:[NSNumber numberWithInt:60]];
-        [makeValuesArray addObject:[NSNumber numberWithInt:75]];
-        [makeValuesArray addObject:[NSNumber numberWithInt:100]];
-        [makeValuesArray addObject:[NSNumber numberWithInt:120]];
-        [makeValuesArray addObject:[NSNumber numberWithInt:180]];
-        [makeValuesArray addObject:[NSNumber numberWithInt:360]];
-        multMakeValues =[NSArray arrayWithArray:makeValuesArray];
-    }
-    return multMakeValues;
-}
+//+(NSArray*) getMultMakeValuesArray {
+//    static NSArray* multMakeValues;
+//    if (multMakeValues == nil) {
+//        /*
+//         * 12, 15, 16, 18, 20, 24, 30, 36, 60, 75, 100, 120, 180, 360
+//         */
+//        NSMutableArray* makeValuesArray = [[NSMutableArray alloc] init];
+//        [makeValuesArray addObject:[NSNumber numberWithInt:12]];
+//        [makeValuesArray addObject:[NSNumber numberWithInt:15]];
+//        [makeValuesArray addObject:[NSNumber numberWithInt:16]];
+//        [makeValuesArray addObject:[NSNumber numberWithInt:18]];
+//        [makeValuesArray addObject:[NSNumber numberWithInt:20]];
+//        [makeValuesArray addObject:[NSNumber numberWithInt:24]];
+//        [makeValuesArray addObject:[NSNumber numberWithInt:30]];
+//        [makeValuesArray addObject:[NSNumber numberWithInt:36]];
+//        [makeValuesArray addObject:[NSNumber numberWithInt:60]];
+//        [makeValuesArray addObject:[NSNumber numberWithInt:75]];
+//        [makeValuesArray addObject:[NSNumber numberWithInt:100]];
+//        [makeValuesArray addObject:[NSNumber numberWithInt:120]];
+//        [makeValuesArray addObject:[NSNumber numberWithInt:180]];
+//        [makeValuesArray addObject:[NSNumber numberWithInt:360]];
+//        multMakeValues =[NSArray arrayWithArray:makeValuesArray];
+//    }
+//    return multMakeValues;
+//}
 
 +(int) genRandomMakeValue:(int)currentMakeValue {
     NSArray* makeValuesArray = [self getMakeValuesArray];
