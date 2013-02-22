@@ -21,6 +21,8 @@
 #import <UIKit/UIKit.h>
 @implementation SettingsLayer
 
+UIPickerView*      _makeValuePicker;
+NSMutableArray*    _makeValueArray;
 CCMenuItemImage*   _makeValueToggle;
 CCMenuItemToggle*  _levelToggle;
 //CCMenuItemToggle*  _operationToggle;
@@ -70,14 +72,14 @@ CCSprite*          _home;
          * makeValue as a UIPickerView
          */
         NSNumber* makeValue = [defaults objectForKey:PREF_MAKE_VALUE]; //default set in IntroLayer
-        
+
         //This will be the row to select
         int makeValueRow = 0;
-        
+
         //This will be an NSString array copy of getMakeValuesArray (which contains NSNumber)
         NSArray* makeValuesNumbers = [Make10Util getMakeValuesArray];
         _makeValueArray = [[NSMutableArray alloc] initWithCapacity:[makeValuesNumbers count]];
-        NSLog(@"makeValuesNumbers = %@", makeValuesNumbers);
+
         for (int i = 0, len = [makeValuesNumbers count]; i < len; i++) {
             
             int value = [(NSNumber*) [makeValuesNumbers objectAtIndex:i] intValue];
@@ -93,7 +95,6 @@ CCSprite*          _home;
         _makeValuePicker.showsSelectionIndicator = YES;
         _makeValuePicker.hidden = YES;
 
-        NSLog(@"should select makeValue of %d, at row %d", [makeValue intValue], makeValueRow);
         [_makeValuePicker selectRow:makeValueRow inComponent:0 animated:NO];
 
         [view addSubview:_makeValuePicker];
@@ -103,18 +104,10 @@ CCSprite*          _home;
          */
         NSString* makeString = [NSString stringWithFormat:@"Make %d", [makeValue intValue]];
         _makeValueToggle = [Make10Util createButtonWithText:makeString target:self selector:@selector(makeValueAction)];
-//        _makeValueToggle = [CCMenuItemFont itemWithString:makeString target:self selector:@selector(makeValueAction)];
-//        [Make10Util styleToggle:_makeValueToggle];
         
         /*
          * Starting level as a toggle
          */
-//        CCMenuItemFont* level1 = [CCMenuItemFont itemWithString:@"Level 1"];
-//        CCMenuItemFont* level2 = [CCMenuItemFont itemWithString:@"Level 2"];
-//        CCMenuItemFont* level3 = [CCMenuItemFont itemWithString:@"Level 3"];
-//        [Make10Util styleToggle:level1];
-//        [Make10Util styleToggle:level2];
-//        [Make10Util styleToggle:level3];
         CCMenuItemImage* level1 = [Make10Util createToggleWithText:@"Level 1"];
         CCMenuItemImage* level2 = [Make10Util createToggleWithText:@"Level 2"];
         CCMenuItemImage* level3 = [Make10Util createToggleWithText:@"Level 3"];
@@ -179,19 +172,8 @@ CCSprite*          _home;
     return self;
 }
 
-//-(void) operationChanged {
-//    int op = [_operationToggle selectedIndex];
-//    CCLabelTTF* label = (CCLabelTTF*) [_sumOrProduct getChildByTag:1];
-//    if (op == 0) {        
-//        [label setString:@"Changing sum"];
-//    } else {
-//        [label setString:@"Changing product"];
-//    }
-//}
-
 -(void) toggled: (id) sender
 {
-    NSLog(@"Selected button: %i", [(CCMenuItemToggle *)sender selectedIndex]);
     CCMenuItemToggle* toggle = (CCMenuItemToggle*) sender;
     
     /*
@@ -214,12 +196,6 @@ CCSprite*          _home;
 -(void) makeValueAction {
     _makeValuePicker.hidden = NO;
 }
-
--(void) backAction {
-    
-	[[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInL transitionWithDuration:LAYER_TRANS_TIME scene:[IntroLayer scene]]];
-}
-
 
 #pragma mark UIPickerViewDelegate
 
@@ -247,8 +223,7 @@ CCSprite*          _home;
     int makeValue = [[_makeValueArray objectAtIndex:row] intValue];
     NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
     [defaults setInteger:makeValue forKey:PREF_MAKE_VALUE];
-    NSLog(@"setting PREF_MAKE_VALUE = %d", makeValue);
-    
+
     NSString* makeString = [NSString stringWithFormat:@"Make %d", makeValue];
     CCLabelTTF* label = (CCLabelTTF*) [_makeValueToggle getChildByTag:1];
     [label setString:makeString];
@@ -262,40 +237,48 @@ CCSprite*          _home;
     _makeValuePicker.hidden = YES;
 
     if ([Make10Util isSpriteTouched:_home touches:touches]) {
+        /*
+         * write to disk to free up memory
+         */
+        NSUserDefaults* userDefaults = [NSUserDefaults standardUserDefaults];
+        [userDefaults synchronize];
+        
         [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInL transitionWithDuration:LAYER_TRANS_TIME scene:[IntroLayer scene]]];
     }
 }
 
 -(void) dealloc {
-    NSLog(@"Settings dealloc");
+//    NSLog(@"Settings dealloc");
 
+    self.isTouchEnabled = NO;
+    
+    _makeValuePicker.delegate = nil;
+    [_makeValuePicker removeFromSuperview];
     [_makeValuePicker release];
     _makeValuePicker = nil;
-    
-    [_home removeFromParentAndCleanup:YES];
-    _home = nil;
     
     [_makeValueArray release];
     _makeValueArray = nil;
 
-//    [_makeValueToggle removeFromParentAndCleanup:YES];
-//    _makeValueToggle = nil;
-//    
-//    [_levelToggle removeFromParentAndCleanup:YES];
-//    _levelToggle = nil;
-//
+    [_home removeFromParentAndCleanup:YES];
+    _home = nil;
+    
+    [_makeValueToggle removeFromParentAndCleanup:YES];
+    _makeValueToggle = nil;
+    
+    [_levelToggle removeFromParentAndCleanup:YES];
+    _levelToggle = nil;
+
 //    [_operationToggle removeFromParentAndCleanup:YES];
 //    _operationToggle = nil;
-//
-//    [_challengeToggle removeFromParentAndCleanup:YES];
-//    _challengeToggle = nil;
-//
-//    [_sumOrProduct removeFromParentAndCleanup:YES];
-//    _sumOrProduct = nil;
-//
-//    [_styleToggle removeFromParentAndCleanup:YES];
-//    _styleToggle = nil;
 
+    [_challengeToggle removeFromParentAndCleanup:YES];
+    _challengeToggle = nil;
+
+    [_styleToggle removeFromParentAndCleanup:YES];
+    _styleToggle = nil;
+
+    [self removeFromParentAndCleanup:YES];
     [super dealloc];
 }
 @end

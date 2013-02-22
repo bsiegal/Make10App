@@ -19,8 +19,10 @@
 
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"
+#import "LevelLayerDelegate.h"
 
 @interface LevelLayer : CCLayerColor
+
 
 /**
  * Set the level
@@ -36,6 +38,9 @@
 
 /**
  * Set the mode as pause
+ * @param pause YES to show Resume and New game buttons
  */
 -(void) setPause:(BOOL)pause;
+
+@property id <LevelLayerDelegate> delegate;
 @end
