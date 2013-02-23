@@ -22,10 +22,7 @@
 
 /******
   TODOs
- o level layer style?
- o pause layer style
- o remove tile when wall transitioning up -- orphaned tile
- o Adv features in later paid edition
+ o Adv features in later paid edition - multiplication, gamekit leaderboard etc
  ******/
 
 static float _marginTop = 0;
@@ -52,7 +49,16 @@ static int   _menuPadding = 20;
             _menuItemFontSize = 48;
             _toggleFontSize = 64;
             _menuPadding = 65;
-        } 
+        } else {
+            /*
+             * It is a iPhone, but for retina 4 inch
+             * we still need to set a marginTop
+             */
+            CGSize winSize = [[CCDirector sharedDirector] winSize];
+            if (winSize.height > 480) {
+                _marginTop = (winSize.height - 480) / 2;
+            }
+        }
     }
 }
 
