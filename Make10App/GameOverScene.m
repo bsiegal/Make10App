@@ -69,7 +69,7 @@ CCLabelTTF* _hiScore;
         [self addChild:_hiScore];
         
         _home = [Make10Util createHomeSprite];
-        NSLog(@"GameOverLayer.init _home = %@", _home);
+//        NSLog(@"GameOverLayer.init _home = %@", _home);
         [self addChild:_home];
         self.isTouchEnabled = YES;
     }
@@ -121,8 +121,9 @@ CCLabelTTF* _hiScore;
 
 
 -(void) dealloc {
-    NSLog(@"GameOverScene dealloc");
-
+//    NSLog(@"GameOverScene dealloc");
+    self.isTouchEnabled = NO;
+    
     [_yourScore removeFromParentAndCleanup:YES];
     _yourScore = nil;
     [_hiScore removeFromParentAndCleanup:YES];
@@ -130,6 +131,7 @@ CCLabelTTF* _hiScore;
     [_home removeFromParentAndCleanup:YES];
     _home = nil;
     
+    [self removeFromParentAndCleanup:YES];
     [super dealloc];
 }
 @end

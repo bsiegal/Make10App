@@ -17,19 +17,9 @@
  ******************************************************************************/
 
 
-#import <GameKit/GameKit.h>
+#import <Foundation/Foundation.h>
 
-// When you import this file, you import all the cocos2d classes
-#import "cocos2d.h"
-#import "Make10Util.h"
-#import "LevelLayerDelegate.h"
-
-// Make10AppLayer
-@interface Make10AppLayer : CCLayer<LevelLayerDelegate>
-{
-}
-
-// returns a CCScene that contains the Make10AppLayer as the only child
-+(CCScene *) scene;
-
+@protocol LevelLayerDelegate <NSObject>
+@optional
+-(void) layerFadeOutDone;
 @end

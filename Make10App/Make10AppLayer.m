@@ -91,7 +91,7 @@ CCSprite*   _home;
  * Prepare a new level by adding 2 rows (to a cleared wall)
  */
 -(void) prepNewLevel {
-    NSLog(@"prepNewLevel");
+//    NSLog(@"prepNewLevel");
     /*
      * Create 2 full row of tiles
      */
@@ -107,50 +107,36 @@ CCSprite*   _home;
  * Disable touch so there's no bad behavior when the wall is moving
  */
 -(void) addWallRow {
-    NSLog(@"addWallRow");
+//    NSLog(@"addWallRow");
     
     self.isTouchEnabled = NO;
-    NSLog(@"isTouchEnabled set to NO");
 
-//    /*
-//     * Delay if the currentTile is in flight,
-//     * otherwise it could end up landing in too high
-//     */
-//    if ([_currentTile.sprite numberOfRunningActions] > 0) {
-//        NSLog(@"_currentTile.sprite was running so will call scheduleOnce to delay addWallRow");
-//        [self scheduleOnce:@selector(delayAddWallRow) delay:CURRENT_TO_WALL_TRANS_TIME];
-//        
-//    } else {
+    /*
+     * Create full row of tiles
+     */
+    [self createNewTilesForRow];
+    /*
+     * Transition the wall up
+     */
+    [_wall transitionUpWithTarget:self callback:@selector(startProgressBar)];
     
-
-        NSLog(@"addWallRow - going ahead with creating then transitioning");
-        /*
-         * Create full row of tiles
-         */
-        [self createNewTilesForRow];
-        /*
-         * Transition the wall up
-         */
-        [_wall transitionUpWithTarget:self callback:@selector(startProgressBar)];
-        
-        /*
-         * If the wall has reached the max, show the game over scene after a slight delay
-         */
-        if ([_wall isMax]) {
-            [self endGame];
-        }
+    /*
+     * If the wall has reached the max, show the game over scene after a slight delay
+     */
+    if ([_wall isMax]) {
+        [self endGame];
+    }
     
-//    }
     /*
      * If the current tile has a row and is in flight, increment its
      * row because it is not yet a part of the wall and the wall will be transitioning up
      */
-    NSLog(@"addWallRow currentTile.sprite numberOfRunningActions = %d, currentTile.row = %d, currentTile.col = %d", [_currentTile.sprite numberOfRunningActions], _currentTile.row, _currentTile.col);
+//    NSLog(@"addWallRow currentTile.sprite numberOfRunningActions = %d, currentTile.row = %d, currentTile.col = %d", [_currentTile.sprite numberOfRunningActions], _currentTile.row, _currentTile.col);
 
     if ([_currentTile.sprite numberOfRunningActions] > 0 && _currentTile.row > 0) {
         _currentTile.row++;
         
-        NSLog(@"addWallRow in if block currentTile.sprite numberOfRunningActions > 0, currentTile.row incremented to %d", _currentTile.row);
+//        NSLog(@"addWallRow in if block currentTile.sprite numberOfRunningActions > 0, currentTile.row incremented to %d", _currentTile.row);
 
     }
 }
@@ -160,7 +146,7 @@ CCSprite*   _home;
  * Create and place the next tile
  */
 -(void) createNextTile {
-    NSLog(@"createNextTile");
+//    NSLog(@"createNextTile");
     NSMutableArray* possibles = [_wall getPossibles];
     int size = [possibles count];
     int value;
@@ -181,7 +167,7 @@ CCSprite*   _home;
  * and create a new next tile
  */
 -(void) createCurrentTile {
-    NSLog(@"createCurrentTile");
+//    NSLog(@"createCurrentTile");
     [_nextTile transitionToCurrentWithTarget:self callback:@selector(nextMovedToCurrentPosition)];
     _currentTile = _nextTile;
     _nextTile = nil;
@@ -198,7 +184,7 @@ CCSprite*   _home;
  * Create the score label
  */
 -(void) createScoreLabelAndProgress {
-    NSLog(@"placeScoreLabel");
+//    NSLog(@"placeScoreLabel");
     CGSize winSize = [[CCDirector sharedDirector] winSize];
     
     CCSprite* score = [CCSprite spriteWithFile:@"scoreLabelBg.png"];
@@ -228,7 +214,7 @@ CCSprite*   _home;
  * Create the sprite to show for earned points
  */
 -(void) createGain {
-    NSLog(@"createGain");
+//    NSLog(@"createGain");
     _gain = [CCSprite spriteWithFile:@"gain.png"];
     _gain.position = ccp(100, 300);
     [self addChild:_gain];
@@ -244,31 +230,22 @@ CCSprite*   _home;
  * Start the progress bar and enable touch
  */
 -(void) startProgressBar {
+
     [_progressBar resetBar];
     [_progressBar startWithDuration:_score.wallTime target:self callback:@selector(addWallRow)];
     self.isTouchEnabled = YES;
-    NSLog(@"isTouchEnabled set to YES (startProgressBar)");
+
 }
 
 // on "init" you need to initialize your instance
 -(id) init {
-    NSLog(@"Make10AppLayer.init");
+//    NSLog(@"Make10AppLayer.init");
 	// always call "super" init
 	// Apple recommends to re-assign "self" with the "super's" return value
 	if (self = [super init]) {
         
         CCSprite* background = [Make10Util genBackgroundWithColor:ccc4(5, 151, 242, 255)];
         [self addChild:background];
-        
-        CGSize winSize = [[CCDirector sharedDirector] winSize];
-        NSLog(@"background size = width:%f, height:%f", background.contentSize.width, background.contentSize.height);
-        NSLog(@"winSize size = width:%f, height:%f", winSize.width, winSize.height);
-        float diff = winSize.width - background.contentSize.width;
-        NSLog(@"diff = %f", diff);
-        
-//        [self setContentSize:CGSizeMake(background.contentSize.width, background.contentSize.height)];
-        
-//        NSLog(@"layer content size = width:%f, height:%f", self.contentSize.width, self.contentSize.height);
         
         
         NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
@@ -300,7 +277,7 @@ CCSprite*   _home;
      */
     if (!_levelLayer && [Make10Util isSpriteTouched:_home touches:touches]) {
         [[CCDirector sharedDirector] pause];
-        [self showLevelLayer:YES];
+        [self showLevelLayerWithPause:YES];
         return;
     }
     
@@ -323,23 +300,22 @@ CCSprite*   _home;
 }
 
 #pragma mark handle touch results
-/**
- * Back to the home scene
- */
--(void) backToHome {
-    NSLog(@"backToHome");
-    
-    [self stopAllActions];
-    [_progressBar.timeBar stopAllActions];
-    
-    [[CCDirector sharedDirector] replaceScene:[IntroLayer node]];
-}
+///**
+// * Back to the home scene
+// */
+//-(void) backToHome {
+//    
+//    [self stopAllActions];
+//    [_progressBar.timeBar stopAllActions];
+//    
+//    [[CCDirector sharedDirector] replaceScene:[IntroLayer node]];
+//}
 /**
  * Handle when the value is made
  * @param wallTile the tile touched to make the value
  */
 -(void) valueMade:(Tile*) wallTile {
-    NSLog(@"valueMade");
+//    NSLog(@"valueMade");
     /*
      * It's a match!
      * Move the current tile to the position of the wallTile
@@ -353,7 +329,7 @@ CCSprite*   _home;
  * Callback when the value made wall tile is done
  */
 -(void) wallTileKnockedDone:(id)sender {
-    NSLog(@"wallTileKnockedDone");
+//    NSLog(@"wallTileKnockedDone");
     /*
      * Destroy both the current tile and the knockedWallTile
      * Create the next current tile
@@ -417,7 +393,6 @@ CCSprite*   _home;
      */
     if ([_score levelUp]) {
         self.isTouchEnabled = NO;
-        NSLog(@"isTouchEnabled is set to NO (levelUp)");
         
         [self stopAllActions];
         [_progressBar resetBar];
@@ -440,7 +415,7 @@ CCSprite*   _home;
             _makeValue = [Make10Util genRandomMakeValue:_makeValue];
         }
         
-        [self showLevelLayer:NO];
+        [self showLevelLayerWithPause:NO];
         [self startLevelLayerProgress];
         
     }
@@ -449,11 +424,15 @@ CCSprite*   _home;
  * Show the level layer
  * @param pause YES if it is pause mode
  */
--(void) showLevelLayer:(BOOL)pause {
+-(void) showLevelLayerWithPause:(BOOL)pause {
     LevelLayer* pauseLayer = [LevelLayer node];
     [pauseLayer setLevel:_score.level];
     [pauseLayer setMakeValue:_makeValue];
     [pauseLayer setPause:pause];
+
+    if (pause) {
+        pauseLayer.delegate = self;
+    }
     [self addChild:pauseLayer];
     _levelLayer = pauseLayer;
 
@@ -480,22 +459,29 @@ CCSprite*   _home;
  * Callback when the level layer fades out
  */
 -(void) levelFadeOutDone {
-    if (_levelLayer) {
-        [_levelLayer removeFromParentAndCleanup:YES];
-        _levelLayer = nil;
-    }
+
+    [_levelLayer removeFromParentAndCleanup:YES];
+    _levelLayer = nil;
     
     [self prepNewLevel];
     
 }
+/**
+ * Callback when the pause layer fades out
+ */
+-(void) layerFadeOutDone {
 
+    [_levelLayer removeFromParentAndCleanup:YES];
+    _levelLayer = nil;
+    
+}
 /**
  * Handle when the value is not made
  * @param wallTile Tile that was touched
  * @param touchPoint CGPoint that was touched in case there was no wallTile touched
  */
 -(void) valueNotMade:(Tile*) wallTile touchPoint:(CGPoint)point {
-    NSLog(@"valueNotMade wallTile=%@", wallTile);
+//    NSLog(@"valueNotMade wallTile=%@", wallTile);
     /*
      * It's not a match
      * Move the current tile to the top of the column where the wallTile is
@@ -508,7 +494,7 @@ CCSprite*   _home;
         if (newPosition.x != 0 && newPosition.y != 0) {
             
             [_currentTile transitionToPoint:newPosition target:self callback:@selector(currentBecomesWallTileDone:)];
-            NSLog(@"valueNotMade wallTile !nil, currentTile.row = %d, currentTile.col = %d", _currentTile.row, _currentTile.col);
+//            NSLog(@"valueNotMade wallTile !nil, currentTile.row = %d, currentTile.col = %d", _currentTile.row, _currentTile.col);
             
         } else {
             /*
@@ -523,7 +509,7 @@ CCSprite*   _home;
             
             [_currentTile transitionToPoint:newPosition target:self callback:@selector(currentBecomesWallTileDone:)];
             
-            NSLog(@"valueNotMade wallTile nil, currentTile.row = %d, currentTile.col = %d", _currentTile.row, _currentTile.col);
+//            NSLog(@"valueNotMade wallTile nil, currentTile.row = %d, currentTile.col = %d", _currentTile.row, _currentTile.col);
 
         }
         /*
@@ -537,7 +523,7 @@ CCSprite*   _home;
  * Callback after the current tile becomes a part of the wall
  */
 -(void) currentBecomesWallTileDone:(id)sender {
-    NSLog(@"currentBecomesWallTileDone");
+//    NSLog(@"currentBecomesWallTileDone");
 
     /*
      * If the current tile transitioned to a point when the
@@ -560,12 +546,12 @@ CCSprite*   _home;
  * End the game
  */
 -(void) endGame {
-    NSLog(@"endGame");
+//    NSLog(@"endGame");
 
     self.isTouchEnabled = NO;
-    NSLog(@"isTouchEnabled is set to NO (endGame)");
+//    NSLog(@"isTouchEnabled is set to NO (endGame)");
     [self stopAllActions];
-    [_progressBar.timeBar stopAllActions];
+    [_progressBar.timeBar  stopAllActions];
     
     [self scheduleOnce:@selector(showGameOver) delay:GAME_OVER_DELAY];
     
@@ -584,7 +570,9 @@ CCSprite*   _home;
 
 // on "dealloc" you need to release all your retained objects
 -(void) dealloc {
-    NSLog(@"Make10AppLayer dealloc");
+//    NSLog(@"Make10AppLayer dealloc");
+    self.isTouchEnabled = NO;
+    
     [self stopAllActions];
     
     [_home removeFromParentAndCleanup:YES];
@@ -613,20 +601,8 @@ CCSprite*   _home;
     [_progressBar release];
     _progressBar = nil;
     
+    [self removeFromParentAndCleanup:YES];
 	[super dealloc];
 }
 
-#pragma mark GameKit delegate
-
--(void) achievementViewControllerDidFinish:(GKAchievementViewController*)viewController
-{
-	AppController* app = (AppController*) [[UIApplication sharedApplication] delegate];
-	[[app navController] dismissModalViewControllerAnimated:YES];
-}
-
--(void) leaderboardViewControllerDidFinish:(GKLeaderboardViewController*)viewController
-{
-	AppController* app = (AppController*) [[UIApplication sharedApplication] delegate];
-	[[app navController] dismissModalViewControllerAnimated:YES];
-}
 @end

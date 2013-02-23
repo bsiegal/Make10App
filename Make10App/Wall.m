@@ -45,7 +45,7 @@ NSMutableArray* _tiles;
 }
 
 -(void) transitionUpWithTarget:(id)target callback:(SEL)callback {
-    NSLog(@"Wall.transitionUpWithTarget");
+//    NSLog(@"Wall.transitionUpWithTarget");
     /*
      * Figure out what tiles need to be moved and do them
      * all at once so we know when we get to the last one.
@@ -96,7 +96,6 @@ NSMutableArray* _tiles;
      */
     int size = [_tiles count];
     if (size > MAX_ROWS) {
-        NSLog(@"Wall transitionUpWithTarget too many rows");
         NSMutableArray* extraTileRow = [_tiles objectAtIndex:MAX_ROWS];
         [extraTileRow release];
         [_tiles removeObjectAtIndex:MAX_ROWS];
@@ -114,7 +113,7 @@ NSMutableArray* _tiles;
     [tile release];
     [tileRow replaceObjectAtIndex:col withObject:[NSNull null]];
 
-    NSLog(@"Wall.removeTile tileRow at row:%d = %@", row, tileRow);
+//    NSLog(@"Wall.removeTile tileRow at row:%d = %@", row, tileRow);
     /*
      * Drop all the tiles in the column in rows above by height of 1 tile
      */
@@ -123,8 +122,7 @@ NSMutableArray* _tiles;
         if ([tileRow objectAtIndex:col] != [NSNull null]) {
             Tile* tile = [tileRow objectAtIndex:col];
             tile.row--;
-            
-            
+                        
             NSMutableArray* tileRowBelow = [_tiles objectAtIndex:tile.row];
             [tileRowBelow replaceObjectAtIndex:col withObject:tile];
             
@@ -213,7 +211,7 @@ NSMutableArray* _tiles;
 }
 
 -(Tile*) whichTileAtLocation:(CGPoint)location {
-    NSLog(@"Wall.whichTileAtLocation");
+//    NSLog(@"Wall.whichTileAtLocation");
 
     for (int i = 0; i < MAX_ROWS; i++) {
         NSMutableArray* tileRow = [_tiles objectAtIndex:i];
@@ -226,7 +224,7 @@ NSMutableArray* _tiles;
                 
                 CGRect touchArea = CGRectMake(x, y, tile.sprite.contentSize.width, tile.sprite.contentSize.height);
                 if (CGRectContainsPoint(touchArea, location)) {
-                    NSLog(@"Found! returning tile with value %d", tile.value);
+//                    NSLog(@"Found! returning tile with value %d", tile.value);
                     return tile;
                 }
             }
@@ -382,7 +380,7 @@ NSMutableArray* _tiles;
 }
 
 -(void) clearWall {
-    NSLog(@"Wall.clearWall");
+//    NSLog(@"Wall.clearWall");
 
     for (int i = 0; i < MAX_ROWS; i++) {
         NSMutableArray* tileRow = [_tiles objectAtIndex:i];
@@ -402,12 +400,12 @@ NSMutableArray* _tiles;
     for (int i = 0; i < MAX_ROWS; i++) {
         for (int j = 0; j < MAX_COLS; j++) {
             if (![self isEmptyAtRow:i col:j]) {
-                NSLog(@"Wall.isWallClear NO");
+//                NSLog(@"Wall.isWallClear NO");
                 return NO;
             }
         }
     }
-    NSLog(@"Wall.isWallClear YES");
+//    NSLog(@"Wall.isWallClear YES");
 
     return YES;
 }

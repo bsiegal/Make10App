@@ -46,13 +46,21 @@
 
 -(id) init {
     if (self = [super init]) {
+        
+        
         CCSprite* background = [Make10Util genBackgroundWithColor:ccc4(93, 217, 4, 255)];
-        
-//        CCSprite* background = [CCSprite spriteWithFile:@"noise.png"];
+
 //        CGSize winSize = [[CCDirector sharedDirector] winSize];
-//        background.position = ccp(winSize.width / 2, winSize.height / 2);
-        
+
         [self addChild:background];
+  
+        
+//        [self addChild:spriteSheet];
+        
+//        CCSprite *noise = [CCSprite spriteWithSpriteFrameName:@"noise.png"];
+//        noise.position = ccp(winSize.width / 2, winSize.height / 2);
+//        [spriteSheet addChild:noise];
+//        [self addChild:noise];
         
         
         /*
@@ -93,7 +101,8 @@
 -(void) onEnter
 {
 	[super onEnter];
-    NSLog(@"IntroLayer onEnter");
+//    NSLog(@"IntroLayer onEnter");
+    
 	// ask director for the window size
 	CGSize winSize = [[CCDirector sharedDirector] winSize];
 
@@ -109,15 +118,15 @@
     /*
      * Play button
      */
-    CCMenuItemImage* play = [Make10Util createPlayButtonWithText:@"Play" target:self selector:@selector(playAction)];
+    CCMenuItemSprite* play = [Make10Util createPlayButtonWithText:@"Play" target:self selector:@selector(playAction)];
     /*
      * Settings button
      */
-    CCMenuItemImage* settings = [Make10Util createButtonWithText:@"Settings" target:self selector:@selector(settingsAction)];
+    CCMenuItemSprite* settings = [Make10Util createButtonWithText:@"Settings" target:self selector:@selector(settingsAction)];
     /*
      * About button
      */
-    CCMenuItemImage* about = [Make10Util createButtonWithText:@"About" target:self selector:@selector(aboutAction)];
+    CCMenuItemSprite* about = [Make10Util createButtonWithText:@"About" target:self selector:@selector(aboutAction)];
     
     /*
      * Create the menu
