@@ -23,7 +23,7 @@
 
 UIPickerView*      _makeValuePicker;
 NSMutableArray*    _makeValueArray;
-CCMenuItemSprite*   _makeValueToggle;
+CCMenuItemImage*   _makeValueToggle;
 CCMenuItemToggle*  _levelToggle;
 //CCMenuItemToggle*  _operationToggle;
 CCMenuItemToggle*  _challengeToggle;
@@ -108,9 +108,9 @@ CCSprite*          _home;
         /*
          * Starting level as a toggle
          */
-        CCMenuItemSprite* level1 = [Make10Util createToggleWithText:@"Level 1"];
-        CCMenuItemSprite* level2 = [Make10Util createToggleWithText:@"Level 2"];
-        CCMenuItemSprite* level3 = [Make10Util createToggleWithText:@"Level 3"];
+        CCMenuItemImage* level1 = [Make10Util createToggleWithText:@"Level 1"];
+        CCMenuItemImage* level2 = [Make10Util createToggleWithText:@"Level 2"];
+        CCMenuItemImage* level3 = [Make10Util createToggleWithText:@"Level 3"];
         
         _levelToggle = [CCMenuItemToggle itemWithTarget:self selector:@selector(toggled:) items:level1, level2, level3, nil];
         NSNumber* level = [defaults objectForKey:PREF_START_LEVEL];
@@ -130,8 +130,8 @@ CCSprite*          _home;
         /*
          * Challenge type as a toggle 
          */
-        CCMenuItemSprite* buttonSpeed = [Make10Util createToggleWithText:@"Speed challenge"];
-        CCMenuItemSprite* buttonTotal = [Make10Util createToggleWithText:@"Changing total"];
+        CCMenuItemImage* buttonSpeed = [Make10Util createToggleWithText:@"Speed challenge"];
+        CCMenuItemImage* buttonTotal = [Make10Util createToggleWithText:@"Changing total"];
 
         _challengeToggle = [CCMenuItemToggle itemWithTarget:self selector:@selector(toggled:) items:buttonSpeed, buttonTotal, nil];
         
@@ -141,8 +141,8 @@ CCSprite*          _home;
         /*
          * Tile style as a toggle
          */
-        CCMenuItemSprite* buttonNumber = [Make10Util createToggleWithText:@"Numbers"];
-        CCMenuItemSprite* buttonDots = [Make10Util createToggleWithText:@"Mahjong dots"];
+        CCMenuItemImage* buttonNumber = [Make10Util createToggleWithText:@"Numbers"];
+        CCMenuItemImage* buttonDots = [Make10Util createToggleWithText:@"Mahjong dots"];
         
         _styleToggle = [CCMenuItemToggle itemWithTarget:self selector:@selector(toggled:) items:buttonNumber, buttonDots, nil];
         

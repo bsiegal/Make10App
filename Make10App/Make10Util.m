@@ -52,7 +52,7 @@ static int   _menuPadding = 20;
             _menuItemFontSize = 48;
             _toggleFontSize = 64;
             _menuPadding = 65;
-        } 
+        }
     }
 }
 
@@ -81,21 +81,14 @@ static int   _menuPadding = 20;
 //    //5: Create a new Sprite from the texture
 //    CCSprite* background = [CCSprite spriteWithTexture:rt.sprite.texture];
 
-    [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"Make10Sprites.plist"];
-    
-    [CCSpriteBatchNode batchNodeWithFile:@"Make10Sprites.pvr.ccz"];
 
-    CCSprite* background = [CCSprite spriteWithSpriteFrameName:@"noise.png"];
-    
-//    CCSprite* background = [CCSprite spriteWithFile:@"noise.png"];
+    CCSprite* background = [CCSprite spriteWithFile:@"noise.png"];
     CGSize winSize = [[CCDirector sharedDirector] winSize];
     background.position = ccp(winSize.width / 2, winSize.height / 2);
     
 //    ccTexParams tp = {GL_LINEAR, GL_LINEAR, GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE};
 //    [background.texture setTexParameters:&tp];
-//
-    
-    
+//    
     return background;
 }
 
@@ -113,17 +106,14 @@ static int   _menuPadding = 20;
 
 +(CCSprite*) createHomeSprite {
     CGSize winSize = [[CCDirector sharedDirector] winSize];
-//    CCSprite* home = [CCSprite spriteWithFile:@"home.png"];
-    CCSprite* home = [CCSprite spriteWithSpriteFrameName:@"home.png"];
+    CCSprite* home = [CCSprite spriteWithFile:@"home.png"];
     home.position = ccp(winSize.width - _marginSide - home.contentSize.width / 2 - _upperLevelPadding, winSize.height - _marginTop - home.contentSize.height / 2 - _upperLevelPadding);
     return home;
 }
 
-+(CCMenuItemSprite*) createPlayButtonWithText:(NSString *)text target:(id)target selector:(SEL)selector {
++(CCMenuItemImage*) createPlayButtonWithText:(NSString *)text target:(id)target selector:(SEL)selector {
     
-    CCMenuItemSprite *play = [CCMenuItemSprite itemWithNormalSprite:[CCSprite spriteWithSpriteFrameName:@"button.png"] selectedSprite:[CCSprite spriteWithSpriteFrameName:@"buttonPressed.png"] target:target selector:selector];
-    
-//    CCMenuItemImage* play = [CCMenuItemImage itemWithNormalImage:@"button.png" selectedImage:@"buttonPressed.png" target:target selector:selector];
+    CCMenuItemImage* play = [CCMenuItemImage itemWithNormalImage:@"button.png" selectedImage:@"buttonPressed.png"target:target selector:selector];
     
     CCLabelTTF* label = [CCLabelTTF labelWithString:text fontName:@"American Typewriter" fontSize:[Make10Util getTitleFontSize]];
     label.position = ccp(play.contentSize.width / 2, play.contentSize.height / 2);
@@ -135,12 +125,8 @@ static int   _menuPadding = 20;
     return play;
 }
 
-+(CCMenuItemSprite*) createButtonWithText:(NSString *)text target:(id)target selector:(SEL)selector {
-
-    CCMenuItemSprite* button = [CCMenuItemImage itemWithNormalSprite:[CCSprite spriteWithSpriteFrameName:@"button-short.png"] selectedSprite:[CCSprite spriteWithSpriteFrameName:@"buttonPressed-short.png"] target:target selector:selector];
-
-//    CCMenuItemImage* button = [CCMenuItemImage itemWithNormalImage:@"button-short.png" selectedImage:@"buttonPressed-short.png" target:target selector:selector];
-    
++(CCMenuItemImage*) createButtonWithText:(NSString *)text target:(id)target selector:(SEL)selector {
+    CCMenuItemImage* button = [CCMenuItemImage itemWithNormalImage:@"button-short.png" selectedImage:@"buttonPressed-short.png"target:target selector:selector];
     CCLabelTTF* label = [CCLabelTTF labelWithString:text fontName:@"American Typewriter" fontSize:_menuItemFontSize];
     label.position = ccp(button.contentSize.width / 2, button.contentSize.height / 2);
     label.color = ccc3(0, 0, 0);
@@ -149,8 +135,8 @@ static int   _menuPadding = 20;
     return button;
 }
 
-+(CCMenuItemSprite*) createToggleWithText:(NSString *)text {
-    CCMenuItemSprite* button = [CCMenuItemSprite itemWithNormalSprite:[CCSprite spriteWithSpriteFrameName:@"button-short.png"] selectedSprite:[CCSprite spriteWithSpriteFrameName:@"buttonPressed-short.png"]];
++(CCMenuItemImage*) createToggleWithText:(NSString *)text {
+    CCMenuItemImage* button = [CCMenuItemImage itemWithNormalImage:@"button-short.png" selectedImage:@"buttonPressed-short.png"];
     CCLabelTTF* label = [CCLabelTTF labelWithString:text fontName:@"American Typewriter" fontSize:_menuItemFontSize];
     label.position = ccp(button.contentSize.width / 2, button.contentSize.height / 2);
     label.color = ccc3(0, 0, 0);

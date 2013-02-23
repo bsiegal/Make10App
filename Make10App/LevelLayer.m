@@ -38,7 +38,7 @@ CCMenu*     _menu;
         /*
          * Play button
          */
-        CCMenuItemSprite* play = [Make10Util createPlayButtonWithText:@"Resume" target:self selector:@selector(playAction)];
+        CCMenuItemImage* play = [Make10Util createPlayButtonWithText:@"Resume" target:self selector:@selector(playAction)];
 //        CCMenuItemFont* play = [CCMenuItemFont itemWithString:@"Resume" target:self selector:@selector(playAction)];
 //        [Make10Util stylePlayButton:play];
         
@@ -47,7 +47,7 @@ CCMenu*     _menu;
          */
 //        CCMenuItemFont* home = [CCMenuItemFont itemWithString:@"New game" target:self selector:@selector(homeAction)];
 //        [Make10Util styleMenuButton:home];
-        CCMenuItemSprite* home = [Make10Util createButtonWithText:@"New game" target:self selector:@selector(homeAction)];
+        CCMenuItemImage* home = [Make10Util createButtonWithText:@"New game" target:self selector:@selector(homeAction)];
         
         /*
          * Create the menu
