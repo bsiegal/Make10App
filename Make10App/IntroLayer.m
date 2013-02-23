@@ -46,25 +46,21 @@
 
 -(id) init {
     if (self = [super init]) {
-//        CCSprite* background = [Make10Util genBackgroundWithColor:ccc4(93, 217, 4, 255)];
+        
+        
+        CCSprite* background = [Make10Util genBackgroundWithColor:ccc4(93, 217, 4, 255)];
 
-        CGSize winSize = [[CCDirector sharedDirector] winSize];
+//        CGSize winSize = [[CCDirector sharedDirector] winSize];
 
-//        CCSprite* background = [CCSprite spriteWithFile:@"noise.png"];
-//        background.position = ccp(winSize.width / 2, winSize.height / 2);
-        //        [self addChild:background];
+        [self addChild:background];
   
-        [CCTexture2D setDefaultAlphaPixelFormat:kCCTexture2DPixelFormat_RGBA4444];
         
-        CCSpriteBatchNode *spriteSheet = [CCSpriteBatchNode batchNodeWithFile:@"Make10AppSprites.pvr.ccz"];
+//        [self addChild:spriteSheet];
         
-        [[CCSpriteFrameCache sharedSpriteFrameCache]
-         addSpriteFramesWithFile:@"Make10AppSprites.plist"];
-        [self addChild:spriteSheet];
-        
-        CCSprite *noise = [CCSprite spriteWithSpriteFrameName:@"home.png"];
-        noise.position = ccp(winSize.width / 2, winSize.height / 2);
-        [spriteSheet addChild:noise];
+//        CCSprite *noise = [CCSprite spriteWithSpriteFrameName:@"noise.png"];
+//        noise.position = ccp(winSize.width / 2, winSize.height / 2);
+//        [spriteSheet addChild:noise];
+//        [self addChild:noise];
         
         
         /*
@@ -122,15 +118,15 @@
     /*
      * Play button
      */
-    CCMenuItemImage* play = [Make10Util createPlayButtonWithText:@"Play" target:self selector:@selector(playAction)];
+    CCMenuItemSprite* play = [Make10Util createPlayButtonWithText:@"Play" target:self selector:@selector(playAction)];
     /*
      * Settings button
      */
-    CCMenuItemImage* settings = [Make10Util createButtonWithText:@"Settings" target:self selector:@selector(settingsAction)];
+    CCMenuItemSprite* settings = [Make10Util createButtonWithText:@"Settings" target:self selector:@selector(settingsAction)];
     /*
      * About button
      */
-    CCMenuItemImage* about = [Make10Util createButtonWithText:@"About" target:self selector:@selector(aboutAction)];
+    CCMenuItemSprite* about = [Make10Util createButtonWithText:@"About" target:self selector:@selector(aboutAction)];
     
     /*
      * Create the menu

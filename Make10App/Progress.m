@@ -24,7 +24,7 @@
 
 -(id) init {
     if (self = [super init]) {
-        CCSprite* sprite = [CCSprite spriteWithFile:@"progress.png"];
+        CCSprite* sprite = [CCSprite spriteWithSpriteFrameName:@"progress.png"];
 
         _timeBar = [CCProgressTimer progressWithSprite:sprite];
         _timeBar.type = kCCProgressTimerTypeBar;
@@ -32,7 +32,7 @@
         _timeBar.barChangeRate = ccp(1, 0);
         _timeBar.percentage = 0;
         
-        _spriteBg = [CCSprite spriteWithFile:@"progressBar.png"];
+        _spriteBg = [CCSprite spriteWithSpriteFrameName:@"progressBar.png"];
         
         [_spriteBg addChild:_timeBar z:1];
         [_timeBar setAnchorPoint: ccp(0,0)];

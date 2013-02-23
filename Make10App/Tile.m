@@ -23,7 +23,7 @@
 
 -(void) createSprite:(int)value {
     
-    _sprite = [CCSprite spriteWithFile:@"tile.png"];
+    _sprite = [CCSprite spriteWithSpriteFrameName:@"tile.png"];
     
     
     NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
@@ -31,7 +31,7 @@
     if (style == PREF_TILE_STYLE_DOTS && value < 10) {
         
         NSString* fileName = [NSString stringWithFormat:@"dot%d.png", value];
-        CCSprite* dots = [CCSprite spriteWithFile:fileName];
+        CCSprite* dots = [CCSprite spriteWithSpriteFrameName:fileName];
         
         dots.position = ccp(_sprite.contentSize.width / 2, _sprite.contentSize.height / 2);
         [_sprite addChild:dots];

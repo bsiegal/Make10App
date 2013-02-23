@@ -140,19 +140,19 @@ static NSString* const PREF_HIGH_SCORE = @"HIGH_SCORE";
  * Create a play-sized button with text
  * @param text for the button
  */
-+(CCMenuItemImage*) createPlayButtonWithText:(NSString*)text target:(id)target selector:(SEL)selector;
++(CCMenuItemSprite*) createPlayButtonWithText:(NSString*)text target:(id)target selector:(SEL)selector;
 
 /**
  * Create a button with text
  * @param text for the button
  */
-+(CCMenuItemImage*) createButtonWithText:(NSString*)text target:(id)target selector:(SEL)selector;
++(CCMenuItemSprite*) createButtonWithText:(NSString*)text target:(id)target selector:(SEL)selector;
 
 /**
  * Create a toggle with text
  * @param text for the button
  */
-+(CCMenuItemImage*) createToggleWithText:(NSString*)text;
++(CCMenuItemSprite*) createToggleWithText:(NSString*)text;
 
 /**
  * Return YES if the touch is within the sprite

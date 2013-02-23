@@ -270,13 +270,13 @@
             <key>format</key>
             <integer>2</integer>
             <key>realTextureFileName</key>
-            <string>Make10AppSprites.pvr.ccz</string>
+            <string>Make10Sprites.pvr.ccz</string>
             <key>size</key>
             <string>{512,512}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:f41979d5859540053755c836321ee38f$</string>
+            <string>$TexturePacker:SmartUpdate:7120110efc4f80bd842a4b9a57aaf9e3$</string>
             <key>textureFileName</key>
-            <string>Make10AppSprites.pvr.ccz</string>
+            <string>Make10Sprites.pvr.ccz</string>
         </dict>
     </dict>
 </plist>

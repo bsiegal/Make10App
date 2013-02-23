@@ -42,5 +42,5 @@
  */
 -(void) setPause:(BOOL)pause;
 
-@property id <LevelLayerDelegate> delegate;
+@property (nonatomic, assign) id <LevelLayerDelegate> delegate;
 @end
