@@ -41,12 +41,12 @@ CCSprite*  _home;
 
 -(id) init {
     if (self = [super init]) {
-        // ask director for the window size
-        CGSize winSize = [[CCDirector sharedDirector] winSize];
-
+    
         CCSprite* background = [Make10Util genBackgroundWithColor:ccc4(5, 151, 242, 255)];
         [self addChild:background];
 
+        // ask director for the window size
+        CGSize winSize = [[CCDirector sharedDirector] winSize];
 
         CCLabelTTF* text = [CCLabelTTF labelWithString:@"About" fontName:@"American Typewriter" fontSize:[Make10Util getTitleFontSize]];
         //title.color = ccc3(0, 0, 0);
@@ -68,17 +68,29 @@ CCSprite*  _home;
         _webView.delegate = self;
         _webView.hidden = YES;
         
-        NSURL *url = [[NSBundle mainBundle] URLForResource:@"about" withExtension:@".html"];
-        [_webView loadRequest:[NSURLRequest requestWithURL:url]];
+//        NSURL *url = [[NSBundle mainBundle] URLForResource:@"about" withExtension:@".html"];
+//        [webView loadRequest:[NSURLRequest requestWithURL:url]];
 
-//        NSString* htmlFile = [[NSBundle mainBundle] pathForResource:@"about" ofType:@"html"];
-//
-//        NSString* htmlString = [NSString stringWithContentsOfFile:htmlFile encoding:NSUTF8StringEncoding error:nil];
-//        [_webView loadHTMLString:htmlString baseURL:nil];
-
-        [view addSubview:_webView];
+        NSString* htmlFile = [[NSBundle mainBundle] pathForResource:@"about" ofType:@"html"];
         
+        NSString* htmlString = [NSString stringWithContentsOfFile:htmlFile encoding:NSUTF8StringEncoding error:nil];
+        [_webView loadHTMLString:htmlString baseURL:nil];
+        [view addSubview:_webView];
+       
         self.isTouchEnabled = YES;
+        
+//        /*
+//         * Back button
+//         */
+//        CCMenuItemFont* back = [CCMenuItemFont itemWithString:@"Back" target:self selector:@selector(backAction)];
+//        [Make10Util styleMenuButton:back];
+//        
+//        /*
+//         * Create the menu
+//         */
+//        CCMenu* menu = [CCMenu menuWithItems:back, nil];
+//        menu.position = ccp(winSize.width / 2, 12);
+//        [self addChild:menu];
         
     }
     return self;
@@ -128,10 +140,8 @@ CCSprite*  _home;
 }
 
 -(void) dealloc {
-    self.isTouchEnabled = NO;
-    
-    _webView.delegate = nil;
-    [_webView removeFromSuperview];
+    NSLog(@"About dealloc");
+
     [_webView release];
     _webView = nil;
     

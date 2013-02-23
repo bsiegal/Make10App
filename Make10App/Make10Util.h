@@ -48,7 +48,7 @@ static float const FASTEST_WALL_SPEED = 8;
 /**
  * The delay before showing the game over scene
  */
-static float const GAME_OVER_DELAY = 1;
+static float const GAME_OVER_DELAY = 5;
 /**
  * Preference for the make value
  */

@@ -46,25 +46,13 @@
 
 -(id) init {
     if (self = [super init]) {
-//        CCSprite* background = [Make10Util genBackgroundWithColor:ccc4(93, 217, 4, 255)];
-
-        CGSize winSize = [[CCDirector sharedDirector] winSize];
-
+        CCSprite* background = [Make10Util genBackgroundWithColor:ccc4(93, 217, 4, 255)];
+        
 //        CCSprite* background = [CCSprite spriteWithFile:@"noise.png"];
+//        CGSize winSize = [[CCDirector sharedDirector] winSize];
 //        background.position = ccp(winSize.width / 2, winSize.height / 2);
-        //        [self addChild:background];
-  
-        [CCTexture2D setDefaultAlphaPixelFormat:kCCTexture2DPixelFormat_RGBA4444];
         
-        CCSpriteBatchNode *spriteSheet = [CCSpriteBatchNode batchNodeWithFile:@"Make10AppSprites.pvr.ccz"];
-        
-        [[CCSpriteFrameCache sharedSpriteFrameCache]
-         addSpriteFramesWithFile:@"Make10AppSprites.plist"];
-        [self addChild:spriteSheet];
-        
-        CCSprite *noise = [CCSprite spriteWithSpriteFrameName:@"home.png"];
-        noise.position = ccp(winSize.width / 2, winSize.height / 2);
-        [spriteSheet addChild:noise];
+        [self addChild:background];
         
         
         /*
@@ -105,8 +93,7 @@
 -(void) onEnter
 {
 	[super onEnter];
-//    NSLog(@"IntroLayer onEnter");
-    
+    NSLog(@"IntroLayer onEnter");
 	// ask director for the window size
 	CGSize winSize = [[CCDirector sharedDirector] winSize];
 

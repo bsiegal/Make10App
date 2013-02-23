@@ -89,31 +89,27 @@ CCMenu*     _menu;
     _getReady.visible = !pause;
 }
 
-
-
 -(void) playAction {
+    NSLog(@"LevelLayer playAction");
     [[CCDirector sharedDirector] resume];
-    [self startPauseFadeOut];
+    [self startLevelFadeOut];
 }
 
 /**
- * Fade out the pause layer
+ * Fade out the level layer
  */
--(void) startPauseFadeOut {
+-(void) startLevelFadeOut {
     id actionFadeOut = [CCFadeOut actionWithDuration:LAYER_TRANS_TIME];
-    id actionFadeOutDone = [CCCallFuncN actionWithTarget:self selector:@selector(pauseFadeOutDone)];
+    id actionFadeOutDone = [CCCallFuncN actionWithTarget:self selector:@selector(levelFadeOutDone)];
     [self runAction:[CCSequence actions:actionFadeOut, actionFadeOutDone, nil]];
     
 }
 /**
  * Callback when the level layer fades out
  */
--(void) pauseFadeOutDone {
+-(void) levelFadeOutDone {
     [self removeFromParentAndCleanup:YES];
     [[CCDirector sharedDirector] resume];
-    if ([[self delegate] respondsToSelector:@selector(layerFadeOutDone)]) {
-        [[self delegate] layerFadeOutDone];
-    }
 }
 
 
@@ -128,8 +124,6 @@ CCMenu*     _menu;
 }
 // on "dealloc" you need to release all your retained objects
 -(void) dealloc {
-    self.delegate = nil;
-    
     [_levelLabel removeFromParentAndCleanup:YES];
     _levelLabel = nil;
     
@@ -141,8 +135,7 @@ CCMenu*     _menu;
     
     [_menu removeFromParentAndCleanup:YES];
     _menu = nil;
-    
-    [self removeFromParentAndCleanup:YES];
+
 	[super dealloc];
 }
 

@@ -143,9 +143,6 @@
 // purge memory
 - (void)applicationDidReceiveMemoryWarning:(UIApplication *)application
 {
-    [[CCSpriteFrameCache sharedSpriteFrameCache] removeUnusedSpriteFrames];
-    [[CCTextureCache sharedTextureCache] removeAllTextures];
-    
 	[[CCDirector sharedDirector] purgeCachedData];
 }
 

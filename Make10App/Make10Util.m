@@ -57,38 +57,36 @@ static int   _menuPadding = 20;
 }
 
 +(CCSprite*) genBackgroundWithColor:(ccColor4B)color {
+    CCSprite* noise = [CCSprite spriteWithFile:@"noise.png"];
     
-//    CCSprite* noise = [CCSprite spriteWithFile:@"noise.png"];
-//    
-//    float textureWidth = noise.contentSize.width;
-//    float textureHeight = noise.contentSize.height;
-//    
-//    //1: Create new CCRenderTexture
-//    CCRenderTexture* rt = [CCRenderTexture renderTextureWithWidth:textureWidth height:textureHeight];
-//    
-//    //2: Call CCRenderTexture:begin
-//    ccColor4F bgColor = ccc4FFromccc4B(color);
-//    [rt beginWithClear:bgColor.r g:bgColor.g b:bgColor.b a:bgColor.a];
-//    
-//    //3: Draw into the texture
-//    [noise setBlendFunc:(ccBlendFunc){GL_DST_COLOR, GL_ZERO}];
-//    noise.position = ccp(textureWidth / 2, textureHeight / 2);
-//    [noise visit];
-//    
-//    //4: Call CCRenderTexture:end
-//    [rt end];
-//    
-//    //5: Create a new Sprite from the texture
-//    CCSprite* background = [CCSprite spriteWithTexture:rt.sprite.texture];
+    float textureWidth = noise.contentSize.width;
+    float textureHeight = noise.contentSize.height;
+    
+    //1: Create new CCRenderTexture
+    CCRenderTexture* rt = [CCRenderTexture renderTextureWithWidth:textureWidth height:textureHeight];
+    
+    //2: Call CCRenderTexture:begin
+    ccColor4F bgColor = ccc4FFromccc4B(color);
+    [rt beginWithClear:bgColor.r g:bgColor.g b:bgColor.b a:bgColor.a];
+    
+    //3: Draw into the texture
+    [noise setBlendFunc:(ccBlendFunc){GL_DST_COLOR, GL_ZERO}];
+    noise.position = ccp(textureWidth / 2, textureHeight / 2);
+    [noise visit];
+    
+    //4: Call CCRenderTexture:end
+    [rt end];
+    
+    //5: Create a new Sprite from the texture
+    CCSprite* background = [CCSprite spriteWithTexture:rt.sprite.texture];
 
-
-    CCSprite* background = [CCSprite spriteWithFile:@"noise.png"];
+    
     CGSize winSize = [[CCDirector sharedDirector] winSize];
     background.position = ccp(winSize.width / 2, winSize.height / 2);
     
-//    ccTexParams tp = {GL_LINEAR, GL_LINEAR, GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE};
-//    [background.texture setTexParameters:&tp];
-//    
+    ccTexParams tp = {GL_LINEAR, GL_LINEAR, GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE};
+    [background.texture setTexParameters:&tp];
+    
     return background;
 }
 

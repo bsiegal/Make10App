@@ -52,6 +52,7 @@
         if (self.wallTime < FASTEST_WALL_SPEED) {
             self.wallTime = FASTEST_WALL_SPEED;
         }
+        NSLog(@"Score.initializeProperties wallTime = %d", self.wallTime);
         
     } else {
         
@@ -65,7 +66,7 @@
  * Increase the level, point value and wall speed
  */
 -(BOOL) levelUp {
-
+    NSLog(@"Score.levelUp");
     if (self.tilesRemoved >= LEVEL_MARKER) {
         self.level++;
         [self initializeProperties];
