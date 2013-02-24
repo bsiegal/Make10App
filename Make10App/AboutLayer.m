@@ -50,7 +50,7 @@ CCSprite*  _home;
 
         CCLabelTTF* text = [CCLabelTTF labelWithString:@"About" fontName:@"American Typewriter" fontSize:[Make10Util getTitleFontSize]];
         //title.color = ccc3(0, 0, 0);
-        text.position = ccp(winSize.width / 2, winSize.height - [Make10Util getTitleFontSize]);
+        text.position = ccp(winSize.width / 2, winSize.height - [Make10Util getMarginTop] - [Make10Util getUpperLabelPadding] - [Make10Util getTitleFontSize] / 2);
         // add the label as a child to this Layer
         [self addChild:text];
 

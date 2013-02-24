@@ -64,7 +64,14 @@ static int   _menuPadding = 20;
 
 +(CCSprite*) genBackgroundWithColor:(ccColor4B)color {
     
-//    CCSprite* noise = [CCSprite spriteWithFile:@"noise.png"];
+    /*
+     * Re-add to the sprite frame cache in case there was a memory warning and it got cleared
+     */
+    [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"Make10Sprites.plist"];
+    
+    CCSprite* background = [CCSprite spriteWithSpriteFrameName:@"noise.png"];
+
+//    CCSprite* noise = [CCSprite spriteWithSpriteFrameName:@"noise.png"];
 //    
 //    float textureWidth = noise.contentSize.width;
 //    float textureHeight = noise.contentSize.height;
@@ -87,19 +94,13 @@ static int   _menuPadding = 20;
 //    //5: Create a new Sprite from the texture
 //    CCSprite* background = [CCSprite spriteWithTexture:rt.sprite.texture];
 
-    [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"Make10Sprites.plist"];
     
-    [CCSpriteBatchNode batchNodeWithFile:@"Make10Sprites.pvr.ccz"];
-
-    CCSprite* background = [CCSprite spriteWithSpriteFrameName:@"noise.png"];
-    
-//    CCSprite* background = [CCSprite spriteWithFile:@"noise.png"];
     CGSize winSize = [[CCDirector sharedDirector] winSize];
     background.position = ccp(winSize.width / 2, winSize.height / 2);
     
-//    ccTexParams tp = {GL_LINEAR, GL_LINEAR, GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE};
-//    [background.texture setTexParameters:&tp];
-//
+    ccTexParams tp = {GL_LINEAR, GL_LINEAR, GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE};
+    [background.texture setTexParameters:&tp];
+
     
     
     return background;
@@ -126,7 +127,12 @@ static int   _menuPadding = 20;
 }
 
 +(CCMenuItemSprite*) createPlayButtonWithText:(NSString *)text target:(id)target selector:(SEL)selector {
-    
+
+    /*
+     * Re-add to the sprite frame cache in case there was a memory warning and it got cleared
+     */
+    [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"Make10Sprites.plist"];
+
     CCMenuItemSprite *play = [CCMenuItemSprite itemWithNormalSprite:[CCSprite spriteWithSpriteFrameName:@"button.png"] selectedSprite:[CCSprite spriteWithSpriteFrameName:@"buttonPressed.png"] target:target selector:selector];
     
 //    CCMenuItemImage* play = [CCMenuItemImage itemWithNormalImage:@"button.png" selectedImage:@"buttonPressed.png" target:target selector:selector];
