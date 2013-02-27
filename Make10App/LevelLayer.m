@@ -118,14 +118,22 @@ CCMenu*     _menu;
 
 
 -(void) homeAction {
+//    NSLog(@"LevelLayer homeAction");
     [[CCDirector sharedDirector] resume];
+    
+    if ([[self delegate] respondsToSelector:@selector(layerFadeOutDone)]) {
+        [[self delegate] layerFadeOutDone];
+    }
+
 	[[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInR transitionWithDuration:LAYER_TRANS_TIME scene:[IntroLayer scene]]];
 }
 
 -(void) onExit {
+    [super onExit];
     [_levelLabel setString:@""];
     [_makeValueLabel setString:@""];
 }
+
 // on "dealloc" you need to release all your retained objects
 -(void) dealloc {
     self.delegate = nil;

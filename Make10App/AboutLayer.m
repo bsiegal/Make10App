@@ -127,6 +127,11 @@ CCSprite*  _home;
     [super onExitTransitionDidStart];
 }
 
+-(void) onExit {
+    [[CCSpriteFrameCache sharedSpriteFrameCache] removeSpriteFramesFromFile:@"homeBg.plist"];
+    [super onExit];
+}
+
 -(void) dealloc {
     self.isTouchEnabled = NO;
     

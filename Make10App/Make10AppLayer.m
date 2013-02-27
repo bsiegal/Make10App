@@ -28,6 +28,7 @@
 #import "Wall.h"
 #import "Score.h"
 #import "Progress.h"
+#import "SimpleAudioEngine.h"
 //#import <objc/runtime.h>
 
 #pragma mark - Make10AppLayer
@@ -107,7 +108,7 @@ CCSprite*   _home;
  * Disable touch so there's no bad behavior when the wall is moving
  */
 -(void) addWallRow {
-//    NSLog(@"addWallRow");
+    NSLog(@"addWallRow");
     
     self.isTouchEnabled = NO;
 
@@ -125,6 +126,7 @@ CCSprite*   _home;
      */
     if ([_wall isMax]) {
         [self endGame];
+        return;
     }
     
     /*
@@ -187,7 +189,7 @@ CCSprite*   _home;
 //    NSLog(@"placeScoreLabel");
     CGSize winSize = [[CCDirector sharedDirector] winSize];
     
-    CCSprite* score = [CCSprite spriteWithFile:@"scoreLabelBg.png"];
+    CCSprite* score = [CCSprite spriteWithSpriteFrameName:@"scoreLabelBg.png"];
 
     float y = winSize.height - [Make10Util getMarginTop] - [Make10Util getUpperLabelPadding] - score.contentSize.height / 2;
     score.position = ccp(winSize.width / 2, y);
@@ -215,7 +217,7 @@ CCSprite*   _home;
  */
 -(void) createGain {
 //    NSLog(@"createGain");
-    _gain = [CCSprite spriteWithFile:@"gain.png"];
+    _gain = [CCSprite spriteWithSpriteFrameName:@"gain.png"];
     _gain.position = ccp(100, 300);
     [self addChild:_gain];
     
@@ -247,6 +249,8 @@ CCSprite*   _home;
         CCSprite* background = [Make10Util genBackgroundWithColor:ccc4(5, 151, 242, 255)];
         [self addChild:background];
         
+        _home = [Make10Util createHomeSprite];
+        [self addChild:_home];
         
         NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
         NSNumber* makeValue = [defaults objectForKey:PREF_MAKE_VALUE];
@@ -257,8 +261,6 @@ CCSprite*   _home;
         
         [self createScoreLabelAndProgress];
         
-        _home = [Make10Util createHomeSprite];
-        [self addChild:_home];
         
         [self createGain];
         [self prepNewLevel];
@@ -330,6 +332,10 @@ CCSprite*   _home;
  */
 -(void) wallTileKnockedDone:(id)sender {
 //    NSLog(@"wallTileKnockedDone");
+    
+    [[SimpleAudioEngine sharedEngine] playEffect:@"knock.m4a"];
+    
+
     /*
      * Destroy both the current tile and the knockedWallTile
      * Create the next current tile
@@ -481,7 +487,8 @@ CCSprite*   _home;
  * @param touchPoint CGPoint that was touched in case there was no wallTile touched
  */
 -(void) valueNotMade:(Tile*) wallTile touchPoint:(CGPoint)point {
-//    NSLog(@"valueNotMade wallTile=%@", wallTile);
+    NSLog(@"valueNotMade wallTile=%@", wallTile);
+    
     /*
      * It's not a match
      * Move the current tile to the top of the column where the wallTile is
@@ -509,7 +516,7 @@ CCSprite*   _home;
             
             [_currentTile transitionToPoint:newPosition target:self callback:@selector(currentBecomesWallTileDone:)];
             
-//            NSLog(@"valueNotMade wallTile nil, currentTile.row = %d, currentTile.col = %d", _currentTile.row, _currentTile.col);
+            NSLog(@"valueNotMade wallTile nil, currentTile.row = %d, currentTile.col = %d", _currentTile.row, _currentTile.col);
 
         }
         /*
@@ -547,7 +554,11 @@ CCSprite*   _home;
  */
 -(void) endGame {
 //    NSLog(@"endGame");
-
+    
+    int randSuffix = arc4random() % 3 + 1;
+    NSString* fileName = [NSString stringWithFormat:@"gameOver%d.m4a", randSuffix];
+    [[SimpleAudioEngine sharedEngine] playEffect:fileName];
+    
     self.isTouchEnabled = NO;
 //    NSLog(@"isTouchEnabled is set to NO (endGame)");
     [self stopAllActions];
@@ -567,6 +578,12 @@ CCSprite*   _home;
     [[CCDirector sharedDirector] replaceScene:gameOverScene];
 
 }
+
+-(void) onExit {
+    [[CCSpriteFrameCache sharedSpriteFrameCache] removeSpriteFramesFromFile:@"homeBg.plist"];
+    [super onExit];
+}
+
 
 // on "dealloc" you need to release all your retained objects
 -(void) dealloc {
@@ -593,9 +610,7 @@ CCSprite*   _home;
     [_gain removeFromParentAndCleanup:YES];
     _gain = nil;
     
-    if (_levelLayer) {
-        [_levelLayer removeFromParentAndCleanup:YES];
-    }
+    [_levelLayer removeFromParentAndCleanup:YES];
     _levelLayer = nil;
     
     [_progressBar release];

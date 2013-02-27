@@ -18,6 +18,7 @@
 
 
 #import "Wall.h"
+#import "SimpleAudioEngine.h"
 
 @implementation Wall
 
@@ -45,7 +46,10 @@ NSMutableArray* _tiles;
 }
 
 -(void) transitionUpWithTarget:(id)target callback:(SEL)callback {
-//    NSLog(@"Wall.transitionUpWithTarget");
+    NSLog(@"Wall.transitionUpWithTarget");
+ 
+    [[SimpleAudioEngine sharedEngine] playEffect:@"wallUp.m4a"];
+    
     /*
      * Figure out what tiles need to be moved and do them
      * all at once so we know when we get to the last one.
@@ -287,8 +291,8 @@ NSMutableArray* _tiles;
      * If the column is empty at the row and the column directly below is not empty
      */
     for (int i = 2; i < MAX_ROWS; i++) {
-        int minY = height * (i - 1);
-        int maxY = height * i;
+        int minY = height * (i - 1) + [Make10Util getMarginTop];
+        int maxY = height * i + [Make10Util getMarginTop];
         if (location.y >= minY && location.y <= maxY &&
             ![self isEmptyAtRow:(i - 1) col:col]) {
             tileToAdd.row = i;

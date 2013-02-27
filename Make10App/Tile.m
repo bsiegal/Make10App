@@ -18,6 +18,7 @@
 
 
 #import "Tile.h"
+#import "SimpleAudioEngine.h"
 
 @implementation Tile
 
@@ -90,12 +91,15 @@
     id actionMove = [CCMoveBy actionWithDuration:NEXT_TO_CURRENT_TRANS_TIME position:ccp(winSize.width / 2 - [Make10Util getMarginSide] - self.sprite.contentSize.width / 2, 0)];
     id actionMoveDone = [CCCallFuncN actionWithTarget:target selector:callback];
     [self.sprite runAction:[CCSequence actions:actionMove, actionMoveDone, nil]];
+    
 }
 
 -(void) transitionToPoint:(CGPoint)point target:(id)target callback:(SEL)callback {
     id actionMove = [CCMoveTo actionWithDuration:CURRENT_TO_WALL_TRANS_TIME position:point];
     id actionMoveDone = [CCCallFuncN actionWithTarget:target selector:callback];
     [self.sprite runAction:[CCSequence actions:actionMove, actionMoveDone, nil]];
+    
+    [[SimpleAudioEngine sharedEngine] playEffect:@"currentToWall.m4a"];
 }
 
 -(NSString*) description {

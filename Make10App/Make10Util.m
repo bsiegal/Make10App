@@ -64,11 +64,15 @@ static int   _menuPadding = 20;
 
 +(CCSprite*) genBackgroundWithColor:(ccColor4B)color {
     
-    /*
-     * Re-add to the sprite frame cache in case there was a memory warning and it got cleared
-     */
-    [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"Make10Sprites.plist"];
-    
+    [CCTexture2D setDefaultAlphaPixelFormat:kCCTexture2DPixelFormat_RGB565];
+    [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"homeBg.plist"];
+    [CCSpriteBatchNode batchNodeWithFile:@"homeBg.pvr.ccz"];
+
+//    /*
+//     * Re-add to the sprite frame cache in case there was a memory warning and it got cleared
+//     */
+//    [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"Make10Sprites.plist"];
+//    
     CCSprite* background = [CCSprite spriteWithSpriteFrameName:@"noise.png"];
 
 //    CCSprite* noise = [CCSprite spriteWithSpriteFrameName:@"noise.png"];
@@ -119,14 +123,24 @@ static int   _menuPadding = 20;
 }
 
 +(CCSprite*) createHomeSprite {
+    
+    [CCTexture2D setDefaultAlphaPixelFormat:kCCTexture2DPixelFormat_RGBA4444];
+
+    /*
+     * Re-add to the sprite frame cache in case there was a memory warning and it got cleared
+     */
+    [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"Make10Sprites.plist"];
+
     CGSize winSize = [[CCDirector sharedDirector] winSize];
-//    CCSprite* home = [CCSprite spriteWithFile:@"home.png"];
+
     CCSprite* home = [CCSprite spriteWithSpriteFrameName:@"home.png"];
     home.position = ccp(winSize.width - _marginSide - home.contentSize.width / 2 - _upperLevelPadding, winSize.height - _marginTop - home.contentSize.height / 2 - _upperLevelPadding);
     return home;
 }
 
 +(CCMenuItemSprite*) createPlayButtonWithText:(NSString *)text target:(id)target selector:(SEL)selector {
+
+    [CCTexture2D setDefaultAlphaPixelFormat:kCCTexture2DPixelFormat_RGBA4444];
 
     /*
      * Re-add to the sprite frame cache in case there was a memory warning and it got cleared

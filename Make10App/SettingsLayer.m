@@ -247,6 +247,12 @@ CCSprite*          _home;
     }
 }
 
+-(void) onExit {
+    [[CCSpriteFrameCache sharedSpriteFrameCache] removeSpriteFramesFromFile:@"homeBg.plist"];
+    [super onExit];
+}
+
+
 -(void) dealloc {
 //    NSLog(@"Settings dealloc");
 

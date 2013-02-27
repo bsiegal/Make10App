@@ -149,4 +149,10 @@
 	[[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInR transitionWithDuration:LAYER_TRANS_TIME scene:[AboutLayer scene]]];
 }
 
+-(void) onExit {
+    [[CCSpriteFrameCache sharedSpriteFrameCache] removeSpriteFramesFromFile:@"homeBg.plist"];
+    [super onExit];
+}
+
+
 @end

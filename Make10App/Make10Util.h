@@ -38,7 +38,7 @@ static float const LAYER_TRANS_TIME = 0.5f;
 /**
  * The duration between wall risings for level 1
  */
-static float const SLOWEST_WALL_SPEED = 28;
+static float const SLOWEST_WALL_SPEED = 20;
 
 /**
  * The wall will never be faster than 8 no matter the level
