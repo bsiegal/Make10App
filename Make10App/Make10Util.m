@@ -22,7 +22,7 @@
 
 /******
   TODOs
- o Adv features in later paid edition - multiplication, gamekit leaderboard etc
+ o Adv features for in-app purchases - multiplication, gamekit leaderboard etc
  ******/
 
 static float _marginTop = 0;
@@ -35,6 +35,7 @@ static int   _playFontSize = 40;
 static int   _menuItemFontSize = 24;
 static int   _toggleFontSize = 32;
 static int   _menuPadding = 20;
+static int   _gainFontSize = 14;
 
 +(void)initialize {
     if ([self class] == [super class]) {
@@ -49,6 +50,7 @@ static int   _menuPadding = 20;
             _menuItemFontSize = 48;
             _toggleFontSize = 64;
             _menuPadding = 65;
+            _gainFontSize = 28;
         } else {
             /*
              * It is a iPhone, but for retina 4 inch
@@ -149,8 +151,6 @@ static int   _menuPadding = 20;
 
     CCMenuItemSprite *play = [CCMenuItemSprite itemWithNormalSprite:[CCSprite spriteWithSpriteFrameName:@"button.png"] selectedSprite:[CCSprite spriteWithSpriteFrameName:@"buttonPressed.png"] target:target selector:selector];
     
-//    CCMenuItemImage* play = [CCMenuItemImage itemWithNormalImage:@"button.png" selectedImage:@"buttonPressed.png" target:target selector:selector];
-    
     CCLabelTTF* label = [CCLabelTTF labelWithString:text fontName:@"American Typewriter" fontSize:[Make10Util getTitleFontSize]];
     label.position = ccp(play.contentSize.width / 2, play.contentSize.height / 2);
     label.color = ccc3(0, 0, 0);
@@ -212,23 +212,8 @@ static int   _menuPadding = 20;
     return _titleFontSize;
 }
 
-+(void) stylePlayButton:(CCMenuItemFont*)menuItem {
-    
-    menuItem.fontName = @"American Typewriter";
-    menuItem.fontSize = _playFontSize;
-}
-
-+(void) styleMenuButton:(CCMenuItemFont*)menuItem {
-    
-    menuItem.fontName = @"American Typewriter";
-    menuItem.fontSize = _menuItemFontSize;
-
-}
-
-+(void) styleToggle:(CCMenuItemFont*)menuItem {
-    
-    menuItem.fontName = @"American Typewriter";
-    menuItem.fontSize = _toggleFontSize;
++(int) getGainFontSize {
+    return _gainFontSize;
 }
 
 +(int) getMenuPadding {

@@ -175,22 +175,9 @@ static NSString* const PREF_HIGH_SCORE = @"HIGH_SCORE";
 +(int) getTitleFontSize;
 
 /**
- * Style the Play menu item
- * @param menuItem the CCMenuItemFont to style
+ * Get the font size for a gain label by device
  */
-+(void) stylePlayButton:(CCMenuItemFont*)menuItem;
-
-/**
- * Style a button menu item
- * @param menuItem the CCMenuItemFont to style
- */
-+(void) styleMenuButton:(CCMenuItemFont*)menuItem;
-
-/**
- * Style a toggle buttons
- * @param menuItem the CCMenuItemFont to style
- */
-+(void) styleToggle:(CCMenuItemFont*)menuItem;
++(int) getGainFontSize;
 
 /**
  * Get the padding between menu items

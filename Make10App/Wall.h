@@ -44,6 +44,11 @@ static float const TILE_DROP_TIME = 0.25f;
 @property int removalCount;
 
 /**
+ * How many tiles in the wall have yet to finish moving up
+ */
+@property int needToMoveUpCount;
+
+/**
  * Initialize
  */
 -(id) init;

@@ -68,6 +68,9 @@ NSMutableArray* _tiles;
         }
     }
 
+    self.needToMoveUpCount = [tiles count];
+    NSLog(@"Wall.transitionUpWithTarget needToMoveUpCount starts at %d", self.needToMoveUpCount);
+
     /*
      * Move all the tiles up except for the last one.
      * Do the last one with the callback at the end of the function
@@ -76,12 +79,16 @@ NSMutableArray* _tiles;
         Tile* tile = [tiles objectAtIndex:index];
         
         id actionMove = [CCMoveTo actionWithDuration:WALL_TRANS_TIME position:[self getPointInGrid:tile row:tile.row col:tile.col]];
+        
+        id actionMoveDone = [CCCallFuncN actionWithTarget:self selector:@selector(snapAllToGrid)];
+
         if (target && index == len - 1) {
-            id actionMoveDone = [CCCallFuncN actionWithTarget:target selector:callback];
-            [tile.sprite runAction:[CCSequence actions:actionMove, actionMoveDone, nil]];
-            
+            NSLog(@"Wall.transitionUpWithTarget index = len - 1 = %d", len - 1);
+            id actionMoveFinal = [CCCallFuncN actionWithTarget:target selector:callback];
+
+            [tile.sprite runAction:[CCSequence actions:actionMove, actionMoveDone, actionMoveFinal, nil]];
+
         } else {
-            id actionMoveDone = [CCCallFuncN actionWithTarget:self selector:@selector(snapAllToGrid)];
             [tile.sprite runAction:[CCSequence actions:actionMove, actionMoveDone, nil]];
         }
     }
@@ -280,7 +287,7 @@ NSMutableArray* _tiles;
      * If the column is empty (check row 1) and the location
      * was no higher than row 1
      */
-    if ([self isEmptyAtRow:1 col:col] && location.y >= 0 && location.y < height) {
+    if ([self isEmptyAtRow:1 col:col] && location.y >= 0 + [Make10Util getMarginTop] && location.y < height + [Make10Util getMarginTop]) {
         tileToAdd.row = 1;
         tileToAdd.col = col;
         
@@ -329,59 +336,59 @@ NSMutableArray* _tiles;
     return ccp(0, 0);
 }
 
--(CGPoint) addTileToEmptyColumn:(Tile *)tileToAdd location:(CGPoint)location {
-    /*
-     * Find the column and row that the location is closest to
-     */
-    int col = 0;
-    int width = tileToAdd.sprite.contentSize.width;
-    int height = tileToAdd.sprite.contentSize.height;
-    
-    for (int j = 0; j < MAX_COLS; j++) {
-        float minX = width * j + [Make10Util getMarginSide];
-        float maxX = width * (j + 1) + [Make10Util getMarginSide];
-        if (location.x >= minX && location.x <= maxX) {
-            col = j;
-            break;
-        }
-    }
-
-    /*
-     * If the column is empty (check row 1) and the location
-     * was no higher than row 1
-     */
-    if ([self isEmptyAtRow:1 col:col] && location.y >= 0 && location.y < height) {
-        tileToAdd.row = 1;
-        tileToAdd.col = col;
-        NSMutableArray* tileRow = [_tiles objectAtIndex:1];
-        [tileRow replaceObjectAtIndex:col withObject:tileToAdd];
-        
-        [self getPointInGrid:tileToAdd row:tileToAdd.row col:tileToAdd.col];
-    }
-    
-    /*
-     * If the column is empty at the row and the column directly below is not empty
-     */
-    for (int i = 2; i < MAX_ROWS; i++) {
-        int minY = height * (i - 1);
-        int maxY = height * i;
-        if (location.y >= minY && location.y <= maxY &&
-                ![self isEmptyAtRow:(i - 1) col:col]) {
-            tileToAdd.row = i;
-            tileToAdd.col = col;
-            NSMutableArray* tileRow = [_tiles objectAtIndex:i];
-            [tileRow replaceObjectAtIndex:col withObject:tileToAdd];
-            
-            [self getPointInGrid:tileToAdd row:tileToAdd.row col:tileToAdd.col];
-
-        }
-    }
-
-    /*
-     * Column wasn't empty so return 0, 0
-     */
-    return ccp(0, 0);
-}
+//-(CGPoint) addTileToEmptyColumn:(Tile *)tileToAdd location:(CGPoint)location {
+//    /*
+//     * Find the column and row that the location is closest to
+//     */
+//    int col = 0;
+//    int width = tileToAdd.sprite.contentSize.width;
+//    int height = tileToAdd.sprite.contentSize.height;
+//    
+//    for (int j = 0; j < MAX_COLS; j++) {
+//        float minX = width * j + [Make10Util getMarginSide];
+//        float maxX = width * (j + 1) + [Make10Util getMarginSide];
+//        if (location.x >= minX && location.x <= maxX) {
+//            col = j;
+//            break;
+//        }
+//    }
+//
+//    /*
+//     * If the column is empty (check row 1) and the location
+//     * was no higher than row 1
+//     */
+//    if ([self isEmptyAtRow:1 col:col] && location.y >= 0 && location.y < height) {
+//        tileToAdd.row = 1;
+//        tileToAdd.col = col;
+//        NSMutableArray* tileRow = [_tiles objectAtIndex:1];
+//        [tileRow replaceObjectAtIndex:col withObject:tileToAdd];
+//        
+//        [self getPointInGrid:tileToAdd row:tileToAdd.row col:tileToAdd.col];
+//    }
+//    
+//    /*
+//     * If the column is empty at the row and the column directly below is not empty
+//     */
+//    for (int i = 2; i < MAX_ROWS; i++) {
+//        int minY = height * (i - 1);
+//        int maxY = height * i;
+//        if (location.y >= minY && location.y <= maxY &&
+//                ![self isEmptyAtRow:(i - 1) col:col]) {
+//            tileToAdd.row = i;
+//            tileToAdd.col = col;
+//            NSMutableArray* tileRow = [_tiles objectAtIndex:i];
+//            [tileRow replaceObjectAtIndex:col withObject:tileToAdd];
+//            
+//            [self getPointInGrid:tileToAdd row:tileToAdd.row col:tileToAdd.col];
+//
+//        }
+//    }
+//
+//    /*
+//     * Column wasn't empty so return 0, 0
+//     */
+//    return ccp(0, 0);
+//}
 
 -(void) clearWall {
 //    NSLog(@"Wall.clearWall");
@@ -425,6 +432,8 @@ NSMutableArray* _tiles;
 }
 
 -(void) snapAllToGrid {
+    self.needToMoveUpCount--;
+    NSLog(@"Wall.snapAllToGrid decrementing needToMoveUpCount to %d", self.needToMoveUpCount);
     
     for (int i = 0; i < MAX_ROWS; i++) {
         NSMutableArray* tileRow = [_tiles objectAtIndex:i];
@@ -440,6 +449,7 @@ NSMutableArray* _tiles;
 }
 
 -(void) snapTileToGrid:(Tile*)tile row:(int)row col:(int)col {
+    
     tile.sprite.position = [self getPointInGrid:tile row:row col:col];
 }
 

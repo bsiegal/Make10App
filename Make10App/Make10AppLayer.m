@@ -133,7 +133,7 @@ CCSprite*   _home;
      * If the current tile has a row and is in flight, increment its
      * row because it is not yet a part of the wall and the wall will be transitioning up
      */
-//    NSLog(@"addWallRow currentTile.sprite numberOfRunningActions = %d, currentTile.row = %d, currentTile.col = %d", [_currentTile.sprite numberOfRunningActions], _currentTile.row, _currentTile.col);
+    NSLog(@"addWallRow currentTile.sprite numberOfRunningActions = %d, currentTile.row = %d, currentTile.col = %d", [_currentTile.sprite numberOfRunningActions], _currentTile.row, _currentTile.col);
 
     if ([_currentTile.sprite numberOfRunningActions] > 0 && _currentTile.row > 0) {
         _currentTile.row++;
@@ -221,7 +221,7 @@ CCSprite*   _home;
     _gain.position = ccp(100, 300);
     [self addChild:_gain];
     
-    _gainLabel = [CCLabelTTF labelWithString:@"+10" fontName:@"American Typewriter" fontSize:16];
+    _gainLabel = [CCLabelTTF labelWithString:@"+10" fontName:@"American Typewriter" fontSize:[Make10Util getGainFontSize]];
     _gainLabel.color = ccc3(0, 0, 0);
     _gainLabel.position = ccp(_gain.contentSize.width / 2, _gain.contentSize.height / 2);
     [_gain addChild:_gainLabel];
@@ -232,7 +232,8 @@ CCSprite*   _home;
  * Start the progress bar and enable touch
  */
 -(void) startProgressBar {
-
+    NSLog(@"startProgressBar");
+    
     [_progressBar resetBar];
     [_progressBar startWithDuration:_score.wallTime target:self callback:@selector(addWallRow)];
     self.isTouchEnabled = YES;
@@ -317,7 +318,7 @@ CCSprite*   _home;
  * @param wallTile the tile touched to make the value
  */
 -(void) valueMade:(Tile*) wallTile {
-//    NSLog(@"valueMade");
+    NSLog(@"valueMade");
     /*
      * It's a match!
      * Move the current tile to the position of the wallTile
@@ -331,7 +332,7 @@ CCSprite*   _home;
  * Callback when the value made wall tile is done
  */
 -(void) wallTileKnockedDone:(id)sender {
-//    NSLog(@"wallTileKnockedDone");
+    NSLog(@"wallTileKnockedDone");
     
     [[SimpleAudioEngine sharedEngine] playEffect:@"knock.m4a"];
     
@@ -349,10 +350,13 @@ CCSprite*   _home;
 
     _score.tilesRemoved += tileCount;
     int pointGain = _score.pointValue * tileCount;
+    _gain.scale = 1.0f;
+    
     [self updateScore:pointGain];
     [self levelUp];
     
     [self createCurrentTile];
+    NSLog(@"wallTileKnockedDone before createCurrentTile isTouchEnabled = %d, \n_progressBar.timeBar.numberOfRunningActions = %d,\nwall.needToMoveUpCount = %d", self.isTouchEnabled, _progressBar.timeBar.numberOfRunningActions, _wall.needToMoveUpCount);
 }
 
 /**
@@ -362,8 +366,9 @@ CCSprite*   _home;
 -(void) updateScore:(int)pointGain {
     [_gainLabel setString:[NSString stringWithFormat:@"+%d", pointGain]];
     _gain.visible = YES;
-    [_gain runAction:[CCFadeOut actionWithDuration:0.15]];
-    [_gainLabel runAction:[CCFadeOut actionWithDuration:0.15]];
+    [_gain runAction:[CCScaleTo actionWithDuration:TILE_DROP_TIME scale:1.50]];
+    [_gain runAction:[CCFadeOut actionWithDuration:TILE_DROP_TIME]];
+    [_gainLabel runAction:[CCFadeOut actionWithDuration:TILE_DROP_TIME]];
     
     _score.score += pointGain;
     
@@ -530,7 +535,7 @@ CCSprite*   _home;
  * Callback after the current tile becomes a part of the wall
  */
 -(void) currentBecomesWallTileDone:(id)sender {
-//    NSLog(@"currentBecomesWallTileDone");
+    NSLog(@"currentBecomesWallTileDone");
 
     /*
      * If the current tile transitioned to a point when the
