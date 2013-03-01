@@ -36,12 +36,17 @@ static float const WALL_TRANS_TIME = 0.5f;
  */
 static float const TILE_DROP_TIME = 0.25f;
 
+/**
+ * Action tag for wall transition up
+ */
+static int const ACTION_TAG_WALL_UP = 3;
+
 @interface Wall : NSObject
 
-/**
- * How many tiles were removed
- */
-@property int removalCount;
+///**
+// * How many tiles were removed
+// */
+//@property int removalCount;
 
 /**
  * How many tiles in the wall have yet to finish moving up
@@ -72,9 +77,11 @@ static float const TILE_DROP_TIME = 0.25f;
  * @return the number of tiles to remove (1)
  */
 -(int) removeTile:(Tile*)tile;
--(int) removeAdjacentsWithValue:(int)value row:(int)row col:(int)col;
--(void) transitionDown;
-/** 
+
+//-(int) removeAdjacentsWithValue:(int)value row:(int)row col:(int)col;
+//-(void) transitionDown;
+
+/**
  * Return YES when any tile has reached max row
  */
 -(BOOL)isMax;

@@ -31,6 +31,16 @@ static float const NEXT_TO_CURRENT_TRANS_TIME = 0.25f;
  */
 static float const CURRENT_TO_WALL_TRANS_TIME = 0.35f;
 
+/**
+ * Action tag for current to wall transition knock tile
+ */
+static int const ACTION_TAG_KNOCK = 1;
+
+/**
+ * Action tag for current to wall transition add tile to wall
+ */
+static int const ACTION_TAG_ADD_TO_WALL = 2;
+
 @interface Tile : NSObject
 
 /**
@@ -69,7 +79,8 @@ static float const CURRENT_TO_WALL_TRANS_TIME = 0.35f;
  * @param point CGPoint to move to
  * @param target where callback is located
  * @param callback selector of callback
+ * @param action tag int
  */
--(void) transitionToPoint:(CGPoint)point target:(id)target callback:(SEL)callback;
+-(void) transitionToPoint:(CGPoint)point target:(id)target callback:(SEL)callback actionTag:(int)actionTag;
 
 @end

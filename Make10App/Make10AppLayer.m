@@ -112,6 +112,30 @@ CCSprite*   _home;
     
     self.isTouchEnabled = NO;
 
+    int currentTileSpriteRunningActions = [_currentTile.sprite numberOfRunningActions];
+    NSLog(@"addWallRow currentTile.sprite numberOfRunningActions = %d, currentTile.row = %d, currentTile.col = %d", currentTileSpriteRunningActions, _currentTile.row, _currentTile.col);
+    
+    if (currentTileSpriteRunningActions > 0 && _currentTile.row > 0) {
+        _currentTile.row++;
+        /*
+         * If the current tile has a row (meaning valueNotMade so it's going to join the wall soon) and is in flight, increment its
+         * row because it is not yet a part of the wall and the wall will be transitioning up
+         */
+    } else if (currentTileSpriteRunningActions > 0 && _knockedWallTile) {
+        /*
+         * If the current tile is in flight and there is a _knockedWallTile (meaning
+         * (valueMade so it might remove a tile right when the tiles need to transition up
+         * This is a problem when it is the last tile moving up, the CCSequence will be gone
+         * and then we'll never call the selector to restart the progressBar.
+         * Solution to this is "pause" then "resume" after delay.
+         */
+        [_currentTile.sprite stopActionByTag:ACTION_TAG_KNOCK];
+        NSLog(@"addWallRow stoppedActionByTag");
+        
+        [self scheduleOnce:@selector(knockWallTile) delay:WALL_TRANS_TIME];
+        
+    }
+
     /*
      * Create full row of tiles
      */
@@ -129,18 +153,6 @@ CCSprite*   _home;
         return;
     }
     
-    /*
-     * If the current tile has a row and is in flight, increment its
-     * row because it is not yet a part of the wall and the wall will be transitioning up
-     */
-    NSLog(@"addWallRow currentTile.sprite numberOfRunningActions = %d, currentTile.row = %d, currentTile.col = %d", [_currentTile.sprite numberOfRunningActions], _currentTile.row, _currentTile.col);
-
-    if ([_currentTile.sprite numberOfRunningActions] > 0 && _currentTile.row > 0) {
-        _currentTile.row++;
-        
-//        NSLog(@"addWallRow in if block currentTile.sprite numberOfRunningActions > 0, currentTile.row incremented to %d", _currentTile.row);
-
-    }
 }
 
 
@@ -323,9 +335,14 @@ CCSprite*   _home;
      * It's a match!
      * Move the current tile to the position of the wallTile
      */
-    CGPoint point = wallTile.sprite.position;
     _knockedWallTile = wallTile;
-    [_currentTile transitionToPoint:point target:self callback:@selector(wallTileKnockedDone:)];
+    [self knockWallTile];
+}
+
+-(void) knockWallTile {
+    CGPoint point = _knockedWallTile.sprite.position;
+    [_currentTile transitionToPoint:point target:self callback:@selector(wallTileKnockedDone:) actionTag:ACTION_TAG_KNOCK];
+    
 }
 
 /**
@@ -505,7 +522,7 @@ CCSprite*   _home;
         
         if (newPosition.x != 0 && newPosition.y != 0) {
             
-            [_currentTile transitionToPoint:newPosition target:self callback:@selector(currentBecomesWallTileDone:)];
+            [_currentTile transitionToPoint:newPosition target:self callback:@selector(currentBecomesWallTileDone:) actionTag:ACTION_TAG_ADD_TO_WALL];
 //            NSLog(@"valueNotMade wallTile !nil, currentTile.row = %d, currentTile.col = %d", _currentTile.row, _currentTile.col);
             
         } else {
@@ -519,7 +536,7 @@ CCSprite*   _home;
         CGPoint newPosition = [_wall getPointInEmptySpot:_currentTile location:point];
         if (newPosition.x != 0 && newPosition.y != 0) {
             
-            [_currentTile transitionToPoint:newPosition target:self callback:@selector(currentBecomesWallTileDone:)];
+            [_currentTile transitionToPoint:newPosition target:self callback:@selector(currentBecomesWallTileDone:) actionTag:ACTION_TAG_ADD_TO_WALL];
             
             NSLog(@"valueNotMade wallTile nil, currentTile.row = %d, currentTile.col = %d", _currentTile.row, _currentTile.col);
 

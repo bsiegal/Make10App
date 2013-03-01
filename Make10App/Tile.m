@@ -88,23 +88,24 @@
 
 -(void) transitionToCurrentWithTarget:(id)target callback:(SEL)callback {
     CGSize winSize = [[CCDirector sharedDirector] winSize];
-    id actionMove = [CCMoveBy actionWithDuration:NEXT_TO_CURRENT_TRANS_TIME position:ccp(winSize.width / 2 - [Make10Util getMarginSide] - self.sprite.contentSize.width / 2, 0)];
+    id actionMove = [CCMoveTo actionWithDuration:NEXT_TO_CURRENT_TRANS_TIME position:ccp(winSize.width / 2, winSize.height - [Make10Util getMarginTop] - _sprite.contentSize.height * (1.5))];
     id actionMoveDone = [CCCallFuncN actionWithTarget:target selector:callback];
     [self.sprite runAction:[CCSequence actions:actionMove, actionMoveDone, nil]];
     
 }
 
--(void) transitionToPoint:(CGPoint)point target:(id)target callback:(SEL)callback {
+-(void) transitionToPoint:(CGPoint)point target:(id)target callback:(SEL)callback actionTag:(int)actionTag {
     id actionMove = [CCMoveTo actionWithDuration:CURRENT_TO_WALL_TRANS_TIME position:point];
     id actionMoveDone = [CCCallFuncN actionWithTarget:target selector:callback];
-    [self.sprite runAction:[CCSequence actions:actionMove, actionMoveDone, nil]];
+    CCAction* action = [self.sprite runAction:[CCSequence actions:actionMove, actionMoveDone, nil]];
+    action.tag = actionTag;
     
     [[SimpleAudioEngine sharedEngine] playEffect:@"currentToWall.m4a"];
 }
 
 -(NSString*) description {
-    return [NSString stringWithFormat:@"Tile row:%d col:%d value:%d",
-            self.row, self.col, self.value];
+    return [NSString stringWithFormat:@"Tile row:%d col:%d value:%d sprite:%@",
+            self.row, self.col, self.value, self.sprite];
 }
 
 -(void) dealloc {

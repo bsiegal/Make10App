@@ -80,16 +80,24 @@ NSMutableArray* _tiles;
         
         id actionMove = [CCMoveTo actionWithDuration:WALL_TRANS_TIME position:[self getPointInGrid:tile row:tile.row col:tile.col]];
         
-        id actionMoveDone = [CCCallFuncN actionWithTarget:self selector:@selector(snapAllToGrid)];
+        id actionMoveDone = [CCCallFuncN actionWithTarget:self selector:@selector(tileUpDone)];
 
-        if (target && index == len - 1) {
-            NSLog(@"Wall.transitionUpWithTarget index = len - 1 = %d", len - 1);
+        if (tile && tile.sprite && target && index == len - 1) {
+            NSLog(@"Wall.transitionUpWithTarget tile = %@, index = len - 1 = %d", tile, len - 1);
             id actionMoveFinal = [CCCallFuncN actionWithTarget:target selector:callback];
 
             [tile.sprite runAction:[CCSequence actions:actionMove, actionMoveDone, actionMoveFinal, nil]];
 
-        } else {
+        } else if (tile && tile.sprite) {
+            NSLog(@"Wall.transitionUpWithTarget else if tile = %@", tile);
+            
             [tile.sprite runAction:[CCSequence actions:actionMove, actionMoveDone, nil]];
+            
+        } else {
+            NSLog(@"Wall.transitionUpWithTarget else");
+
+            [target performSelector:callback];
+            
         }
     }
     
@@ -118,13 +126,27 @@ NSMutableArray* _tiles;
     int col = tile.col;
     
     /*
-     * Destroy the tile and nullify the grid at the row, col
+     * Destroy the tile and nullify the grid at the row, col.
+     * If the sprite is moving, meaning the wall is transitioning up
+     * delay the release by wall trans time
      */
     NSMutableArray* tileRow = [_tiles objectAtIndex:row];
+    NSLog(@"Wall.removeTile tile = %@ numberOfActionsRunning = %d", tile, [tile.sprite numberOfRunningActions]);
+    
+    CCAction* wallUp = [tile.sprite getActionByTag:ACTION_TAG_WALL_UP];
+    if (!wallUp.isDone) {
+        NSLog(@"wallUp Not done... continue on");
+        /*
+         * this is only a problem if this is the last tile in the wall because if it gets
+         * removed the ccsequence of actions won't get fired and we'll never restart the
+         * progress bar and will never have touch enabled again!
+         */
+    }
     [tile release];
+    NSLog(@"Wall.removeTile tile released");
+
     [tileRow replaceObjectAtIndex:col withObject:[NSNull null]];
 
-//    NSLog(@"Wall.removeTile tileRow at row:%d = %@", row, tileRow);
     /*
      * Drop all the tiles in the column in rows above by height of 1 tile
      */
@@ -157,39 +179,39 @@ NSMutableArray* _tiles;
     return 1;
 }
 
--(int) removeAdjacentsWithValue:(int)value row:(int)row col:(int)col {
-    self.removalCount = 0;
-    [self removeAdjacents:value row:row col:col];
-    [self transitionDown];
-    return self.removalCount;
-}
-
--(BOOL) removeAdjacents:(int)value row:(int)row col:(int)col {
-    /*
-     * If this row and column has the same value, remove this tile
-     * then check the rows above and below or the columns to the left and right
-     * Increment the removal count and return YES.
-     * Otherwise return no and stop recursion.
-     */
-    if (row < MAX_ROWS && col < MAX_COLS) {
-        NSMutableArray* tileRow = [_tiles objectAtIndex:row];
-        Tile* tile = [tileRow objectAtIndex:row];
-        if (tile && tile.value == value) {
-            self.removalCount++;
-            return [self removeAdjacents:value row:row + 1 col:col] ||
-            [self removeAdjacents:value row:row - 1 col:col] ||
-            [self removeAdjacents:value row:row col:col + 1] ||
-            [self removeAdjacents:value row:row col:col - 1];
-        }
-    }
-    return NO;
-}
-
--(void) transitionDown {
-    /*
-     * Comb through and drop all tiles to fill any gaps
-     */
-}
+//-(int) removeAdjacentsWithValue:(int)value row:(int)row col:(int)col {
+//    self.removalCount = 0;
+//    [self removeAdjacents:value row:row col:col];
+//    [self transitionDown];
+//    return self.removalCount;
+//}
+//
+//-(BOOL) removeAdjacents:(int)value row:(int)row col:(int)col {
+//    /*
+//     * If this row and column has the same value, remove this tile
+//     * then check the rows above and below or the columns to the left and right
+//     * Increment the removal count and return YES.
+//     * Otherwise return no and stop recursion.
+//     */
+//    if (row < MAX_ROWS && col < MAX_COLS) {
+//        NSMutableArray* tileRow = [_tiles objectAtIndex:row];
+//        Tile* tile = [tileRow objectAtIndex:row];
+//        if (tile && tile.value == value) {
+//            self.removalCount++;
+//            return [self removeAdjacents:value row:row + 1 col:col] ||
+//            [self removeAdjacents:value row:row - 1 col:col] ||
+//            [self removeAdjacents:value row:row col:col + 1] ||
+//            [self removeAdjacents:value row:row col:col - 1];
+//        }
+//    }
+//    return NO;
+//}
+//
+//-(void) transitionDown {
+//    /*
+//     * Comb through and drop all tiles to fill any gaps
+//     */
+//}
 
 -(BOOL)isMax {
     NSMutableArray* topRow = [_tiles objectAtIndex:MAX_ROWS - 1];
@@ -431,9 +453,14 @@ NSMutableArray* _tiles;
     return ccp(x, y);
 }
 
--(void) snapAllToGrid {
+-(void) tileUpDone {
     self.needToMoveUpCount--;
     NSLog(@"Wall.snapAllToGrid decrementing needToMoveUpCount to %d", self.needToMoveUpCount);
+
+    [self snapAllToGrid];
+}
+
+-(void) snapAllToGrid {
     
     for (int i = 0; i < MAX_ROWS; i++) {
         NSMutableArray* tileRow = [_tiles objectAtIndex:i];
