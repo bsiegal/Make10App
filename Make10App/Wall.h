@@ -50,6 +50,7 @@ static int const ACTION_TAG_WALL_UP = 3;
 
 /**
  * How many tiles in the wall have yet to finish moving up
+ * just for debugging
  */
 @property int needToMoveUpCount;
 

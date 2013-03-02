@@ -104,8 +104,8 @@
 }
 
 -(NSString*) description {
-    return [NSString stringWithFormat:@"Tile row:%d col:%d value:%d sprite:%@",
-            self.row, self.col, self.value, self.sprite];
+    return [NSString stringWithFormat:@"Tile row:%d col:%d value:%d",
+            self.row, self.col, self.value];
 }
 
 -(void) dealloc {

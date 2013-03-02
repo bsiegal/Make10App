@@ -145,14 +145,6 @@ CCSprite*   _home;
      */
     [_wall transitionUpWithTarget:self callback:@selector(startProgressBar)];
     
-    /*
-     * If the wall has reached the max, show the game over scene after a slight delay
-     */
-    if ([_wall isMax]) {
-        [self endGame];
-        return;
-    }
-    
 }
 
 
@@ -249,6 +241,16 @@ CCSprite*   _home;
     [_progressBar resetBar];
     [_progressBar startWithDuration:_score.wallTime target:self callback:@selector(addWallRow)];
     self.isTouchEnabled = YES;
+    
+    /*
+     * If the wall has reached the max, show the game over scene after a slight delay
+     */
+    if ([_wall isMax]) {
+        [self endGame];
+        return;
+    }
+    
+
 
 }
 
@@ -373,7 +375,7 @@ CCSprite*   _home;
     [self levelUp];
     
     [self createCurrentTile];
-    NSLog(@"wallTileKnockedDone before createCurrentTile isTouchEnabled = %d, \n_progressBar.timeBar.numberOfRunningActions = %d,\nwall.needToMoveUpCount = %d", self.isTouchEnabled, _progressBar.timeBar.numberOfRunningActions, _wall.needToMoveUpCount);
+//    NSLog(@"wallTileKnockedDone before createCurrentTile isTouchEnabled = %d, \n_progressBar.timeBar.numberOfRunningActions = %d,\nwall.needToMoveUpCount = %d", self.isTouchEnabled, _progressBar.timeBar.numberOfRunningActions, _wall.needToMoveUpCount);
 }
 
 /**
@@ -538,13 +540,15 @@ CCSprite*   _home;
             
             [_currentTile transitionToPoint:newPosition target:self callback:@selector(currentBecomesWallTileDone:) actionTag:ACTION_TAG_ADD_TO_WALL];
             
-            NSLog(@"valueNotMade wallTile nil, currentTile.row = %d, currentTile.col = %d", _currentTile.row, _currentTile.col);
+//            NSLog(@"valueNotMade wallTile nil, currentTile.row = %d, currentTile.col = %d", _currentTile.row, _currentTile.col);
 
         }
         /*
          * else clicked too high, just ignore and do nothing
          */
     }
+    
+    
 
 }
 
@@ -563,11 +567,20 @@ CCSprite*   _home;
     int col = _currentTile.col;
     [_wall snapTileToGrid:_currentTile row:row col:col];
     [_wall addTile:_currentTile row:row col:col];
+    
     /*
      * Create the next current tile
      */
     _currentTile = nil;
     [self createCurrentTile];
+
+    /*
+     * If the wall has reached the max, show the game over scene after a slight delay
+     */
+    if ([_wall isMax]) {
+        [self endGame];
+        return;
+    }
     
 }
 

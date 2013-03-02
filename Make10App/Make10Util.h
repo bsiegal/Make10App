@@ -41,14 +41,14 @@ static float const LAYER_TRANS_TIME = 0.5f;
 static float const SLOWEST_WALL_SPEED = 20;
 
 /**
- * The wall will never be faster than 8 no matter the level
+ * The wall will never be faster than this speed no matter the level
  */
-static float const FASTEST_WALL_SPEED = 8;
+static float const FASTEST_WALL_SPEED = 4;
 
 /**
  * The delay before showing the game over scene
  */
-static float const GAME_OVER_DELAY = 1;
+static float const GAME_OVER_DELAY = 1.5;
 /**
  * Preference for the make value
  */

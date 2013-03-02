@@ -111,8 +111,10 @@ CCSprite*          _home;
         CCMenuItemSprite* level1 = [Make10Util createToggleWithText:@"Level 1"];
         CCMenuItemSprite* level2 = [Make10Util createToggleWithText:@"Level 2"];
         CCMenuItemSprite* level3 = [Make10Util createToggleWithText:@"Level 3"];
+        CCMenuItemSprite* level4 = [Make10Util createToggleWithText:@"Level 4"];
+        CCMenuItemSprite* level5 = [Make10Util createToggleWithText:@"Level 5"];
         
-        _levelToggle = [CCMenuItemToggle itemWithTarget:self selector:@selector(toggled:) items:level1, level2, level3, nil];
+        _levelToggle = [CCMenuItemToggle itemWithTarget:self selector:@selector(toggled:) items:level1, level2, level3, level4, level5, nil];
         NSNumber* level = [defaults objectForKey:PREF_START_LEVEL];
         [_levelToggle setSelectedIndex:[level intValue] - 1];
         

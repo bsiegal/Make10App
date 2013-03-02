@@ -222,7 +222,7 @@ static int   _gainFontSize = 14;
 
 +(NSArray*) getMakeValuesArray {
     NSArray* makeValues = nil;
-    NSLog(@"Make10Util getMakeValuesArray top makeValues=%@", makeValues);
+//    NSLog(@"Make10Util getMakeValuesArray top makeValues=%@", makeValues);
     if (makeValues == nil) {
         /*
          * 5 - 20
@@ -245,7 +245,7 @@ static int   _gainFontSize = 14;
         [makeValuesArray release];
         
     }
-    NSLog(@"Make10Util getMakeValuesArray bottom makeValues=%@", makeValues);
+//    NSLog(@"Make10Util getMakeValuesArray bottom makeValues=%@", makeValues);
     return makeValues;
 }
 
