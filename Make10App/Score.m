@@ -45,7 +45,7 @@
     NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
     NSNumber* challengeType = [defaults objectForKey:PREF_CHALLENGE_TYPE]; //default set in IntroLayer
     
-    if (PREF_CHALLENGE_TYPE_SPEED == [challengeType intValue]) {
+    if (PREF_CHALLENGE_TYPE_SPEED == [challengeType intValue] || self.level > 5) {
         
         self.wallTime = SLOWEST_WALL_SPEED - 2 * (self.level - 1);
         
@@ -55,10 +55,13 @@
         
     } else {
         
-        self.wallTime = SLOWEST_WALL_SPEED;
+        NSNumber* startLevel = [defaults objectForKey:PREF_START_LEVEL]; //default set in IntroLayer
+
+        self.wallTime = SLOWEST_WALL_SPEED - 2 * ([startLevel intValue] - 1);
         /*
          * Make value will be changed in Make10AppLayer
          */
+        
     }
 }
 /**
