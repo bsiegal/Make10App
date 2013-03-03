@@ -22,6 +22,7 @@
 #import "Make10AppLayer.h"
 #import "SettingsLayer.h"
 #import "AboutLayer.h"
+#import "SimpleAudioEngine.h"
 
 #pragma mark - IntroLayer
 
@@ -138,14 +139,17 @@
 }
 
 -(void) playAction {
+    [[SimpleAudioEngine sharedEngine] playEffect:@"click.m4a"];
 	[[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:LAYER_TRANS_TIME scene:[Make10AppLayer scene] withColor:ccc3(70, 130, 180)]];
 }
 
 -(void) settingsAction {
+    [[SimpleAudioEngine sharedEngine] playEffect:@"click.m4a"];
 	[[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInR transitionWithDuration:LAYER_TRANS_TIME scene:[SettingsLayer scene]]];
 }
 
 -(void) aboutAction {
+    [[SimpleAudioEngine sharedEngine] playEffect:@"click.m4a"];
 	[[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInR transitionWithDuration:LAYER_TRANS_TIME scene:[AboutLayer scene]]];
 }
 

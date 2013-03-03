@@ -18,6 +18,7 @@
 		3C88858F16E2C30D006A7DB7 /* HowTo.png in Resources */ = {isa = PBXBuildFile; fileRef = 3C88858E16E2C30D006A7DB7 /* HowTo.png */; };
 		3C88859116E2C390006A7DB7 /* about.html in Resources */ = {isa = PBXBuildFile; fileRef = 3C88859016E2C390006A7DB7 /* about.html */; };
 		3C88859316E2C3D8006A7DB7 /* make10.css in Resources */ = {isa = PBXBuildFile; fileRef = 3C88859216E2C3D8006A7DB7 /* make10.css */; };
+		3C88859516E2DEDB006A7DB7 /* click.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 3C88859416E2DEDB006A7DB7 /* click.m4a */; };
 		3C930E3716D30D0600403129 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3C930E3616D30D0600403129 /* Default-568h@2x.png */; };
 		3CD2A16716DAA41B00C9FEA2 /* homeBg-hd.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3CD2A16116DAA41B00C9FEA2 /* homeBg-hd.plist */; };
 		3CD2A16816DAA41B00C9FEA2 /* homeBg-hd.pvr.ccz in Resources */ = {isa = PBXBuildFile; fileRef = 3CD2A16216DAA41B00C9FEA2 /* homeBg-hd.pvr.ccz */; };
@@ -177,6 +178,7 @@
 		3C88858E16E2C30D006A7DB7 /* HowTo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = HowTo.png; path = web/HowTo.png; sourceTree = "<group>"; };
 		3C88859016E2C390006A7DB7 /* about.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = about.html; path = web/about.html; sourceTree = "<group>"; };
 		3C88859216E2C3D8006A7DB7 /* make10.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; name = make10.css; path = web/make10.css; sourceTree = "<group>"; };
+		3C88859416E2DEDB006A7DB7 /* click.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; name = click.m4a; path = Sounds/click.m4a; sourceTree = "<group>"; };
 		3C930E3616D30D0600403129 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x.png"; path = "../Default-568h@2x.png"; sourceTree = "<group>"; };
 		3CCB529816D7FC7B00829398 /* LevelLayerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LevelLayerDelegate.h; sourceTree = "<group>"; };
 		3CD2A16116DAA41B00C9FEA2 /* homeBg-hd.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "homeBg-hd.plist"; path = "Resources/homeBg-hd.plist"; sourceTree = "<group>"; };
@@ -581,6 +583,7 @@
 		915FEE0316B30B7E0045A15A /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				3C88859416E2DEDB006A7DB7 /* click.m4a */,
 				3C5F0F3616DE4F680064CAEB /* gameOver1.m4a */,
 				3C5F0F3716DE4F680064CAEB /* gameOver2.m4a */,
 				3C5F0F3816DE4F680064CAEB /* gameOver3.m4a */,
@@ -1042,6 +1045,7 @@
 				3C88858F16E2C30D006A7DB7 /* HowTo.png in Resources */,
 				3C88859116E2C390006A7DB7 /* about.html in Resources */,
 				3C88859316E2C3D8006A7DB7 /* make10.css in Resources */,
+				3C88859516E2DEDB006A7DB7 /* click.m4a in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -121,6 +121,7 @@ CCSprite*   _home;
          * If the current tile has a row (meaning valueNotMade so it's going to join the wall soon) and is in flight, increment its
          * row because it is not yet a part of the wall and the wall will be transitioning up
          */
+        
     } else if (currentTileSpriteRunningActions > 0 && _knockedWallTile) {
         /*
          * If the current tile is in flight and there is a _knockedWallTile (meaning
@@ -254,6 +255,8 @@ CCSprite*   _home;
 
 }
 
+#pragma mark init
+
 // on "init" you need to initialize your instance
 -(id) init {
 //    NSLog(@"Make10AppLayer.init");
@@ -293,6 +296,7 @@ CCSprite*   _home;
      * (and there's no levelLayer showing)
      */
     if (!_levelLayer && [Make10Util isSpriteTouched:_home touches:touches]) {
+        [[SimpleAudioEngine sharedEngine] playEffect:@"click.m4a"];
         [[CCDirector sharedDirector] pause];
         [self showLevelLayerWithPause:YES];
         return;
@@ -316,7 +320,7 @@ CCSprite*   _home;
     }
 }
 
-#pragma mark handle touch results
+#pragma mark value made
 ///**
 // * Back to the home scene
 // */
@@ -505,6 +509,8 @@ CCSprite*   _home;
     _levelLayer = nil;
     
 }
+
+#pragma mark value not made
 /**
  * Handle when the value is not made
  * @param wallTile Tile that was touched

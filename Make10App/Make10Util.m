@@ -75,30 +75,30 @@ static int   _gainFontSize = 14;
 //     */
 //    [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"Make10Sprites.plist"];
 //    
-//    CCSprite* background = [CCSprite spriteWithSpriteFrameName:@"noise.png"];
+    CCSprite* background = [CCSprite spriteWithSpriteFrameName:@"noise.png"];
 
-    CCSprite* noise = [CCSprite spriteWithSpriteFrameName:@"noise.png"];
-    
-    float textureWidth = noise.contentSize.width;
-    float textureHeight = noise.contentSize.height;
-    
-    //1: Create new CCRenderTexture
-    CCRenderTexture* rt = [CCRenderTexture renderTextureWithWidth:textureWidth height:textureHeight];
-    
-    //2: Call CCRenderTexture:begin
-    ccColor4F bgColor = ccc4FFromccc4B(color);
-    [rt beginWithClear:bgColor.r g:bgColor.g b:bgColor.b a:bgColor.a];
-    
-    //3: Draw into the texture
-    [noise setBlendFunc:(ccBlendFunc){GL_DST_COLOR, GL_ZERO}];
-    noise.position = ccp(textureWidth / 2, textureHeight / 2);
-    [noise visit];
-    
-    //4: Call CCRenderTexture:end
-    [rt end];
-    
-    //5: Create a new Sprite from the texture
-    CCSprite* background = [CCSprite spriteWithTexture:rt.sprite.texture];
+//    CCSprite* noise = [CCSprite spriteWithSpriteFrameName:@"noise.png"];
+//    
+//    float textureWidth = noise.contentSize.width;
+//    float textureHeight = noise.contentSize.height;
+//    
+//    //1: Create new CCRenderTexture
+//    CCRenderTexture* rt = [CCRenderTexture renderTextureWithWidth:textureWidth height:textureHeight];
+//    
+//    //2: Call CCRenderTexture:begin
+//    ccColor4F bgColor = ccc4FFromccc4B(color);
+//    [rt beginWithClear:bgColor.r g:bgColor.g b:bgColor.b a:bgColor.a];
+//    
+//    //3: Draw into the texture
+//    [noise setBlendFunc:(ccBlendFunc){GL_DST_COLOR, GL_ZERO}];
+//    noise.position = ccp(textureWidth / 2, textureHeight / 2);
+//    [noise visit];
+//    
+//    //4: Call CCRenderTexture:end
+//    [rt end];
+//    
+//    //5: Create a new Sprite from the texture
+//    CCSprite* background = [CCSprite spriteWithTexture:rt.sprite.texture];
 
     
     CGSize winSize = [[CCDirector sharedDirector] winSize];

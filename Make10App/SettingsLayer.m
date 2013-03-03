@@ -19,6 +19,8 @@
 #import "SettingsLayer.h"
 #import "IntroLayer.h"
 #import <UIKit/UIKit.h>
+#import "SimpleAudioEngine.h"
+
 @implementation SettingsLayer
 
 UIPickerView*      _makeValuePicker;
@@ -176,6 +178,8 @@ CCSprite*          _home;
 
 -(void) toggled: (id) sender
 {
+    [[SimpleAudioEngine sharedEngine] playEffect:@"click.m4a"];
+    
     CCMenuItemToggle* toggle = (CCMenuItemToggle*) sender;
     
     /*
@@ -196,6 +200,7 @@ CCSprite*          _home;
 }
 
 -(void) makeValueAction {
+    [[SimpleAudioEngine sharedEngine] playEffect:@"click.m4a"];
     _makeValuePicker.hidden = NO;
 }
 
@@ -239,6 +244,9 @@ CCSprite*          _home;
     _makeValuePicker.hidden = YES;
 
     if ([Make10Util isSpriteTouched:_home touches:touches]) {
+        
+        [[SimpleAudioEngine sharedEngine] playEffect:@"click.m4a"];
+        
         /*
          * write to disk to free up memory
          */

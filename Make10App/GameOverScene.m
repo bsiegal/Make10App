@@ -20,6 +20,7 @@
 #import "GameOverScene.h"
 #import "IntroLayer.h"
 #import <UIKit/UIKit.h>
+#import "SimpleAudioEngine.h"
 
 @implementation GameOverScene
 @synthesize layer = _layer;
@@ -115,6 +116,7 @@ CCLabelTTF* _hiScore;
 -(void) ccTouchesEnded:(NSSet*)touches withEvent:(UIEvent*)event {
     
     if ([Make10Util isSpriteTouched:_home touches:touches]) {
+        [[SimpleAudioEngine sharedEngine] playEffect:@"click.m4a"];
         [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:LAYER_TRANS_TIME scene:[IntroLayer scene] withColor:ccc3(70, 130, 180)]];
     }
 }

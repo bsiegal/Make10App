@@ -18,6 +18,7 @@
 
 #import "AboutLayer.h"
 #import "IntroLayer.h"
+#import "SimpleAudioEngine.h"
 
 @implementation AboutLayer
 
@@ -88,6 +89,7 @@ CCSprite*  _home;
 
 -(void) ccTouchesEnded:(NSSet*)touches withEvent:(UIEvent*)event {
     if ([Make10Util isSpriteTouched:_home touches:touches]) {
+        [[SimpleAudioEngine sharedEngine] playEffect:@"click.m4a"];
         [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInL transitionWithDuration:LAYER_TRANS_TIME scene:[IntroLayer scene]]];
     }
 }

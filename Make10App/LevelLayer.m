@@ -20,6 +20,7 @@
 #import "LevelLayer.h"
 #import "Make10Util.h"
 #import "IntroLayer.h"
+#import "SimpleAudioEngine.h"
 
 @implementation LevelLayer
 
@@ -92,6 +93,7 @@ CCMenu*     _menu;
 
 
 -(void) playAction {
+    [[SimpleAudioEngine sharedEngine] playEffect:@"click.m4a"];
     [[CCDirector sharedDirector] resume];
     [self startPauseFadeOut];
 }
@@ -119,6 +121,8 @@ CCMenu*     _menu;
 
 -(void) homeAction {
 //    NSLog(@"LevelLayer homeAction");
+    [[SimpleAudioEngine sharedEngine] playEffect:@"click.m4a"];
+    
     [[CCDirector sharedDirector] resume];
     
     if ([[self delegate] respondsToSelector:@selector(layerFadeOutDone)]) {
