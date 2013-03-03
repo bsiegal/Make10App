@@ -119,8 +119,14 @@ CCSprite*   _home;
         _currentTile.row++;
         /*
          * If the current tile has a row (meaning valueNotMade so it's going to join the wall soon) and is in flight, increment its
-         * row because it is not yet a part of the wall and the wall will be transitioning up
+         * row because it is not yet a part of the wall and the wall will be transitioning up.
+         * Stop the action then "resume" after delay.
          */
+        
+        [_currentTile.sprite stopActionByTag:ACTION_TAG_ADD_TO_WALL];
+        NSLog(@"addWallRow stoppedActionByTag for ACTION_TAG_ADD_TO_WALL");
+        
+        [self scheduleOnce:@selector(moveToAddToWall) delay:WALL_TRANS_TIME];
         
     } else if (currentTileSpriteRunningActions > 0 && _knockedWallTile) {
         /*
@@ -131,7 +137,7 @@ CCSprite*   _home;
          * Solution to this is "pause" then "resume" after delay.
          */
         [_currentTile.sprite stopActionByTag:ACTION_TAG_KNOCK];
-        NSLog(@"addWallRow stoppedActionByTag");
+        NSLog(@"addWallRow stoppedActionByTag for ACTION_TAG_KNOCK");
         
         [self scheduleOnce:@selector(knockWallTile) delay:WALL_TRANS_TIME];
         
@@ -553,9 +559,11 @@ CCSprite*   _home;
          * else clicked too high, just ignore and do nothing
          */
     }
-    
-    
+}
 
+-(void) moveToAddToWall {
+    CGPoint newPosition = [_wall getPointInGrid:_currentTile row:_currentTile.row col:_currentTile.col];
+    [_currentTile transitionToPoint:newPosition target:self callback:@selector(currentBecomesWallTileDone:) actionTag:ACTION_TAG_ADD_TO_WALL];
 }
 
 /**

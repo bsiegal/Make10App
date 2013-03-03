@@ -102,14 +102,15 @@ static int const ACTION_TAG_WALL_UP = 3;
  */
 -(BOOL) isEmptyAtRow:(int)row col:(int)col;
 /**
- * Get the point where the tile should be added to the top of the column where the reference tile is
+ * Get the point where the tile should be added to the top of the column where the reference tile is.  The row and column are set in the tileToAdd.
  * @param tileToAdd Tile* the current tile to set the row and column
  * @param refTile Tile* the tile used to determine the column
  * @return CGPoint where to position the tile or 0,0 if no empty spots found
  */
 -(CGPoint) getPointAtopTile:(Tile*) tileToAdd referenceTile:(Tile*)refTile;
 /**
- * Add a tile to the top of the column where touch point is
+ * Get the point where the tile should be added in the empty spot.
+ * The row and column are set in the tileToAdd.
  * @param tileToAdd Tile* the current tile to set the row and column
  * @param location CGPoint the point used to determine the column
  * @return CGPoint where to position the tile or 0,0 if no empty spots found
