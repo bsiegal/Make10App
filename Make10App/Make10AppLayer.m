@@ -190,6 +190,9 @@ CCSprite*   _home;
  * Callback of createCurrentTile
  */
 -(void) nextMovedToCurrentPosition {
+    /*
+     * Create the next tile
+     */
     [self createNextTile];
 }
 
@@ -308,6 +311,14 @@ CCSprite*   _home;
         return;
     }
     
+    /*
+     * If the current tile is in flight
+     * do not respond to touches
+     */
+    if ([_currentTile.sprite numberOfRunningActions] > 0) {
+        [[SimpleAudioEngine sharedEngine] playEffect:@"click.m4a"];
+        return;
+    }
     
     UITouch* touch = [touches anyObject];
     CGPoint location = [touch locationInView:[touch view]];
@@ -348,6 +359,7 @@ CCSprite*   _home;
      * Move the current tile to the position of the wallTile
      */
     _knockedWallTile = wallTile;
+    
     [self knockWallTile];
 }
 
