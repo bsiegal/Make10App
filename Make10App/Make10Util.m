@@ -154,7 +154,7 @@ static int   _gainFontSize = 14;
     CCLabelTTF* label = [CCLabelTTF labelWithString:text fontName:@"American Typewriter" fontSize:[Make10Util getTitleFontSize]];
     label.position = ccp(play.contentSize.width / 2, play.contentSize.height / 2);
     label.color = ccc3(0, 0, 0);
-    label.tag = 1;
+    label.tag = TAG_LABEL;
     
     [play addChild:label];
     
@@ -170,7 +170,7 @@ static int   _gainFontSize = 14;
     CCLabelTTF* label = [CCLabelTTF labelWithString:text fontName:@"American Typewriter" fontSize:_menuItemFontSize];
     label.position = ccp(button.contentSize.width / 2, button.contentSize.height / 2);
     label.color = ccc3(0, 0, 0);
-    label.tag = 1;
+    label.tag = TAG_LABEL;
     [button addChild:label];
     return button;
 }
@@ -180,7 +180,7 @@ static int   _gainFontSize = 14;
     CCLabelTTF* label = [CCLabelTTF labelWithString:text fontName:@"American Typewriter" fontSize:_menuItemFontSize];
     label.position = ccp(button.contentSize.width / 2, button.contentSize.height / 2);
     label.color = ccc3(0, 0, 0);
-    label.tag = 1; //use this to change label
+    label.tag = TAG_LABEL; //use this to change label
     [button addChild:label];
     return button;
 }

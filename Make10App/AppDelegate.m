@@ -21,6 +21,7 @@
 
 #import "AppDelegate.h"
 #import "IntroLayer.h"
+#import "Make10AppLayer.h"
 
 @implementation AppDelegate
 
@@ -126,8 +127,25 @@
 // call got rejected
 -(void) applicationDidBecomeActive:(UIApplication *)application
 {
-	if( [navController_ visibleViewController] == director_ )
-		[director_ resume];
+	if( [navController_ visibleViewController] == director_ ) {
+        CCScene* currentScene = [director_ runningScene];
+        /*
+         * If the pause layer is showing on the Make10AppLayer,
+         * do nothing.
+         *
+         * All other cases resume
+         */
+        CCLayer* layer = (CCLayer*) [currentScene getChildByTag:TAG_MAKE10_APP_LAYER];
+        if (layer) {
+            Make10AppLayer* appLayer = (Make10AppLayer*) layer;
+            if (![appLayer pauseLayerShowing]) {
+                [director_ resume];
+            }
+        } else {
+            [director_ resume];
+        }
+    }
+
 }
 
 -(void) applicationDidEnterBackground:(UIApplication*)application

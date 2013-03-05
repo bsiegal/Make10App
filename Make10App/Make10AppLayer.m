@@ -58,7 +58,7 @@ CCSprite*   _home;
 	
 	// 'layer' is an autorelease object.
 	Make10AppLayer* layer = [Make10AppLayer node];
-    
+    layer.tag = TAG_MAKE10_APP_LAYER;
 	
 	// add layer as a child to scene
 	[scene addChild: layer];
@@ -484,6 +484,7 @@ CCSprite*   _home;
 
     if (pause) {
         pauseLayer.delegate = self;
+        self.pauseLayerShowing = YES;
     }
     [self addChild:pauseLayer];
     _levelLayer = pauseLayer;
@@ -518,6 +519,8 @@ CCSprite*   _home;
     [self prepNewLevel];
     
 }
+
+#pragma mark LevelLayerDelegate
 /**
  * Callback when the pause layer fades out
  */
@@ -525,6 +528,8 @@ CCSprite*   _home;
 
     [_levelLayer removeFromParentAndCleanup:YES];
     _levelLayer = nil;
+    
+    self.pauseLayerShowing = NO;
     
 }
 

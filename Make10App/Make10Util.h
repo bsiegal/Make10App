@@ -109,6 +109,16 @@ static int const PREF_TILE_STYLE_DOTS = 1;
  */
 static NSString* const PREF_HIGH_SCORE = @"HIGH_SCORE";
 
+/**
+ * Tag for label on an image button
+ */
+static int const TAG_LABEL = 1;
+
+/**
+ * Tag for Make10AppLayer
+ */
+static int const TAG_MAKE10_APP_LAYER = 5;
+
 @interface Make10Util : NSObject
 
 /**

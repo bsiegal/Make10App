@@ -28,6 +28,7 @@
 @interface Make10AppLayer : CCLayer<LevelLayerDelegate>
 {
 }
+@property BOOL pauseLayerShowing;
 
 // returns a CCScene that contains the Make10AppLayer as the only child
 +(CCScene *) scene;

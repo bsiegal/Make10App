@@ -232,7 +232,7 @@ CCSprite*          _home;
     [defaults setInteger:makeValue forKey:PREF_MAKE_VALUE];
 
     NSString* makeString = [NSString stringWithFormat:@"Make %d", makeValue];
-    CCLabelTTF* label = (CCLabelTTF*) [_makeValueToggle getChildByTag:1];
+    CCLabelTTF* label = (CCLabelTTF*) [_makeValueToggle getChildByTag:TAG_LABEL];
     [label setString:makeString];
     
 }
