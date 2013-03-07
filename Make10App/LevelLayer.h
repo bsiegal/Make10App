@@ -43,4 +43,5 @@
 -(void) setPause:(BOOL)pause;
 
 @property (nonatomic, assign) id <LevelLayerDelegate> delegate;
+@property int randomBackground;
 @end

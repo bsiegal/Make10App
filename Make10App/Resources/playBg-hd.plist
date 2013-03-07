@@ -4,7 +4,7 @@
     <dict>
         <key>frames</key>
         <dict>
-            <key>introBg-hd.png</key>
+            <key>playBg.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{2,2},{640,960}}</string>
@@ -23,13 +23,13 @@
             <key>format</key>
             <integer>2</integer>
             <key>realTextureFileName</key>
-            <string>homeBg-hd.pvr.ccz</string>
+            <string>playBg-hd.pvr.ccz</string>
             <key>size</key>
             <string>{1024,1024}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:80789419fb485b4df316f6a10d7d502a$</string>
+            <string>$TexturePacker:SmartUpdate:f48e2e6ba0efd707648b9df78f9b4cf5$</string>
             <key>textureFileName</key>
-            <string>homeBg-hd.pvr.ccz</string>
+            <string>playBg-hd.pvr.ccz</string>
         </dict>
     </dict>
 </plist>

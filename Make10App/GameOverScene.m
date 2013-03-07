@@ -49,24 +49,24 @@ CCLabelTTF* _hiScore;
 -(id) init {
     if (self = [super init]) {
         
-        CCSprite* background = [Make10Util genBackgroundWithColor:ccc4(242, 5, 5, 255)];
+        CCSprite* background = [Make10Util genLayerBackgroundWithName:@"gameOverBg"];
         [self addChild:background];
         
         CGSize winSize = [[CCDirector sharedDirector] winSize];
         
         CCLabelTTF* gameOver = [CCLabelTTF labelWithString:@"Game Over" fontName:@"American Typewriter" fontSize:[Make10Util getTitleFontSize]];
 //        gameOver.color = ccc3(0, 0, 0);
-        gameOver.position = ccp(winSize.width / 2, winSize.height * (0.7));
+        gameOver.position = ccp(winSize.width / 2, winSize.height * (0.8));
         [self addChild:gameOver];
         
         _yourScore = [CCLabelTTF labelWithString:@"" fontName:@"American Typewriter" fontSize:[Make10Util getTitleFontSize]];
 //        _yourScore.color = ccc3(0, 0, 0);
-        _yourScore.position = ccp(winSize.width / 2, winSize.height * (0.5));
+        _yourScore.position = ccp(winSize.width / 2, winSize.height - [Make10Util getMarginTop] - [Make10Util getUpperLabelPadding] - [Make10Util getScoreLabelHeight] / 2);
         [self addChild:_yourScore];
         
         _hiScore = [CCLabelTTF labelWithString:@"" fontName:@"American Typewriter" fontSize:[Make10Util getTitleFontSize]];
 //        _hiScore.color = ccc3(0, 0, 0);
-        _hiScore.position = ccp(winSize.width / 2, winSize.height * (0.3));
+        _hiScore.position = ccp(winSize.width / 2, winSize.height * (0.6));
         [self addChild:_hiScore];
         
         _home = [Make10Util createHomeSprite];
@@ -86,7 +86,7 @@ CCLabelTTF* _hiScore;
     [formatter setAlwaysShowsDecimalSeparator:NO];
     [formatter setUsesGroupingSeparator:YES];
     
-    [_yourScore setString:[NSString stringWithFormat:@"Your score: %@", [formatter stringFromNumber:[NSNumber numberWithInt:score]]]];
+    [_yourScore setString:[NSString stringWithFormat:@"%@", [formatter stringFromNumber:[NSNumber numberWithInt:score]]]];
     
 
     NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
@@ -117,10 +117,15 @@ CCLabelTTF* _hiScore;
     
     if ([Make10Util isSpriteTouched:_home touches:touches]) {
         [[SimpleAudioEngine sharedEngine] playEffect:@"click.m4a"];
-        [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:LAYER_TRANS_TIME scene:[IntroLayer scene] withColor:ccc3(70, 130, 180)]];
+        [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInR transitionWithDuration:LAYER_TRANS_TIME scene:[IntroLayer scene]]];
+
     }
 }
 
+-(void) onExit {
+    [[CCSpriteFrameCache sharedSpriteFrameCache] removeSpriteFramesFromFile:@"gameOverBg.plist"];
+    [super onExit];
+}
 
 -(void) dealloc {
 //    NSLog(@"GameOverScene dealloc");

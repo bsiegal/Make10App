@@ -45,13 +45,12 @@ CCSprite*  _home;
         // ask director for the window size
         CGSize winSize = [[CCDirector sharedDirector] winSize];
 
-        CCSprite* background = [Make10Util genBackgroundWithColor:ccc4(5, 151, 242, 255)];
+        CCSprite* background = [Make10Util genLayerBackgroundWithName:@"boyBg"];
         [self addChild:background];
-
 
         CCLabelTTF* text = [CCLabelTTF labelWithString:@"About" fontName:@"American Typewriter" fontSize:[Make10Util getTitleFontSize]];
         //title.color = ccc3(0, 0, 0);
-        text.position = ccp(winSize.width / 2, winSize.height - [Make10Util getMarginTop] - [Make10Util getUpperLabelPadding] - [Make10Util getTitleFontSize] / 2);
+        text.position = ccp(winSize.width / 2, winSize.height - [Make10Util getMarginTop] - [Make10Util getUpperLabelPadding] - [Make10Util getScoreLabelHeight] / 2);
         // add the label as a child to this Layer
         [self addChild:text];
 
@@ -130,7 +129,7 @@ CCSprite*  _home;
 }
 
 -(void) onExit {
-    [[CCSpriteFrameCache sharedSpriteFrameCache] removeSpriteFramesFromFile:@"homeBg.plist"];
+    [[CCSpriteFrameCache sharedSpriteFrameCache] removeSpriteFramesFromFile:@"boyBg.plist"];
     [super onExit];
 }
 

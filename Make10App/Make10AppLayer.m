@@ -203,16 +203,16 @@ CCSprite*   _home;
 //    NSLog(@"placeScoreLabel");
     CGSize winSize = [[CCDirector sharedDirector] winSize];
     
-    CCSprite* score = [CCSprite spriteWithSpriteFrameName:@"scoreLabelBg.png"];
+//    CCSprite* score = [CCSprite spriteWithSpriteFrameName:@"scoreLabelBg.png"];
 
-    float y = winSize.height - [Make10Util getMarginTop] - [Make10Util getUpperLabelPadding] - score.contentSize.height / 2;
-    score.position = ccp(winSize.width / 2, y);
-    [self addChild:score];
+//    float y = winSize.height - [Make10Util getMarginTop] - [Make10Util getUpperLabelPadding] - score.contentSize.height / 2;
+//    score.position = ccp(winSize.width / 2, y);
+//    [self addChild:score];
     
-    _scoreLabel = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"Make %d", _makeValue] fontName:@"American Typewriter" fontSize:24];
+    _scoreLabel = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"Make %d", _makeValue] fontName:@"American Typewriter" fontSize:[Make10Util getTitleFontSize]];
     _scoreLabel.color = ccc3(0, 0, 0);
-    _scoreLabel.position = ccp(score.contentSize.width / 2, score.contentSize.height / 2);
-    [score addChild:_scoreLabel];
+    _scoreLabel.position = ccp(winSize.width / 2, winSize.height - [Make10Util getMarginTop] - [Make10Util getUpperLabelPadding] - [Make10Util getScoreLabelHeight] / 2);
+    [self addChild:_scoreLabel];
 
 
     /*
@@ -220,7 +220,7 @@ CCSprite*   _home;
      */
     _progressBar = [[Progress alloc] init];
     
-    y = y - score.contentSize.height / 2 - [Make10Util getUpperLabelPadding] - _progressBar.spriteBg.contentSize.height / 2;
+    float y = _scoreLabel.position.y - [Make10Util getScoreLabelHeight] / 2 - [Make10Util getUpperLabelPadding] - _progressBar.spriteBg.contentSize.height / 2;
     _progressBar.spriteBg.position = ccp(winSize.width / 2, y);
     
     [self addChild:_progressBar.spriteBg];
@@ -273,7 +273,7 @@ CCSprite*   _home;
 	// Apple recommends to re-assign "self" with the "super's" return value
 	if (self = [super init]) {
         
-        CCSprite* background = [Make10Util genBackgroundWithColor:ccc4(5, 151, 242, 255)];
+        CCSprite* background = [Make10Util genLayerBackgroundWithName:@"playBg"];
         [self addChild:background];
         
         _home = [Make10Util createHomeSprite];
@@ -641,12 +641,12 @@ CCSprite*   _home;
 
     GameOverScene* gameOverScene = [GameOverScene node];
     [gameOverScene.layer setScore:_score.score];
-    [[CCDirector sharedDirector] replaceScene:gameOverScene];
-
+    
+    [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInR transitionWithDuration:LAYER_TRANS_TIME scene:gameOverScene]];
 }
 
 -(void) onExit {
-    [[CCSpriteFrameCache sharedSpriteFrameCache] removeSpriteFramesFromFile:@"homeBg.plist"];
+    [[CCSpriteFrameCache sharedSpriteFrameCache] removeSpriteFramesFromFile:@"playBg.plist"];
     [super onExit];
 }
 

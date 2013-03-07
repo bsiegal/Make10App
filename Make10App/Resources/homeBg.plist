@@ -4,7 +4,7 @@
     <dict>
         <key>frames</key>
         <dict>
-            <key>noise.png</key>
+            <key>introBg.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{2,2},{320,480}}</string>
@@ -27,7 +27,7 @@
             <key>size</key>
             <string>{512,512}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:19e206843aa896b49ae4f7ec4ae0a6a8$</string>
+            <string>$TexturePacker:SmartUpdate:a2ab80456d063fecaca487725fe9842b$</string>
             <key>textureFileName</key>
             <string>homeBg.pvr.ccz</string>
         </dict>

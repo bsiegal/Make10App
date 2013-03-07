@@ -121,10 +121,15 @@ static int const TAG_MAKE10_APP_LAYER = 5;
 
 @interface Make10Util : NSObject
 
+///**
+// * Generate a textured background sprite with color
+// */
+//+(CCSprite*) genBackgroundWithColor:(ccColor4B)color;
+
 /**
- * Generate a textured background sprite with color
+ * Generate the background sprite using the name
  */
-+(CCSprite*) genBackgroundWithColor:(ccColor4B)color;
++(CCSprite*) genLayerBackgroundWithName:(NSString*)name;
 
 /**
  * Get the margin on the top of the background (which is the same as the bottom)
@@ -170,14 +175,14 @@ static int const TAG_MAKE10_APP_LAYER = 5;
 +(BOOL) isSpriteTouched:(CCSprite*)sprite touches:(NSSet*)touches;
 
 /**
+ * Get the height of the score label area
+ */
++(int) getScoreLabelHeight;
+
+/**
  * Get padding for the home, progress bar, score label, etc
  */
 +(int) getUpperLabelPadding;
-
-/**
- * Get the font size for the IntroLayer's title label by device
- */
-+(int) getIntroTitleFontSize;
 
 /**
  * Get the font size for a title label by device

@@ -4,18 +4,18 @@
     <dict>
         <key>frames</key>
         <dict>
-            <key>introBg-hd.png</key>
+            <key>boyBg.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,2},{640,960}}</string>
+                <string>{{2,2},{320,480}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{0,0},{640,960}}</string>
+                <string>{{0,0},{320,480}}</string>
                 <key>sourceSize</key>
-                <string>{640,960}</string>
+                <string>{320,480}</string>
             </dict>
         </dict>
         <key>metadata</key>
@@ -23,13 +23,13 @@
             <key>format</key>
             <integer>2</integer>
             <key>realTextureFileName</key>
-            <string>homeBg-hd.pvr.ccz</string>
+            <string>boyBg.pvr.ccz</string>
             <key>size</key>
-            <string>{1024,1024}</string>
+            <string>{512,512}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:80789419fb485b4df316f6a10d7d502a$</string>
+            <string>$TexturePacker:SmartUpdate:6845ca1974e92b6914f185be7472ed60$</string>
             <key>textureFileName</key>
-            <string>homeBg-hd.pvr.ccz</string>
+            <string>boyBg.pvr.ccz</string>
         </dict>
     </dict>
 </plist>

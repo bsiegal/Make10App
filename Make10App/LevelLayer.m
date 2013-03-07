@@ -33,6 +33,16 @@ CCMenu*     _menu;
 	// always call "super" init
 	// Apple recommends to re-assign "self" with the "super's" return value
 	if (self = [super initWithColor: ccc4(93, 217, 4, 180)]) {
+        
+        /*
+         * Randomly decide which background to show
+         */
+        int r = arc4random() % 20 + 1;
+        self.randomBackground = r > 10 ? 1 : 0;
+        NSLog(@"r= %d, randomBg = %d", r, self.randomBackground);
+        NSString* name = self.randomBackground == 1 ? @"boyBg" : @"girlBg";
+        CCSprite* background = [Make10Util genLayerBackgroundWithName:name];
+        [self addChild:background];
 
         CGSize winSize = [[CCDirector sharedDirector] winSize];
         
@@ -54,23 +64,23 @@ CCMenu*     _menu;
          * Create the menu
          */
         _menu = [CCMenu menuWithItems:play, home, nil];
-        _menu.position = ccp(winSize.width / 2, winSize.height * 0.25);
+        _menu.position = ccp(winSize.width * 0.7, winSize.height * 0.75);
         [self addChild:_menu];
         [_menu alignItemsVerticallyWithPadding:[Make10Util getMenuPadding]];
         
         _getReady = [CCLabelTTF labelWithString:@"Get ready!" fontName:@"American Typewriter" fontSize:[Make10Util getTitleFontSize]];
 //        _getReady.color = ccc3(0, 0, 0);
-        _getReady.position = ccp(self.contentSize.width / 2, self.contentSize.height * 0.3);
+        _getReady.position = ccp(self.contentSize.width * 0.7, self.contentSize.height * 0.75);
         [self addChild:_getReady];
 
         _levelLabel = [CCLabelTTF labelWithString:@"" fontName:@"American Typewriter" fontSize:[Make10Util getTitleFontSize]];
 //        _levelLabel.color = ccc3(0, 0, 0);
-        _levelLabel.position = ccp(self.contentSize.width / 2, self.contentSize.height * 0.5);
+        _levelLabel.position = ccp(self.contentSize.width * 0.7, self.contentSize.height * 0.5);
         [self addChild:_levelLabel];
 
-        _makeValueLabel = [CCLabelTTF labelWithString:@"" fontName:@"American Typewriter" fontSize:[Make10Util getIntroTitleFontSize]];
+        _makeValueLabel = [CCLabelTTF labelWithString:@"" fontName:@"American Typewriter" fontSize:[Make10Util getTitleFontSize]];
 //        _makeValueLabel.color = ccc3(0, 0, 0);
-        _makeValueLabel.position = ccp(self.contentSize.width / 2, self.contentSize.height * 0.7);
+        _makeValueLabel.position = ccp(winSize.width / 2, winSize.height - [Make10Util getMarginTop] - [Make10Util getUpperLabelPadding] - [Make10Util getScoreLabelHeight] / 2);
         [self addChild:_makeValueLabel];
 
     }
@@ -105,7 +115,6 @@ CCMenu*     _menu;
     id actionFadeOut = [CCFadeOut actionWithDuration:LAYER_TRANS_TIME];
     id actionFadeOutDone = [CCCallFuncN actionWithTarget:self selector:@selector(pauseFadeOutDone)];
     [self runAction:[CCSequence actions:actionFadeOut, actionFadeOutDone, nil]];
-    
 }
 /**
  * Callback when the level layer fades out
@@ -133,6 +142,9 @@ CCMenu*     _menu;
 }
 
 -(void) onExit {
+    NSString* name = self.randomBackground == 1 ? @"boyBg.plist" : @"girlBg.plist";
+    [[CCSpriteFrameCache sharedSpriteFrameCache] removeSpriteFramesFromFile:name];
+    
     [super onExit];
     [_levelLabel setString:@""];
     [_makeValueLabel setString:@""];

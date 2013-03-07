@@ -49,7 +49,7 @@
     if (self = [super init]) {
         
         
-        CCSprite* background = [Make10Util genBackgroundWithColor:ccc4(93, 217, 4, 255)];
+        CCSprite* background = [Make10Util genLayerBackgroundWithName:@"introBg"];
 
 //        CGSize winSize = [[CCDirector sharedDirector] winSize];
 
@@ -99,8 +99,7 @@
     return self;
 }
 
--(void) onEnter
-{
+-(void) onEnter {
 	[super onEnter];
 //    NSLog(@"IntroLayer onEnter");
     
@@ -110,9 +109,9 @@
     NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
     NSNumber* makeValue = [defaults objectForKey:PREF_MAKE_VALUE];
     NSString* titleTxt = [NSString stringWithFormat:@"Make %d", [makeValue intValue]];
-	CCLabelTTF* title = [CCLabelTTF labelWithString:titleTxt fontName:@"American Typewriter" fontSize:[Make10Util getIntroTitleFontSize]];
-    //title.color = ccc3(0, 0, 0);
-    title.position = ccp(winSize.width / 2, winSize.height * 2 / 3);
+	CCLabelTTF* title = [CCLabelTTF labelWithString:titleTxt fontName:@"American Typewriter" fontSize:[Make10Util getTitleFontSize]];
+    title.color = ccc3(0, 0, 0);
+    title.position = ccp(winSize.width / 2, winSize.height - [Make10Util getMarginTop] - [Make10Util getUpperLabelPadding] - [Make10Util getScoreLabelHeight] / 2);
 	// add the label as a child to this Layer
 	[self addChild: title];
 	
@@ -133,14 +132,15 @@
      * Create the menu
      */
     CCMenu* menu = [CCMenu menuWithItems:play, settings, about, nil];
-    menu.position = ccp(winSize.width / 2, winSize.height / 3);
+    menu.position = ccp(winSize.width / 2, winSize.height * .7);
     [self addChild:menu];
     [menu alignItemsVerticallyWithPadding:[Make10Util getMenuPadding]];
 }
 
 -(void) playAction {
     [[SimpleAudioEngine sharedEngine] playEffect:@"click.m4a"];
-	[[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:LAYER_TRANS_TIME scene:[Make10AppLayer scene] withColor:ccc3(70, 130, 180)]];
+	[[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInR transitionWithDuration:LAYER_TRANS_TIME scene:[Make10AppLayer scene]]];
+
 }
 
 -(void) settingsAction {
@@ -154,7 +154,7 @@
 }
 
 -(void) onExit {
-    [[CCSpriteFrameCache sharedSpriteFrameCache] removeSpriteFramesFromFile:@"homeBg.plist"];
+    [[CCSpriteFrameCache sharedSpriteFrameCache] removeSpriteFramesFromFile:@"introBg.plist"];
     [super onExit];
 }
 

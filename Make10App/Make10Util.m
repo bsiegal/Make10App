@@ -29,13 +29,14 @@ static float _marginTop = 0;
 static float _marginSide = 0;
 static int   _tileFontSize = 28;
 static int   _upperLevelPadding = 5;
-static int   _introTitleFontSize = 64;
+static int   _introTitleFontSize = 24;
 static int   _titleFontSize = 32;
 static int   _playFontSize = 40;
 static int   _menuItemFontSize = 24;
 static int   _toggleFontSize = 32;
 static int   _menuPadding = 20;
 static int   _gainFontSize = 14;
+static int   _scoreLabelHeight = 32;
 
 +(void)initialize {
     if ([self class] == [super class]) {
@@ -44,13 +45,14 @@ static int   _gainFontSize = 14;
             _marginSide = 64;
             _tileFontSize = 56;
             _upperLevelPadding = 10;
-            _introTitleFontSize = 128;
+            _introTitleFontSize = 48;
             _titleFontSize = 64;
             _playFontSize = 80;
             _menuItemFontSize = 48;
             _toggleFontSize = 64;
             _menuPadding = 65;
             _gainFontSize = 28;
+            _scoreLabelHeight = 64;
         } else {
             /*
              * It is a iPhone, but for retina 4 inch
@@ -108,6 +110,26 @@ static int   _gainFontSize = 14;
     [background.texture setTexParameters:&tp];
 
     
+    
+    return background;
+}
+
++(CCSprite*) genLayerBackgroundWithName:(NSString*)name {
+    
+    [CCTexture2D setDefaultAlphaPixelFormat:kCCTexture2DPixelFormat_RGB565];
+    
+    NSString* plist = [NSString stringWithFormat:@"%@.plist", name];
+    [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:plist];
+    
+    NSString* pvrCcz = [NSString stringWithFormat:@"%@.pvr.ccz", name];
+    [CCSpriteBatchNode batchNodeWithFile:pvrCcz];
+    
+    NSString* png = [NSString stringWithFormat:@"%@.png", name];
+    CCSprite* background = [CCSprite spriteWithSpriteFrameName:png];
+    
+    
+    CGSize winSize = [[CCDirector sharedDirector] winSize];
+    background.position = ccp(winSize.width / 2, winSize.height / 2);
     
     return background;
 }
@@ -200,12 +222,12 @@ static int   _gainFontSize = 14;
     return FALSE;
 }
 
-+(int) getUpperLabelPadding {
-    return _upperLevelPadding;
++(int) getScoreLabelHeight {
+    return _scoreLabelHeight;
 }
 
-+(int) getIntroTitleFontSize {
-    return _introTitleFontSize;
++(int) getUpperLabelPadding {
+    return _upperLevelPadding;
 }
 
 +(int) getTitleFontSize {
