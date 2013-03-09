@@ -34,7 +34,7 @@ static float const WALL_TRANS_TIME = 0.5f;
 /**
  * The duration for tiles to drop when inner tile removed
  */
-static float const TILE_DROP_TIME = 3;//0.25f;
+static float const TILE_DROP_TIME = 0.25f;
 
 /**
  * Action tag for wall transition up

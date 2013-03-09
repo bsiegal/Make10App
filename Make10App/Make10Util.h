@@ -28,7 +28,7 @@ static int const MAKE_VALUE_DEFAULT = 10;
  * Tiles needed to remove advance to next level
  * (MAX_COLS x MAX_ROWS)
  */
-static int const LEVEL_MARKER = 2;//56;
+static int const LEVEL_MARKER = 56;
 
 /**
  * The duration scenes to change
