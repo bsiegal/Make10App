@@ -1,8 +1,8 @@
 body {
-    background: #f9de8f;
+    background: white;
     color: #000;
-    font-size: 20px;
-    line-height: 24px;
+    font-size: 16px;
+    line-height: 18px;
     font-family: Georgia,Serif;
 }
 
@@ -35,6 +35,10 @@ a:hover {
 img{
   max-width:100%;
   height:auto;
+}
+
+.caption {
+    background-color: #f9de8f;
 }
 
 li {

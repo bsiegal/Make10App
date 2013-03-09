@@ -66,8 +66,9 @@ CCSprite*  _home;
         UIView* view = [[CCDirector sharedDirector] view];
         view.frame = CGRectMake(0, 0, winSize.width, winSize.height);
         
+        int aboutMargin = UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad ? 128 : 64;
         int h = _home.contentSize.height + [Make10Util getUpperLabelPadding] * 2 + [Make10Util getMarginTop];
-        _webView = [[UIWebView alloc] initWithFrame:CGRectMake([Make10Util getMarginSide], h, winSize.width - 2 * [Make10Util getMarginSide], winSize.height - h)];
+        _webView = [[UIWebView alloc] initWithFrame:CGRectMake([Make10Util getMarginSide], h, winSize.width - 2 * [Make10Util getMarginSide] - aboutMargin, winSize.height - h)];
         _webView.delegate = self;
         _webView.hidden = YES;
         

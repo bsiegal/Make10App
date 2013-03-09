@@ -32,7 +32,9 @@ CCMenu*     _menu;
 -(id) init {
 	// always call "super" init
 	// Apple recommends to re-assign "self" with the "super's" return value
-	if (self = [super initWithColor: ccc4(4, 51, 191, 100)]) {
+//	if (self = [super initWithColor: ccc4(242, 183, 5, 85)]) { //yellow
+//    if (self = [super initWithColor: ccc4(4, 51, 191, 100)]) { //darker blue
+    if (self = [super initWithColor: ccc4(5, 151, 242, 85)]) { //lighter blue
         
         /*
          * Randomly decide which background to show

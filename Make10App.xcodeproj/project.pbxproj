@@ -27,11 +27,12 @@
 		3C717F5916EA97F000893043 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3C717F5816EA97F000893043 /* Default-568h@2x.png */; };
 		3C717F5C16EA993600893043 /* Default@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 3C717F5A16EA993600893043 /* Default@2x~ipad.png */; };
 		3C717F5D16EA993600893043 /* Default~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 3C717F5B16EA993600893043 /* Default~ipad.png */; };
-		3C88858916E2A27F006A7DB7 /* Mahjong.png in Resources */ = {isa = PBXBuildFile; fileRef = 3C88858816E2A27F006A7DB7 /* Mahjong.png */; };
-		3C88858F16E2C30D006A7DB7 /* HowTo.png in Resources */ = {isa = PBXBuildFile; fileRef = 3C88858E16E2C30D006A7DB7 /* HowTo.png */; };
 		3C88859116E2C390006A7DB7 /* about.html in Resources */ = {isa = PBXBuildFile; fileRef = 3C88859016E2C390006A7DB7 /* about.html */; };
 		3C88859316E2C3D8006A7DB7 /* make10.css in Resources */ = {isa = PBXBuildFile; fileRef = 3C88859216E2C3D8006A7DB7 /* make10.css */; };
 		3C88859516E2DEDB006A7DB7 /* click.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 3C88859416E2DEDB006A7DB7 /* click.m4a */; };
+		3CCA3EAA16EB68D100685600 /* sample.png in Resources */ = {isa = PBXBuildFile; fileRef = 3CCA3EA816EB68D100685600 /* sample.png */; };
+		3CCA3EAB16EB68D100685600 /* valueMade.png in Resources */ = {isa = PBXBuildFile; fileRef = 3CCA3EA916EB68D100685600 /* valueMade.png */; };
+		3CCA3EB116EB9A3B00685600 /* dots.png in Resources */ = {isa = PBXBuildFile; fileRef = 3CCA3EB016EB9A3B00685600 /* dots.png */; };
 		3CEF052616DD2FB500351658 /* currentToWall.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 3CEF052116DD2FB500351658 /* currentToWall.m4a */; };
 		3CEF052716DD2FB500351658 /* knock.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 3CEF052216DD2FB500351658 /* knock.m4a */; };
 		3CEF052A16DD2FB500351658 /* wallUp.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 3CEF052516DD2FB500351658 /* wallUp.m4a */; };
@@ -191,11 +192,12 @@
 		3C717F5816EA97F000893043 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x.png"; path = "Resources/Default-568h@2x.png"; sourceTree = "<group>"; };
 		3C717F5A16EA993600893043 /* Default@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default@2x~ipad.png"; path = "Resources/Default@2x~ipad.png"; sourceTree = "<group>"; };
 		3C717F5B16EA993600893043 /* Default~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default~ipad.png"; path = "Resources/Default~ipad.png"; sourceTree = "<group>"; };
-		3C88858816E2A27F006A7DB7 /* Mahjong.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Mahjong.png; path = web/Mahjong.png; sourceTree = "<group>"; };
-		3C88858E16E2C30D006A7DB7 /* HowTo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = HowTo.png; path = web/HowTo.png; sourceTree = "<group>"; };
 		3C88859016E2C390006A7DB7 /* about.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = about.html; path = web/about.html; sourceTree = "<group>"; };
 		3C88859216E2C3D8006A7DB7 /* make10.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; name = make10.css; path = web/make10.css; sourceTree = "<group>"; };
 		3C88859416E2DEDB006A7DB7 /* click.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; name = click.m4a; path = Sounds/click.m4a; sourceTree = "<group>"; };
+		3CCA3EA816EB68D100685600 /* sample.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = sample.png; path = web/sample.png; sourceTree = "<group>"; };
+		3CCA3EA916EB68D100685600 /* valueMade.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = valueMade.png; path = web/valueMade.png; sourceTree = "<group>"; };
+		3CCA3EB016EB9A3B00685600 /* dots.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = dots.png; path = web/dots.png; sourceTree = "<group>"; };
 		3CCB529816D7FC7B00829398 /* LevelLayerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LevelLayerDelegate.h; sourceTree = "<group>"; };
 		3CEF052116DD2FB500351658 /* currentToWall.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; name = currentToWall.m4a; path = Sounds/currentToWall.m4a; sourceTree = "<group>"; };
 		3CEF052216DD2FB500351658 /* knock.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; name = knock.m4a; path = Sounds/knock.m4a; sourceTree = "<group>"; };
@@ -535,10 +537,11 @@
 		3C9CE63E16E24465004841C4 /* web */ = {
 			isa = PBXGroup;
 			children = (
+				3CCA3EB016EB9A3B00685600 /* dots.png */,
+				3CCA3EA816EB68D100685600 /* sample.png */,
+				3CCA3EA916EB68D100685600 /* valueMade.png */,
 				3C88859216E2C3D8006A7DB7 /* make10.css */,
 				3C88859016E2C390006A7DB7 /* about.html */,
-				3C88858E16E2C30D006A7DB7 /* HowTo.png */,
-				3C88858816E2A27F006A7DB7 /* Mahjong.png */,
 			);
 			name = web;
 			sourceTree = "<group>";
@@ -1040,8 +1043,6 @@
 				3C5F0F3916DE4F680064CAEB /* gameOver1.m4a in Resources */,
 				3C5F0F3A16DE4F680064CAEB /* gameOver2.m4a in Resources */,
 				3C5F0F3B16DE4F680064CAEB /* gameOver3.m4a in Resources */,
-				3C88858916E2A27F006A7DB7 /* Mahjong.png in Resources */,
-				3C88858F16E2C30D006A7DB7 /* HowTo.png in Resources */,
 				3C88859116E2C390006A7DB7 /* about.html in Resources */,
 				3C88859316E2C3D8006A7DB7 /* make10.css in Resources */,
 				3C88859516E2DEDB006A7DB7 /* click.m4a in Resources */,
@@ -1062,6 +1063,9 @@
 				3C717F5916EA97F000893043 /* Default-568h@2x.png in Resources */,
 				3C717F5C16EA993600893043 /* Default@2x~ipad.png in Resources */,
 				3C717F5D16EA993600893043 /* Default~ipad.png in Resources */,
+				3CCA3EAA16EB68D100685600 /* sample.png in Resources */,
+				3CCA3EAB16EB68D100685600 /* valueMade.png in Resources */,
+				3CCA3EB116EB9A3B00685600 /* dots.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
