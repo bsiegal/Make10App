@@ -292,7 +292,7 @@ NSMutableArray* _tiles;
     /*
      * Find the column and row that the location is closest to
      */
-    int col = 0;
+    int col = -1;
     int width = tileToAdd.sprite.contentSize.width;
     int height = tileToAdd.sprite.contentSize.height;
     
@@ -304,7 +304,13 @@ NSMutableArray* _tiles;
             break;
         }
     }
-    
+    /*
+     * If no column was found (touched in margin side)
+     * return
+     */
+    if (col == -1) {
+        return ccp(0, 0);
+    }
     /*
      * If the column is empty (check row 1) and the location
      * was no higher than row 1

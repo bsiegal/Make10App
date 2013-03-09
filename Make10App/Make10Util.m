@@ -32,11 +32,13 @@ static int   _upperLevelPadding = 5;
 static int   _introTitleFontSize = 24;
 static int   _titleFontSize = 32;
 static int   _playFontSize = 40;
-static int   _menuItemFontSize = 24;
+static int   _menuItemFontSize = 20;
 static int   _toggleFontSize = 32;
 static int   _menuPadding = 20;
 static int   _gainFontSize = 14;
 static int   _scoreLabelHeight = 32;
+static int   _resumeMenuPadding = 42;
+static int   _levelLabelPosition = 186;
 
 +(void)initialize {
     if ([self class] == [super class]) {
@@ -48,11 +50,14 @@ static int   _scoreLabelHeight = 32;
             _introTitleFontSize = 48;
             _titleFontSize = 64;
             _playFontSize = 80;
-            _menuItemFontSize = 48;
+            _menuItemFontSize = 40;
             _toggleFontSize = 64;
             _menuPadding = 65;
             _gainFontSize = 28;
             _scoreLabelHeight = 64;
+            _resumeMenuPadding = 84;
+            _levelLabelPosition = 372;
+            
         } else {
             /*
              * It is a iPhone, but for retina 4 inch
@@ -118,11 +123,8 @@ static int   _scoreLabelHeight = 32;
     
     [CCTexture2D setDefaultAlphaPixelFormat:kCCTexture2DPixelFormat_RGB565];
     
-    NSString* plist = [NSString stringWithFormat:@"%@.plist", name];
-    [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:plist];
-    
-    NSString* pvrCcz = [NSString stringWithFormat:@"%@.pvr.ccz", name];
-    [CCSpriteBatchNode batchNodeWithFile:pvrCcz];
+    [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"Backgrounds.plist"];
+    [CCSpriteBatchNode batchNodeWithFile:@"Backgrounds.pvr.ccz"];
     
     NSString* png = [NSString stringWithFormat:@"%@.png", name];
     CCSprite* background = [CCSprite spriteWithSpriteFrameName:png];
@@ -144,6 +146,32 @@ static int   _scoreLabelHeight = 32;
 
 +(int) getTileFontSize {
     return _tileFontSize;
+}
+
++(int) getResumeMenuPadding {
+    return _resumeMenuPadding;
+}
+
++(int) getLevelLabelPosition {
+    return _levelLabelPosition + _marginTop;
+}
+
++(CCSprite*) createWhiteBoxSprite {
+    
+    [CCTexture2D setDefaultAlphaPixelFormat:kCCTexture2DPixelFormat_RGBA4444];
+    
+    /*
+     * Re-add to the sprite frame cache in case there was a memory warning and it got cleared
+     */
+    [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"Make10Sprites.plist"];
+    
+    CCSprite* score = [CCSprite spriteWithSpriteFrameName:@"scoreLabelBg.png"];
+
+    CGSize winSize = [[CCDirector sharedDirector] winSize];
+
+    float y = winSize.height - [Make10Util getMarginTop] - [Make10Util getUpperLabelPadding] - score.contentSize.height / 2;
+    score.position = ccp(winSize.width / 2, y);
+    return score;
 }
 
 +(CCSprite*) createHomeSprite {

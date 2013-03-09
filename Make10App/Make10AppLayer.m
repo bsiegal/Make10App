@@ -203,11 +203,8 @@ CCSprite*   _home;
 //    NSLog(@"placeScoreLabel");
     CGSize winSize = [[CCDirector sharedDirector] winSize];
     
-//    CCSprite* score = [CCSprite spriteWithSpriteFrameName:@"scoreLabelBg.png"];
-
-//    float y = winSize.height - [Make10Util getMarginTop] - [Make10Util getUpperLabelPadding] - score.contentSize.height / 2;
-//    score.position = ccp(winSize.width / 2, y);
-//    [self addChild:score];
+    CCSprite* score = [Make10Util createWhiteBoxSprite];
+    [self addChild:score];
     
     _scoreLabel = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"Make %d", _makeValue] fontName:@"American Typewriter" fontSize:[Make10Util getTitleFontSize]];
     _scoreLabel.color = ccc3(0, 0, 0);
@@ -220,8 +217,8 @@ CCSprite*   _home;
      */
     _progressBar = [[Progress alloc] init];
     
-    float y = _scoreLabel.position.y - [Make10Util getScoreLabelHeight] / 2 - [Make10Util getUpperLabelPadding] - _progressBar.spriteBg.contentSize.height / 2;
-    _progressBar.spriteBg.position = ccp(winSize.width / 2, y);
+    float progressY = _scoreLabel.position.y - [Make10Util getScoreLabelHeight] / 2 - [Make10Util getUpperLabelPadding] - _progressBar.spriteBg.contentSize.height / 2;
+    _progressBar.spriteBg.position = ccp(winSize.width / 2, progressY);
     
     [self addChild:_progressBar.spriteBg];
 //    [self addChild:_progressBar.sprite];
@@ -573,7 +570,7 @@ CCSprite*   _home;
 
         }
         /*
-         * else clicked too high, just ignore and do nothing
+         * else clicked too high or in margin, just ignore and do nothing
          */
     }
 }
@@ -645,10 +642,10 @@ CCSprite*   _home;
     [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInR transitionWithDuration:LAYER_TRANS_TIME scene:gameOverScene]];
 }
 
--(void) onExit {
-    [[CCSpriteFrameCache sharedSpriteFrameCache] removeSpriteFramesFromFile:@"playBg.plist"];
-    [super onExit];
-}
+//-(void) onExit {
+//    [[CCSpriteFrameCache sharedSpriteFrameCache] removeSpriteFramesFromFile:@"playBg.plist"];
+//    [super onExit];
+//}
 
 
 // on "dealloc" you need to release all your retained objects

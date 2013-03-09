@@ -48,8 +48,11 @@ CCSprite*  _home;
         CCSprite* background = [Make10Util genLayerBackgroundWithName:@"boyBg"];
         [self addChild:background];
 
+        CCSprite* score = [Make10Util createWhiteBoxSprite];
+        [self addChild:score];
+
         CCLabelTTF* text = [CCLabelTTF labelWithString:@"About" fontName:@"American Typewriter" fontSize:[Make10Util getTitleFontSize]];
-        //title.color = ccc3(0, 0, 0);
+        text.color = ccc3(0, 0, 0);
         text.position = ccp(winSize.width / 2, winSize.height - [Make10Util getMarginTop] - [Make10Util getUpperLabelPadding] - [Make10Util getScoreLabelHeight] / 2);
         // add the label as a child to this Layer
         [self addChild:text];
@@ -63,7 +66,7 @@ CCSprite*  _home;
         UIView* view = [[CCDirector sharedDirector] view];
         view.frame = CGRectMake(0, 0, winSize.width, winSize.height);
         
-        int h = _home.contentSize.height + [Make10Util getUpperLabelPadding] + [Make10Util getMarginTop];
+        int h = _home.contentSize.height + [Make10Util getUpperLabelPadding] * 2 + [Make10Util getMarginTop];
         _webView = [[UIWebView alloc] initWithFrame:CGRectMake([Make10Util getMarginSide], h, winSize.width - 2 * [Make10Util getMarginSide], winSize.height - h)];
         _webView.delegate = self;
         _webView.hidden = YES;
@@ -128,10 +131,10 @@ CCSprite*  _home;
     [super onExitTransitionDidStart];
 }
 
--(void) onExit {
-    [[CCSpriteFrameCache sharedSpriteFrameCache] removeSpriteFramesFromFile:@"boyBg.plist"];
-    [super onExit];
-}
+//-(void) onExit {
+//    [[CCSpriteFrameCache sharedSpriteFrameCache] removeSpriteFramesFromFile:@"boyBg.plist"];
+//    [super onExit];
+//}
 
 -(void) dealloc {
     self.isTouchEnabled = NO;

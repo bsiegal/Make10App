@@ -28,7 +28,7 @@ static int const MAKE_VALUE_DEFAULT = 10;
  * Tiles needed to remove advance to next level
  * (MAX_COLS x MAX_ROWS)
  */
-static int const LEVEL_MARKER = 56;
+static int const LEVEL_MARKER = 2;//56;
 
 /**
  * The duration scenes to change
@@ -147,7 +147,22 @@ static int const TAG_MAKE10_APP_LAYER = 5;
 +(int) getTileFontSize;
 
 /**
- * Create and place the home sprite
+ * Padding between resume and new game
+ */
++(int) getResumeMenuPadding;
+
+/**
+ * Y position of the level label
+ */
++(int) getLevelLabelPosition;
+
+/**
+ * Create and position the score background sprite
+ */
++(CCSprite*) createWhiteBoxSprite;
+
+/**
+ * Create and position the home sprite
  */
 +(CCSprite*) createHomeSprite;
 

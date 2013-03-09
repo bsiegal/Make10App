@@ -28,6 +28,8 @@
 
 @implementation IntroLayer
 
+CCSprite* _settings;
+CCSprite* _about;
 
 // Helper class method that creates a Scene with the IntroLayer as the only child.
 +(CCScene*) scene
@@ -51,18 +53,7 @@
         
         CCSprite* background = [Make10Util genLayerBackgroundWithName:@"introBg"];
 
-//        CGSize winSize = [[CCDirector sharedDirector] winSize];
-
         [self addChild:background];
-  
-        
-//        [self addChild:spriteSheet];
-        
-//        CCSprite *noise = [CCSprite spriteWithSpriteFrameName:@"noise.png"];
-//        noise.position = ccp(winSize.width / 2, winSize.height / 2);
-//        [spriteSheet addChild:noise];
-//        [self addChild:noise];
-        
         
         /*
          * Set all defaults if there were none so else where can just grab values
@@ -99,12 +90,43 @@
     return self;
 }
 
+
+-(void) addSettings {
+    
+    [CCTexture2D setDefaultAlphaPixelFormat:kCCTexture2DPixelFormat_RGBA4444];
+    
+    /*
+     * Re-add to the sprite frame cache in case there was a memory warning and it got cleared
+     */
+    [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"Make10Sprites.plist"];
+    
+    CGSize winSize = [[CCDirector sharedDirector] winSize];
+    
+    _settings = [CCSprite spriteWithSpriteFrameName:@"sprocket.png"];
+    _settings.position = ccp(winSize.width - [Make10Util getMarginSide] - _settings.contentSize.width / 2 - [Make10Util getUpperLabelPadding], winSize.height - [Make10Util getMarginTop] - _settings.contentSize.height / 2 - [Make10Util getUpperLabelPadding]);
+    
+    [self addChild:_settings];
+}
+
+-(void) addAbout {
+        
+    CGSize winSize = [[CCDirector sharedDirector] winSize];
+    
+    _about = [CCSprite spriteWithSpriteFrameName:@"about.png"];
+    _about.position = ccp([Make10Util getMarginSide] + _about.contentSize.width / 2 + [Make10Util getUpperLabelPadding], winSize.height - [Make10Util getMarginTop] - _settings.contentSize.height / 2 - [Make10Util getUpperLabelPadding]);
+    
+    [self addChild:_about];
+}
+
 -(void) onEnter {
 	[super onEnter];
 //    NSLog(@"IntroLayer onEnter");
     
 	// ask director for the window size
 	CGSize winSize = [[CCDirector sharedDirector] winSize];
+
+    CCSprite* score = [Make10Util createWhiteBoxSprite];
+    [self addChild:score];
 
     NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
     NSNumber* makeValue = [defaults objectForKey:PREF_MAKE_VALUE];
@@ -119,28 +141,46 @@
      * Play button
      */
     CCMenuItemSprite* play = [Make10Util createPlayButtonWithText:@"Play" target:self selector:@selector(playAction)];
-    /*
-     * Settings button
-     */
-    CCMenuItemSprite* settings = [Make10Util createButtonWithText:@"Settings" target:self selector:@selector(settingsAction)];
-    /*
-     * About button
-     */
-    CCMenuItemSprite* about = [Make10Util createButtonWithText:@"About" target:self selector:@selector(aboutAction)];
+//    /*
+//     * Settings button
+//     */
+//    CCMenuItemSprite* settings = [Make10Util createButtonWithText:@"Settings" target:self selector:@selector(settingsAction)];
+//    /*
+//     * About button
+//     */
+//    CCMenuItemSprite* about = [Make10Util createButtonWithText:@"About" target:self selector:@selector(aboutAction)];
     
     /*
      * Create the menu
      */
-    CCMenu* menu = [CCMenu menuWithItems:play, settings, about, nil];
-    menu.position = ccp(winSize.width / 2, winSize.height * .7);
+    CCMenu* menu = [CCMenu menuWithItems:play, nil];//settings, about, nil];
+    menu.position = ccp(winSize.width / 2, winSize.height * .75);
     [self addChild:menu];
     [menu alignItemsVerticallyWithPadding:[Make10Util getMenuPadding]];
+    
+    
+    [self addSettings];
+    [self addAbout];
+    
+    self.isTouchEnabled = YES;
+    
 }
 
 -(void) playAction {
     [[SimpleAudioEngine sharedEngine] playEffect:@"click.m4a"];
 	[[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInR transitionWithDuration:LAYER_TRANS_TIME scene:[Make10AppLayer scene]]];
 
+}
+
+#pragma mark Touches
+
+-(void) ccTouchesEnded:(NSSet*)touches withEvent:(UIEvent*)event {
+        
+    if ([Make10Util isSpriteTouched:_settings touches:touches]) {
+        [self settingsAction];
+    } else if ([Make10Util isSpriteTouched:_about touches:touches]) {
+        [self aboutAction];
+    }
 }
 
 -(void) settingsAction {
@@ -152,11 +192,23 @@
     [[SimpleAudioEngine sharedEngine] playEffect:@"click.m4a"];
 	[[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInR transitionWithDuration:LAYER_TRANS_TIME scene:[AboutLayer scene]]];
 }
+//
+//-(void) onExit {
+//    [[CCSpriteFrameCache sharedSpriteFrameCache] removeSpriteFramesFromFile:@"introBg.plist"];
+//    [super onExit];
+//}
 
--(void) onExit {
-    [[CCSpriteFrameCache sharedSpriteFrameCache] removeSpriteFramesFromFile:@"introBg.plist"];
-    [super onExit];
+-(void) dealloc {
+    
+    self.isTouchEnabled = NO;
+    
+    [_settings removeFromParentAndCleanup:YES];
+    _settings = nil;
+    
+    [_about removeFromParentAndCleanup:YES];
+    _about = nil;
+    
+    [self removeFromParentAndCleanup:YES];
+    [super dealloc];
 }
-
-
 @end

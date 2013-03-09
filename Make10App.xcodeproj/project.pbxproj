@@ -7,47 +7,31 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3C102A6416D85C66009C442F /* Make10Sprites-hd.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3C102A6216D85C66009C442F /* Make10Sprites-hd.plist */; };
-		3C102A6516D85C66009C442F /* Make10Sprites-hd.pvr.ccz in Resources */ = {isa = PBXBuildFile; fileRef = 3C102A6316D85C66009C442F /* Make10Sprites-hd.pvr.ccz */; };
-		3C102A6816D86116009C442F /* Make10Sprites.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3C102A6616D86116009C442F /* Make10Sprites.plist */; };
-		3C102A6916D86116009C442F /* Make10Sprites.pvr.ccz in Resources */ = {isa = PBXBuildFile; fileRef = 3C102A6716D86116009C442F /* Make10Sprites.pvr.ccz */; };
 		3C5F0F3916DE4F680064CAEB /* gameOver1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 3C5F0F3616DE4F680064CAEB /* gameOver1.m4a */; };
 		3C5F0F3A16DE4F680064CAEB /* gameOver2.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 3C5F0F3716DE4F680064CAEB /* gameOver2.m4a */; };
 		3C5F0F3B16DE4F680064CAEB /* gameOver3.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 3C5F0F3816DE4F680064CAEB /* gameOver3.m4a */; };
+		3C717F4216EA361C00893043 /* Make10Sprites-hd.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3C717F3C16EA361C00893043 /* Make10Sprites-hd.plist */; };
+		3C717F4316EA361C00893043 /* Make10Sprites-hd.pvr.ccz in Resources */ = {isa = PBXBuildFile; fileRef = 3C717F3D16EA361C00893043 /* Make10Sprites-hd.pvr.ccz */; };
+		3C717F4416EA361C00893043 /* Make10Sprites-ipadhd.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3C717F3E16EA361C00893043 /* Make10Sprites-ipadhd.plist */; };
+		3C717F4516EA361C00893043 /* Make10Sprites-ipadhd.pvr.ccz in Resources */ = {isa = PBXBuildFile; fileRef = 3C717F3F16EA361C00893043 /* Make10Sprites-ipadhd.pvr.ccz */; };
+		3C717F4616EA361C00893043 /* Make10Sprites.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3C717F4016EA361C00893043 /* Make10Sprites.plist */; };
+		3C717F4716EA361C00893043 /* Make10Sprites.pvr.ccz in Resources */ = {isa = PBXBuildFile; fileRef = 3C717F4116EA361C00893043 /* Make10Sprites.pvr.ccz */; };
+		3C717F4916EA650000893043 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 3C717F4816EA650000893043 /* Default.png */; };
+		3C717F4B16EA663000893043 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3C717F4A16EA663000893043 /* Default@2x.png */; };
+		3C717F5216EA719600893043 /* Backgrounds-hd.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3C717F4C16EA719600893043 /* Backgrounds-hd.plist */; };
+		3C717F5316EA719600893043 /* Backgrounds-hd.pvr.ccz in Resources */ = {isa = PBXBuildFile; fileRef = 3C717F4D16EA719600893043 /* Backgrounds-hd.pvr.ccz */; };
+		3C717F5416EA719600893043 /* Backgrounds-ipadhd.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3C717F4E16EA719600893043 /* Backgrounds-ipadhd.plist */; };
+		3C717F5516EA719600893043 /* Backgrounds-ipadhd.pvr.ccz in Resources */ = {isa = PBXBuildFile; fileRef = 3C717F4F16EA719600893043 /* Backgrounds-ipadhd.pvr.ccz */; };
+		3C717F5616EA719600893043 /* Backgrounds.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3C717F5016EA719600893043 /* Backgrounds.plist */; };
+		3C717F5716EA719600893043 /* Backgrounds.pvr.ccz in Resources */ = {isa = PBXBuildFile; fileRef = 3C717F5116EA719600893043 /* Backgrounds.pvr.ccz */; };
+		3C717F5916EA97F000893043 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3C717F5816EA97F000893043 /* Default-568h@2x.png */; };
+		3C717F5C16EA993600893043 /* Default@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 3C717F5A16EA993600893043 /* Default@2x~ipad.png */; };
+		3C717F5D16EA993600893043 /* Default~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 3C717F5B16EA993600893043 /* Default~ipad.png */; };
 		3C88858916E2A27F006A7DB7 /* Mahjong.png in Resources */ = {isa = PBXBuildFile; fileRef = 3C88858816E2A27F006A7DB7 /* Mahjong.png */; };
 		3C88858F16E2C30D006A7DB7 /* HowTo.png in Resources */ = {isa = PBXBuildFile; fileRef = 3C88858E16E2C30D006A7DB7 /* HowTo.png */; };
 		3C88859116E2C390006A7DB7 /* about.html in Resources */ = {isa = PBXBuildFile; fileRef = 3C88859016E2C390006A7DB7 /* about.html */; };
 		3C88859316E2C3D8006A7DB7 /* make10.css in Resources */ = {isa = PBXBuildFile; fileRef = 3C88859216E2C3D8006A7DB7 /* make10.css */; };
 		3C88859516E2DEDB006A7DB7 /* click.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 3C88859416E2DEDB006A7DB7 /* click.m4a */; };
-		3C930E3716D30D0600403129 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3C930E3616D30D0600403129 /* Default-568h@2x.png */; };
-		3CA047BC16E7D2480052DAD8 /* introBg-hd.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3CA047B816E7D2480052DAD8 /* introBg-hd.plist */; };
-		3CA047BD16E7D2480052DAD8 /* introBg-hd.pvr.ccz in Resources */ = {isa = PBXBuildFile; fileRef = 3CA047B916E7D2480052DAD8 /* introBg-hd.pvr.ccz */; };
-		3CA047BE16E7D2480052DAD8 /* introBg.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3CA047BA16E7D2480052DAD8 /* introBg.plist */; };
-		3CA047BF16E7D2480052DAD8 /* introBg.pvr.ccz in Resources */ = {isa = PBXBuildFile; fileRef = 3CA047BB16E7D2480052DAD8 /* introBg.pvr.ccz */; };
-		3CA047C416E7D4EB0052DAD8 /* playBg-hd.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3CA047C016E7D4EB0052DAD8 /* playBg-hd.plist */; };
-		3CA047C516E7D4EB0052DAD8 /* playBg-hd.pvr.ccz in Resources */ = {isa = PBXBuildFile; fileRef = 3CA047C116E7D4EB0052DAD8 /* playBg-hd.pvr.ccz */; };
-		3CA047C616E7D4EB0052DAD8 /* playBg.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3CA047C216E7D4EB0052DAD8 /* playBg.plist */; };
-		3CA047C716E7D4EB0052DAD8 /* playBg.pvr.ccz in Resources */ = {isa = PBXBuildFile; fileRef = 3CA047C316E7D4EB0052DAD8 /* playBg.pvr.ccz */; };
-		3CA047CC16E7E11D0052DAD8 /* girlBg-hd.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3CA047C816E7E11D0052DAD8 /* girlBg-hd.plist */; };
-		3CA047CD16E7E11D0052DAD8 /* girlBg-hd.pvr.ccz in Resources */ = {isa = PBXBuildFile; fileRef = 3CA047C916E7E11D0052DAD8 /* girlBg-hd.pvr.ccz */; };
-		3CA047CE16E7E11D0052DAD8 /* girlBg.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3CA047CA16E7E11D0052DAD8 /* girlBg.plist */; };
-		3CA047CF16E7E11D0052DAD8 /* girlBg.pvr.ccz in Resources */ = {isa = PBXBuildFile; fileRef = 3CA047CB16E7E11D0052DAD8 /* girlBg.pvr.ccz */; };
-		3CA047D416E7E2600052DAD8 /* gameOverBg-hd.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3CA047D016E7E2600052DAD8 /* gameOverBg-hd.plist */; };
-		3CA047D516E7E2600052DAD8 /* gameOverBg-hd.pvr.ccz in Resources */ = {isa = PBXBuildFile; fileRef = 3CA047D116E7E2600052DAD8 /* gameOverBg-hd.pvr.ccz */; };
-		3CA047D616E7E2600052DAD8 /* gameOverBg.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3CA047D216E7E2600052DAD8 /* gameOverBg.plist */; };
-		3CA047D716E7E2600052DAD8 /* gameOverBg.pvr.ccz in Resources */ = {isa = PBXBuildFile; fileRef = 3CA047D316E7E2600052DAD8 /* gameOverBg.pvr.ccz */; };
-		3CA047DC16E7ECC50052DAD8 /* boyBg-hd.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3CA047D816E7ECC50052DAD8 /* boyBg-hd.plist */; };
-		3CA047DD16E7ECC50052DAD8 /* boyBg-hd.pvr.ccz in Resources */ = {isa = PBXBuildFile; fileRef = 3CA047D916E7ECC50052DAD8 /* boyBg-hd.pvr.ccz */; };
-		3CA047DE16E7ECC50052DAD8 /* boyBg.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3CA047DA16E7ECC50052DAD8 /* boyBg.plist */; };
-		3CA047DF16E7ECC50052DAD8 /* boyBg.pvr.ccz in Resources */ = {isa = PBXBuildFile; fileRef = 3CA047DB16E7ECC50052DAD8 /* boyBg.pvr.ccz */; };
-		3CD2A16716DAA41B00C9FEA2 /* homeBg-hd.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3CD2A16116DAA41B00C9FEA2 /* homeBg-hd.plist */; };
-		3CD2A16816DAA41B00C9FEA2 /* homeBg-hd.pvr.ccz in Resources */ = {isa = PBXBuildFile; fileRef = 3CD2A16216DAA41B00C9FEA2 /* homeBg-hd.pvr.ccz */; };
-		3CD2A16916DAA41B00C9FEA2 /* homeBg-ipadhd.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3CD2A16316DAA41B00C9FEA2 /* homeBg-ipadhd.plist */; };
-		3CD2A16A16DAA41B00C9FEA2 /* homeBg-ipadhd.pvr.ccz in Resources */ = {isa = PBXBuildFile; fileRef = 3CD2A16416DAA41B00C9FEA2 /* homeBg-ipadhd.pvr.ccz */; };
-		3CD2A16B16DAA41B00C9FEA2 /* homeBg.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3CD2A16516DAA41B00C9FEA2 /* homeBg.plist */; };
-		3CD2A16C16DAA41B00C9FEA2 /* homeBg.pvr.ccz in Resources */ = {isa = PBXBuildFile; fileRef = 3CD2A16616DAA41B00C9FEA2 /* homeBg.pvr.ccz */; };
-		3CD3C1FC16D87316003173A9 /* Make10Sprites-ipadhd.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3CD3C1FA16D87316003173A9 /* Make10Sprites-ipadhd.plist */; };
-		3CD3C1FD16D87316003173A9 /* Make10Sprites-ipadhd.pvr.ccz in Resources */ = {isa = PBXBuildFile; fileRef = 3CD3C1FB16D87316003173A9 /* Make10Sprites-ipadhd.pvr.ccz */; };
 		3CEF052616DD2FB500351658 /* currentToWall.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 3CEF052116DD2FB500351658 /* currentToWall.m4a */; };
 		3CEF052716DD2FB500351658 /* knock.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 3CEF052216DD2FB500351658 /* knock.m4a */; };
 		3CEF052A16DD2FB500351658 /* wallUp.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 3CEF052516DD2FB500351658 /* wallUp.m4a */; };
@@ -187,48 +171,32 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		3C102A6216D85C66009C442F /* Make10Sprites-hd.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "Make10Sprites-hd.plist"; path = "Resources/Make10Sprites-hd.plist"; sourceTree = "<group>"; };
-		3C102A6316D85C66009C442F /* Make10Sprites-hd.pvr.ccz */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Make10Sprites-hd.pvr.ccz"; path = "Resources/Make10Sprites-hd.pvr.ccz"; sourceTree = "<group>"; };
-		3C102A6616D86116009C442F /* Make10Sprites.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Make10Sprites.plist; path = Resources/Make10Sprites.plist; sourceTree = "<group>"; };
-		3C102A6716D86116009C442F /* Make10Sprites.pvr.ccz */ = {isa = PBXFileReference; lastKnownFileType = file; name = Make10Sprites.pvr.ccz; path = Resources/Make10Sprites.pvr.ccz; sourceTree = "<group>"; };
 		3C5F0F3616DE4F680064CAEB /* gameOver1.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; name = gameOver1.m4a; path = Sounds/gameOver1.m4a; sourceTree = "<group>"; };
 		3C5F0F3716DE4F680064CAEB /* gameOver2.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; name = gameOver2.m4a; path = Sounds/gameOver2.m4a; sourceTree = "<group>"; };
 		3C5F0F3816DE4F680064CAEB /* gameOver3.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; name = gameOver3.m4a; path = Sounds/gameOver3.m4a; sourceTree = "<group>"; };
+		3C717F3C16EA361C00893043 /* Make10Sprites-hd.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "Make10Sprites-hd.plist"; path = "Resources/Make10Sprites-hd.plist"; sourceTree = "<group>"; };
+		3C717F3D16EA361C00893043 /* Make10Sprites-hd.pvr.ccz */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Make10Sprites-hd.pvr.ccz"; path = "Resources/Make10Sprites-hd.pvr.ccz"; sourceTree = "<group>"; };
+		3C717F3E16EA361C00893043 /* Make10Sprites-ipadhd.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "Make10Sprites-ipadhd.plist"; path = "Resources/Make10Sprites-ipadhd.plist"; sourceTree = "<group>"; };
+		3C717F3F16EA361C00893043 /* Make10Sprites-ipadhd.pvr.ccz */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Make10Sprites-ipadhd.pvr.ccz"; path = "Resources/Make10Sprites-ipadhd.pvr.ccz"; sourceTree = "<group>"; };
+		3C717F4016EA361C00893043 /* Make10Sprites.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Make10Sprites.plist; path = Resources/Make10Sprites.plist; sourceTree = "<group>"; };
+		3C717F4116EA361C00893043 /* Make10Sprites.pvr.ccz */ = {isa = PBXFileReference; lastKnownFileType = file; name = Make10Sprites.pvr.ccz; path = Resources/Make10Sprites.pvr.ccz; sourceTree = "<group>"; };
+		3C717F4816EA650000893043 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default.png; path = Resources/Default.png; sourceTree = "<group>"; };
+		3C717F4A16EA663000893043 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default@2x.png"; path = "Resources/Default@2x.png"; sourceTree = "<group>"; };
+		3C717F4C16EA719600893043 /* Backgrounds-hd.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "Backgrounds-hd.plist"; path = "Resources/Backgrounds-hd.plist"; sourceTree = "<group>"; };
+		3C717F4D16EA719600893043 /* Backgrounds-hd.pvr.ccz */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Backgrounds-hd.pvr.ccz"; path = "Resources/Backgrounds-hd.pvr.ccz"; sourceTree = "<group>"; };
+		3C717F4E16EA719600893043 /* Backgrounds-ipadhd.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "Backgrounds-ipadhd.plist"; path = "Resources/Backgrounds-ipadhd.plist"; sourceTree = "<group>"; };
+		3C717F4F16EA719600893043 /* Backgrounds-ipadhd.pvr.ccz */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Backgrounds-ipadhd.pvr.ccz"; path = "Resources/Backgrounds-ipadhd.pvr.ccz"; sourceTree = "<group>"; };
+		3C717F5016EA719600893043 /* Backgrounds.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Backgrounds.plist; path = Resources/Backgrounds.plist; sourceTree = "<group>"; };
+		3C717F5116EA719600893043 /* Backgrounds.pvr.ccz */ = {isa = PBXFileReference; lastKnownFileType = file; name = Backgrounds.pvr.ccz; path = Resources/Backgrounds.pvr.ccz; sourceTree = "<group>"; };
+		3C717F5816EA97F000893043 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x.png"; path = "Resources/Default-568h@2x.png"; sourceTree = "<group>"; };
+		3C717F5A16EA993600893043 /* Default@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default@2x~ipad.png"; path = "Resources/Default@2x~ipad.png"; sourceTree = "<group>"; };
+		3C717F5B16EA993600893043 /* Default~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default~ipad.png"; path = "Resources/Default~ipad.png"; sourceTree = "<group>"; };
 		3C88858816E2A27F006A7DB7 /* Mahjong.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Mahjong.png; path = web/Mahjong.png; sourceTree = "<group>"; };
 		3C88858E16E2C30D006A7DB7 /* HowTo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = HowTo.png; path = web/HowTo.png; sourceTree = "<group>"; };
 		3C88859016E2C390006A7DB7 /* about.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = about.html; path = web/about.html; sourceTree = "<group>"; };
 		3C88859216E2C3D8006A7DB7 /* make10.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; name = make10.css; path = web/make10.css; sourceTree = "<group>"; };
 		3C88859416E2DEDB006A7DB7 /* click.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; name = click.m4a; path = Sounds/click.m4a; sourceTree = "<group>"; };
-		3C930E3616D30D0600403129 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x.png"; path = "../Default-568h@2x.png"; sourceTree = "<group>"; };
-		3CA047B816E7D2480052DAD8 /* introBg-hd.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "introBg-hd.plist"; path = "Resources/introBg-hd.plist"; sourceTree = "<group>"; };
-		3CA047B916E7D2480052DAD8 /* introBg-hd.pvr.ccz */ = {isa = PBXFileReference; lastKnownFileType = file; name = "introBg-hd.pvr.ccz"; path = "Resources/introBg-hd.pvr.ccz"; sourceTree = "<group>"; };
-		3CA047BA16E7D2480052DAD8 /* introBg.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = introBg.plist; path = Resources/introBg.plist; sourceTree = "<group>"; };
-		3CA047BB16E7D2480052DAD8 /* introBg.pvr.ccz */ = {isa = PBXFileReference; lastKnownFileType = file; name = introBg.pvr.ccz; path = Resources/introBg.pvr.ccz; sourceTree = "<group>"; };
-		3CA047C016E7D4EB0052DAD8 /* playBg-hd.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "playBg-hd.plist"; path = "Resources/playBg-hd.plist"; sourceTree = "<group>"; };
-		3CA047C116E7D4EB0052DAD8 /* playBg-hd.pvr.ccz */ = {isa = PBXFileReference; lastKnownFileType = file; name = "playBg-hd.pvr.ccz"; path = "Resources/playBg-hd.pvr.ccz"; sourceTree = "<group>"; };
-		3CA047C216E7D4EB0052DAD8 /* playBg.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = playBg.plist; path = Resources/playBg.plist; sourceTree = "<group>"; };
-		3CA047C316E7D4EB0052DAD8 /* playBg.pvr.ccz */ = {isa = PBXFileReference; lastKnownFileType = file; name = playBg.pvr.ccz; path = Resources/playBg.pvr.ccz; sourceTree = "<group>"; };
-		3CA047C816E7E11D0052DAD8 /* girlBg-hd.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "girlBg-hd.plist"; path = "Resources/girlBg-hd.plist"; sourceTree = "<group>"; };
-		3CA047C916E7E11D0052DAD8 /* girlBg-hd.pvr.ccz */ = {isa = PBXFileReference; lastKnownFileType = file; name = "girlBg-hd.pvr.ccz"; path = "Resources/girlBg-hd.pvr.ccz"; sourceTree = "<group>"; };
-		3CA047CA16E7E11D0052DAD8 /* girlBg.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = girlBg.plist; path = Resources/girlBg.plist; sourceTree = "<group>"; };
-		3CA047CB16E7E11D0052DAD8 /* girlBg.pvr.ccz */ = {isa = PBXFileReference; lastKnownFileType = file; name = girlBg.pvr.ccz; path = Resources/girlBg.pvr.ccz; sourceTree = "<group>"; };
-		3CA047D016E7E2600052DAD8 /* gameOverBg-hd.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "gameOverBg-hd.plist"; path = "Resources/gameOverBg-hd.plist"; sourceTree = "<group>"; };
-		3CA047D116E7E2600052DAD8 /* gameOverBg-hd.pvr.ccz */ = {isa = PBXFileReference; lastKnownFileType = file; name = "gameOverBg-hd.pvr.ccz"; path = "Resources/gameOverBg-hd.pvr.ccz"; sourceTree = "<group>"; };
-		3CA047D216E7E2600052DAD8 /* gameOverBg.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = gameOverBg.plist; path = Resources/gameOverBg.plist; sourceTree = "<group>"; };
-		3CA047D316E7E2600052DAD8 /* gameOverBg.pvr.ccz */ = {isa = PBXFileReference; lastKnownFileType = file; name = gameOverBg.pvr.ccz; path = Resources/gameOverBg.pvr.ccz; sourceTree = "<group>"; };
-		3CA047D816E7ECC50052DAD8 /* boyBg-hd.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "boyBg-hd.plist"; path = "Resources/boyBg-hd.plist"; sourceTree = "<group>"; };
-		3CA047D916E7ECC50052DAD8 /* boyBg-hd.pvr.ccz */ = {isa = PBXFileReference; lastKnownFileType = file; name = "boyBg-hd.pvr.ccz"; path = "Resources/boyBg-hd.pvr.ccz"; sourceTree = "<group>"; };
-		3CA047DA16E7ECC50052DAD8 /* boyBg.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = boyBg.plist; path = Resources/boyBg.plist; sourceTree = "<group>"; };
-		3CA047DB16E7ECC50052DAD8 /* boyBg.pvr.ccz */ = {isa = PBXFileReference; lastKnownFileType = file; name = boyBg.pvr.ccz; path = Resources/boyBg.pvr.ccz; sourceTree = "<group>"; };
 		3CCB529816D7FC7B00829398 /* LevelLayerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LevelLayerDelegate.h; sourceTree = "<group>"; };
-		3CD2A16116DAA41B00C9FEA2 /* homeBg-hd.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "homeBg-hd.plist"; path = "Resources/homeBg-hd.plist"; sourceTree = "<group>"; };
-		3CD2A16216DAA41B00C9FEA2 /* homeBg-hd.pvr.ccz */ = {isa = PBXFileReference; lastKnownFileType = file; name = "homeBg-hd.pvr.ccz"; path = "Resources/homeBg-hd.pvr.ccz"; sourceTree = "<group>"; };
-		3CD2A16316DAA41B00C9FEA2 /* homeBg-ipadhd.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "homeBg-ipadhd.plist"; path = "Resources/homeBg-ipadhd.plist"; sourceTree = "<group>"; };
-		3CD2A16416DAA41B00C9FEA2 /* homeBg-ipadhd.pvr.ccz */ = {isa = PBXFileReference; lastKnownFileType = file; name = "homeBg-ipadhd.pvr.ccz"; path = "Resources/homeBg-ipadhd.pvr.ccz"; sourceTree = "<group>"; };
-		3CD2A16516DAA41B00C9FEA2 /* homeBg.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = homeBg.plist; path = Resources/homeBg.plist; sourceTree = "<group>"; };
-		3CD2A16616DAA41B00C9FEA2 /* homeBg.pvr.ccz */ = {isa = PBXFileReference; lastKnownFileType = file; name = homeBg.pvr.ccz; path = Resources/homeBg.pvr.ccz; sourceTree = "<group>"; };
-		3CD3C1FA16D87316003173A9 /* Make10Sprites-ipadhd.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "Make10Sprites-ipadhd.plist"; path = "Resources/Make10Sprites-ipadhd.plist"; sourceTree = "<group>"; };
-		3CD3C1FB16D87316003173A9 /* Make10Sprites-ipadhd.pvr.ccz */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Make10Sprites-ipadhd.pvr.ccz"; path = "Resources/Make10Sprites-ipadhd.pvr.ccz"; sourceTree = "<group>"; };
 		3CEF052116DD2FB500351658 /* currentToWall.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; name = currentToWall.m4a; path = Sounds/currentToWall.m4a; sourceTree = "<group>"; };
 		3CEF052216DD2FB500351658 /* knock.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; name = knock.m4a; path = Sounds/knock.m4a; sourceTree = "<group>"; };
 		3CEF052516DD2FB500351658 /* wallUp.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; name = wallUp.m4a; path = Sounds/wallUp.m4a; sourceTree = "<group>"; };
@@ -630,41 +598,26 @@
 				3CEF052116DD2FB500351658 /* currentToWall.m4a */,
 				3CEF052216DD2FB500351658 /* knock.m4a */,
 				3CEF052516DD2FB500351658 /* wallUp.m4a */,
-				3CA047D816E7ECC50052DAD8 /* boyBg-hd.plist */,
-				3CA047D916E7ECC50052DAD8 /* boyBg-hd.pvr.ccz */,
-				3CA047DA16E7ECC50052DAD8 /* boyBg.plist */,
-				3CA047DB16E7ECC50052DAD8 /* boyBg.pvr.ccz */,
-				3CA047D016E7E2600052DAD8 /* gameOverBg-hd.plist */,
-				3CA047D116E7E2600052DAD8 /* gameOverBg-hd.pvr.ccz */,
-				3CA047D216E7E2600052DAD8 /* gameOverBg.plist */,
-				3CA047D316E7E2600052DAD8 /* gameOverBg.pvr.ccz */,
-				3CA047C816E7E11D0052DAD8 /* girlBg-hd.plist */,
-				3CA047C916E7E11D0052DAD8 /* girlBg-hd.pvr.ccz */,
-				3CA047CA16E7E11D0052DAD8 /* girlBg.plist */,
-				3CA047CB16E7E11D0052DAD8 /* girlBg.pvr.ccz */,
-				3CA047B816E7D2480052DAD8 /* introBg-hd.plist */,
-				3CA047B916E7D2480052DAD8 /* introBg-hd.pvr.ccz */,
-				3CA047BA16E7D2480052DAD8 /* introBg.plist */,
-				3CA047BB16E7D2480052DAD8 /* introBg.pvr.ccz */,
-				3CA047C016E7D4EB0052DAD8 /* playBg-hd.plist */,
-				3CA047C116E7D4EB0052DAD8 /* playBg-hd.pvr.ccz */,
-				3CA047C216E7D4EB0052DAD8 /* playBg.plist */,
-				3CA047C316E7D4EB0052DAD8 /* playBg.pvr.ccz */,
-				3CD2A16116DAA41B00C9FEA2 /* homeBg-hd.plist */,
-				3CD2A16216DAA41B00C9FEA2 /* homeBg-hd.pvr.ccz */,
-				3CD2A16316DAA41B00C9FEA2 /* homeBg-ipadhd.plist */,
-				3CD2A16416DAA41B00C9FEA2 /* homeBg-ipadhd.pvr.ccz */,
-				3CD2A16516DAA41B00C9FEA2 /* homeBg.plist */,
-				3CD2A16616DAA41B00C9FEA2 /* homeBg.pvr.ccz */,
-				3CD3C1FA16D87316003173A9 /* Make10Sprites-ipadhd.plist */,
-				3CD3C1FB16D87316003173A9 /* Make10Sprites-ipadhd.pvr.ccz */,
-				3C102A6616D86116009C442F /* Make10Sprites.plist */,
-				3C102A6716D86116009C442F /* Make10Sprites.pvr.ccz */,
-				3C102A6216D85C66009C442F /* Make10Sprites-hd.plist */,
-				3C102A6316D85C66009C442F /* Make10Sprites-hd.pvr.ccz */,
+				3C717F3C16EA361C00893043 /* Make10Sprites-hd.plist */,
+				3C717F3D16EA361C00893043 /* Make10Sprites-hd.pvr.ccz */,
+				3C717F3E16EA361C00893043 /* Make10Sprites-ipadhd.plist */,
+				3C717F3F16EA361C00893043 /* Make10Sprites-ipadhd.pvr.ccz */,
+				3C717F4016EA361C00893043 /* Make10Sprites.plist */,
+				3C717F4116EA361C00893043 /* Make10Sprites.pvr.ccz */,
+				3C717F4C16EA719600893043 /* Backgrounds-hd.plist */,
+				3C717F4D16EA719600893043 /* Backgrounds-hd.pvr.ccz */,
+				3C717F4E16EA719600893043 /* Backgrounds-ipadhd.plist */,
+				3C717F4F16EA719600893043 /* Backgrounds-ipadhd.pvr.ccz */,
+				3C717F5016EA719600893043 /* Backgrounds.plist */,
+				3C717F5116EA719600893043 /* Backgrounds.pvr.ccz */,
 				915FEE0816B30B7E0045A15A /* fps_images.png */,
 				915FEE0A16B30B7E0045A15A /* fps_images-hd.png */,
 				915FEE0C16B30B7E0045A15A /* fps_images-ipadhd.png */,
+				3C717F5A16EA993600893043 /* Default@2x~ipad.png */,
+				3C717F5B16EA993600893043 /* Default~ipad.png */,
+				3C717F5816EA97F000893043 /* Default-568h@2x.png */,
+				3C717F4A16EA663000893043 /* Default@2x.png */,
+				3C717F4816EA650000893043 /* Default.png */,
 				915FEE0E16B30B7E0045A15A /* Icon-72.png */,
 				915FEE1016B30B7E0045A15A /* Icon-Small-50.png */,
 				915FEE1216B30B7E0045A15A /* Icon-Small.png */,
@@ -673,7 +626,6 @@
 				915FEE1816B30B7E0045A15A /* Icon@2x.png */,
 				915FEE1A16B30B7E0045A15A /* Info.plist */,
 				915FEE1B16B30B7E0045A15A /* iTunesArtwork */,
-				3C930E3616D30D0600403129 /* Default-568h@2x.png */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -1082,19 +1034,6 @@
 				915FEE1916B30B7E0045A15A /* Icon@2x.png in Resources */,
 				915FEE1C16B30B7E0045A15A /* iTunesArtwork in Resources */,
 				915FEF5A16B30B800045A15A /* ChangeLog in Resources */,
-				3C930E3716D30D0600403129 /* Default-568h@2x.png in Resources */,
-				3C102A6416D85C66009C442F /* Make10Sprites-hd.plist in Resources */,
-				3C102A6516D85C66009C442F /* Make10Sprites-hd.pvr.ccz in Resources */,
-				3C102A6816D86116009C442F /* Make10Sprites.plist in Resources */,
-				3C102A6916D86116009C442F /* Make10Sprites.pvr.ccz in Resources */,
-				3CD3C1FC16D87316003173A9 /* Make10Sprites-ipadhd.plist in Resources */,
-				3CD3C1FD16D87316003173A9 /* Make10Sprites-ipadhd.pvr.ccz in Resources */,
-				3CD2A16716DAA41B00C9FEA2 /* homeBg-hd.plist in Resources */,
-				3CD2A16816DAA41B00C9FEA2 /* homeBg-hd.pvr.ccz in Resources */,
-				3CD2A16916DAA41B00C9FEA2 /* homeBg-ipadhd.plist in Resources */,
-				3CD2A16A16DAA41B00C9FEA2 /* homeBg-ipadhd.pvr.ccz in Resources */,
-				3CD2A16B16DAA41B00C9FEA2 /* homeBg.plist in Resources */,
-				3CD2A16C16DAA41B00C9FEA2 /* homeBg.pvr.ccz in Resources */,
 				3CEF052616DD2FB500351658 /* currentToWall.m4a in Resources */,
 				3CEF052716DD2FB500351658 /* knock.m4a in Resources */,
 				3CEF052A16DD2FB500351658 /* wallUp.m4a in Resources */,
@@ -1106,26 +1045,23 @@
 				3C88859116E2C390006A7DB7 /* about.html in Resources */,
 				3C88859316E2C3D8006A7DB7 /* make10.css in Resources */,
 				3C88859516E2DEDB006A7DB7 /* click.m4a in Resources */,
-				3CA047BC16E7D2480052DAD8 /* introBg-hd.plist in Resources */,
-				3CA047BD16E7D2480052DAD8 /* introBg-hd.pvr.ccz in Resources */,
-				3CA047BE16E7D2480052DAD8 /* introBg.plist in Resources */,
-				3CA047BF16E7D2480052DAD8 /* introBg.pvr.ccz in Resources */,
-				3CA047C416E7D4EB0052DAD8 /* playBg-hd.plist in Resources */,
-				3CA047C516E7D4EB0052DAD8 /* playBg-hd.pvr.ccz in Resources */,
-				3CA047C616E7D4EB0052DAD8 /* playBg.plist in Resources */,
-				3CA047C716E7D4EB0052DAD8 /* playBg.pvr.ccz in Resources */,
-				3CA047CC16E7E11D0052DAD8 /* girlBg-hd.plist in Resources */,
-				3CA047CD16E7E11D0052DAD8 /* girlBg-hd.pvr.ccz in Resources */,
-				3CA047CE16E7E11D0052DAD8 /* girlBg.plist in Resources */,
-				3CA047CF16E7E11D0052DAD8 /* girlBg.pvr.ccz in Resources */,
-				3CA047D416E7E2600052DAD8 /* gameOverBg-hd.plist in Resources */,
-				3CA047D516E7E2600052DAD8 /* gameOverBg-hd.pvr.ccz in Resources */,
-				3CA047D616E7E2600052DAD8 /* gameOverBg.plist in Resources */,
-				3CA047D716E7E2600052DAD8 /* gameOverBg.pvr.ccz in Resources */,
-				3CA047DC16E7ECC50052DAD8 /* boyBg-hd.plist in Resources */,
-				3CA047DD16E7ECC50052DAD8 /* boyBg-hd.pvr.ccz in Resources */,
-				3CA047DE16E7ECC50052DAD8 /* boyBg.plist in Resources */,
-				3CA047DF16E7ECC50052DAD8 /* boyBg.pvr.ccz in Resources */,
+				3C717F4216EA361C00893043 /* Make10Sprites-hd.plist in Resources */,
+				3C717F4316EA361C00893043 /* Make10Sprites-hd.pvr.ccz in Resources */,
+				3C717F4416EA361C00893043 /* Make10Sprites-ipadhd.plist in Resources */,
+				3C717F4516EA361C00893043 /* Make10Sprites-ipadhd.pvr.ccz in Resources */,
+				3C717F4616EA361C00893043 /* Make10Sprites.plist in Resources */,
+				3C717F4716EA361C00893043 /* Make10Sprites.pvr.ccz in Resources */,
+				3C717F4916EA650000893043 /* Default.png in Resources */,
+				3C717F4B16EA663000893043 /* Default@2x.png in Resources */,
+				3C717F5216EA719600893043 /* Backgrounds-hd.plist in Resources */,
+				3C717F5316EA719600893043 /* Backgrounds-hd.pvr.ccz in Resources */,
+				3C717F5416EA719600893043 /* Backgrounds-ipadhd.plist in Resources */,
+				3C717F5516EA719600893043 /* Backgrounds-ipadhd.pvr.ccz in Resources */,
+				3C717F5616EA719600893043 /* Backgrounds.plist in Resources */,
+				3C717F5716EA719600893043 /* Backgrounds.pvr.ccz in Resources */,
+				3C717F5916EA97F000893043 /* Default-568h@2x.png in Resources */,
+				3C717F5C16EA993600893043 /* Default@2x~ipad.png in Resources */,
+				3C717F5D16EA993600893043 /* Default~ipad.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

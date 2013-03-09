@@ -53,11 +53,14 @@ CCSprite*          _home;
         CCSprite* background = [Make10Util genLayerBackgroundWithName:@"girlBg"];
         [self addChild:background];
         
+        CCSprite* score = [Make10Util createWhiteBoxSprite];
+        [self addChild:score];
+
         // ask director for the window size
         CGSize winSize = [[CCDirector sharedDirector] winSize];
         
         CCLabelTTF* text = [CCLabelTTF labelWithString:@"Settings" fontName:@"American Typewriter" fontSize:[Make10Util getTitleFontSize]];
-        //title.color = ccc3(0, 0, 0);
+        text.color = ccc3(0, 0, 0);
         text.position = ccp(winSize.width / 2, winSize.height - [Make10Util getMarginTop] - [Make10Util getUpperLabelPadding] - [Make10Util getScoreLabelHeight] / 2);
         // add the label as a child to this Layer
         [self addChild:text];
@@ -134,8 +137,8 @@ CCSprite*          _home;
         /*
          * Challenge type as a toggle 
          */
-        CCMenuItemSprite* buttonSpeed = [Make10Util createToggleWithText:@"Speed challenge"];
-        CCMenuItemSprite* buttonTotal = [Make10Util createToggleWithText:@"Changing total"];
+        CCMenuItemSprite* buttonSpeed = [Make10Util createToggleWithText:@"Speed increases"];
+        CCMenuItemSprite* buttonTotal = [Make10Util createToggleWithText:@"Sum changes"];
 
         _challengeToggle = [CCMenuItemToggle itemWithTarget:self selector:@selector(toggled:) items:buttonSpeed, buttonTotal, nil];
         
@@ -163,7 +166,9 @@ CCSprite*          _home;
                         _challengeToggle,
                         _styleToggle,
                         nil];
-        menu.position = ccp(winSize.width * 0.7, winSize.height * 0.6);
+        
+        float x = winSize.width / 2 + buttonDots.contentSize.width / 2 - [Make10Util getUpperLabelPadding];
+        menu.position = ccp(x, winSize.height * 0.6);
         [menu alignItemsVerticallyWithPadding:[Make10Util getMenuPadding]];
         [self addChild:menu];
         
@@ -257,10 +262,10 @@ CCSprite*          _home;
     }
 }
 
--(void) onExit {
-    [[CCSpriteFrameCache sharedSpriteFrameCache] removeSpriteFramesFromFile:@"girlBg.plist"];
-    [super onExit];
-}
+//-(void) onExit {
+//    [[CCSpriteFrameCache sharedSpriteFrameCache] removeSpriteFramesFromFile:@"girlBg.plist"];
+//    [super onExit];
+//}
 
 
 -(void) dealloc {

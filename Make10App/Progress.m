@@ -36,7 +36,7 @@
         
         [_spriteBg addChild:_timeBar z:1];
         [_timeBar setAnchorPoint: ccp(0,0)];
-        [_timeBar setPosition:ccp(2, 2)];
+        [_timeBar setPosition:ccp(0, 2)];
     }
     return self;
 }
