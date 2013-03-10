@@ -27,7 +27,6 @@ a:hover {
     position: relative;
     padding: 10px;
     background-color: #f9de8f;
-    max-width: 800px;
     margin-left: auto;
     margin-right: auto;
 }
@@ -41,6 +40,9 @@ img{
     background-color: #f9de8f;
 }
 
+ul {
+    padding-left: 20px;
+}
 li {
     list-style-type: circle;
     margin-bottom: 0.5em;

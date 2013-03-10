@@ -18,6 +18,7 @@
 		<string>Icon-Small-50.png</string>
 		<string>Icon-Small.png</string>
 		<string>Icon-Small@2x.png</string>
+		<string>Icon-72@2x.png</string>
 	</array>
 	<key>CFBundleIdentifier</key>
 	<string>com.bsiegal.${PRODUCT_NAME:rfc1034identifier}</string>
@@ -32,8 +33,6 @@
 	<key>CFBundleVersion</key>
 	<string>1.0</string>
 	<key>LSRequiresIPhoneOS</key>
-	<true/>
-	<key>UIPrerenderedIcon</key>
 	<true/>
 	<key>UIRequiredDeviceCapabilities</key>
 	<dict>
