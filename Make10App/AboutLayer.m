@@ -71,14 +71,15 @@ CCSprite*  _home;
         _webView = [[UIWebView alloc] initWithFrame:CGRectMake([Make10Util getMarginSide], h, winSize.width - 2 * [Make10Util getMarginSide] - aboutMargin, winSize.height - h)];
         _webView.delegate = self;
         _webView.hidden = YES;
-        
-        NSURL *url = [[NSBundle mainBundle] URLForResource:@"about" withExtension:@".html"];
-        [_webView loadRequest:[NSURLRequest requestWithURL:url]];
 
-//        NSString* htmlFile = [[NSBundle mainBundle] pathForResource:@"about" ofType:@"html"];
-//
-//        NSString* htmlString = [NSString stringWithContentsOfFile:htmlFile encoding:NSUTF8StringEncoding error:nil];
-//        [_webView loadHTMLString:htmlString baseURL:nil];
+        /*
+         * Add about
+         */
+        NSString *path = [[NSBundle mainBundle] pathForResource:@"about" ofType:@"html"];
+        NSURL *url = [NSURL fileURLWithPath:path];
+        
+//--does not work on iPad    NSURL *url = [[NSBundle mainBundle] URLForResource:@"about" withExtension:@".html"];
+        [_webView loadRequest:[NSURLRequest requestWithURL:url]];
 
         [view addSubview:_webView];
         
@@ -101,6 +102,7 @@ CCSprite*  _home;
 
 -(BOOL) webView:(UIWebView *)inWeb shouldStartLoadWithRequest:(NSURLRequest *)inRequest navigationType:(UIWebViewNavigationType)inType {
     
+//    NSLog(@"AboutLayer webView shouldStartLoadeWithRequest loading: %@", inRequest);
     /*
      * This will cause links to be opened in Safari instead of in the app
      */
@@ -111,22 +113,25 @@ CCSprite*  _home;
     
     return YES;
 }
- 
+
 -(void) backAction {
 	[[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInL transitionWithDuration:LAYER_TRANS_TIME scene:[IntroLayer scene]]];
 }
 
 -(void) onEnterTransitionDidFinish {
+    [super onEnterTransitionDidFinish];
+
     /*
      * Since the UIKit components do not respond to cocos scene changes, just using this as a workaround
      */
     _webView.hidden = NO;
-    [super onEnterTransitionDidFinish];
+
 }
 
 -(void) onExitTransitionDidStart {
     /*
-     * Since the UIKit components do not respond to cocos transitions, just using this as a workaround
+     * Since the UIKit components do not respond to cocos transitions, just using this as a workaround,
+     * plus it gives us a brief chance to see the full background
      */
     _webView.hidden = YES;
     [super onExitTransitionDidStart];

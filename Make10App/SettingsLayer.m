@@ -206,7 +206,11 @@ CCSprite*          _home;
 
 -(void) makeValueAction {
     [[SimpleAudioEngine sharedEngine] playEffect:@"click.m4a"];
-    _makeValuePicker.hidden = NO;
+    if (_makeValuePicker.hidden) {
+        _makeValuePicker.hidden = NO;
+    } else {
+        _makeValuePicker.hidden = YES;
+    }
 }
 
 #pragma mark UIPickerViewDelegate
