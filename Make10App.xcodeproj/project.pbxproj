@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3C49EFCA16EE32F2004DB39C /* iTunesArtwork in Resources */ = {isa = PBXBuildFile; fileRef = 3C49EFC816EE32F2004DB39C /* iTunesArtwork */; };
+		3C49EFCB16EE32F2004DB39C /* iTunesArtwork@2x in Resources */ = {isa = PBXBuildFile; fileRef = 3C49EFC916EE32F2004DB39C /* iTunesArtwork@2x */; };
 		3C5F0F3916DE4F680064CAEB /* gameOver1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 3C5F0F3616DE4F680064CAEB /* gameOver1.m4a */; };
 		3C5F0F3A16DE4F680064CAEB /* gameOver2.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 3C5F0F3716DE4F680064CAEB /* gameOver2.m4a */; };
 		3C5F0F3B16DE4F680064CAEB /* gameOver3.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 3C5F0F3816DE4F680064CAEB /* gameOver3.m4a */; };
@@ -34,8 +36,6 @@
 		3CCA3EAB16EB68D100685600 /* valueMade.png in Resources */ = {isa = PBXBuildFile; fileRef = 3CCA3EA916EB68D100685600 /* valueMade.png */; };
 		3CCA3EB116EB9A3B00685600 /* dots.png in Resources */ = {isa = PBXBuildFile; fileRef = 3CCA3EB016EB9A3B00685600 /* dots.png */; };
 		3CCA3EB516EBF04E00685600 /* Icon-72@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3CCA3EB416EBF04E00685600 /* Icon-72@2x.png */; };
-		3CCA3EB916EC128E00685600 /* iTunesArtwork in Resources */ = {isa = PBXBuildFile; fileRef = 3CCA3EB816EC128E00685600 /* iTunesArtwork */; };
-		3CCA3EBB16EC144100685600 /* iTunesArtwork@2x in Resources */ = {isa = PBXBuildFile; fileRef = 3CCA3EBA16EC144100685600 /* iTunesArtwork@2x */; };
 		3CEF052616DD2FB500351658 /* currentToWall.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 3CEF052116DD2FB500351658 /* currentToWall.m4a */; };
 		3CEF052716DD2FB500351658 /* knock.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 3CEF052216DD2FB500351658 /* knock.m4a */; };
 		3CEF052A16DD2FB500351658 /* wallUp.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 3CEF052516DD2FB500351658 /* wallUp.m4a */; };
@@ -174,6 +174,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3C49EFC816EE32F2004DB39C /* iTunesArtwork */ = {isa = PBXFileReference; lastKnownFileType = file; name = iTunesArtwork; path = Resources/iTunesArtwork; sourceTree = "<group>"; };
+		3C49EFC916EE32F2004DB39C /* iTunesArtwork@2x */ = {isa = PBXFileReference; lastKnownFileType = file; name = "iTunesArtwork@2x"; path = "Resources/iTunesArtwork@2x"; sourceTree = "<group>"; };
 		3C5F0F3616DE4F680064CAEB /* gameOver1.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; name = gameOver1.m4a; path = Sounds/gameOver1.m4a; sourceTree = "<group>"; };
 		3C5F0F3716DE4F680064CAEB /* gameOver2.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; name = gameOver2.m4a; path = Sounds/gameOver2.m4a; sourceTree = "<group>"; };
 		3C5F0F3816DE4F680064CAEB /* gameOver3.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; name = gameOver3.m4a; path = Sounds/gameOver3.m4a; sourceTree = "<group>"; };
@@ -201,8 +203,6 @@
 		3CCA3EA916EB68D100685600 /* valueMade.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = valueMade.png; path = web/valueMade.png; sourceTree = "<group>"; };
 		3CCA3EB016EB9A3B00685600 /* dots.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = dots.png; path = web/dots.png; sourceTree = "<group>"; };
 		3CCA3EB416EBF04E00685600 /* Icon-72@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-72@2x.png"; path = "Resources/Icon-72@2x.png"; sourceTree = "<group>"; };
-		3CCA3EB816EC128E00685600 /* iTunesArtwork */ = {isa = PBXFileReference; lastKnownFileType = file; name = iTunesArtwork; path = Resources/iTunesArtwork; sourceTree = "<group>"; };
-		3CCA3EBA16EC144100685600 /* iTunesArtwork@2x */ = {isa = PBXFileReference; lastKnownFileType = file; name = "iTunesArtwork@2x"; path = "Resources/iTunesArtwork@2x"; sourceTree = "<group>"; };
 		3CCB529816D7FC7B00829398 /* LevelLayerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LevelLayerDelegate.h; sourceTree = "<group>"; };
 		3CEF052116DD2FB500351658 /* currentToWall.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; name = currentToWall.m4a; path = Sounds/currentToWall.m4a; sourceTree = "<group>"; };
 		3CEF052216DD2FB500351658 /* knock.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; name = knock.m4a; path = Sounds/knock.m4a; sourceTree = "<group>"; };
@@ -632,8 +632,8 @@
 				915FEE1416B30B7E0045A15A /* Icon-Small@2x.png */,
 				915FEE1616B30B7E0045A15A /* Icon.png */,
 				915FEE1816B30B7E0045A15A /* Icon@2x.png */,
-				3CCA3EB816EC128E00685600 /* iTunesArtwork */,
-				3CCA3EBA16EC144100685600 /* iTunesArtwork@2x */,
+				3C49EFC816EE32F2004DB39C /* iTunesArtwork */,
+				3C49EFC916EE32F2004DB39C /* iTunesArtwork@2x */,
 				915FEE1A16B30B7E0045A15A /* Info.plist */,
 			);
 			name = Resources;
@@ -1072,8 +1072,8 @@
 				3CCA3EAB16EB68D100685600 /* valueMade.png in Resources */,
 				3CCA3EB116EB9A3B00685600 /* dots.png in Resources */,
 				3CCA3EB516EBF04E00685600 /* Icon-72@2x.png in Resources */,
-				3CCA3EB916EC128E00685600 /* iTunesArtwork in Resources */,
-				3CCA3EBB16EC144100685600 /* iTunesArtwork@2x in Resources */,
+				3C49EFCA16EE32F2004DB39C /* iTunesArtwork in Resources */,
+				3C49EFCB16EE32F2004DB39C /* iTunesArtwork@2x in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
