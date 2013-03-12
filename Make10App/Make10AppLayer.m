@@ -108,12 +108,12 @@ CCSprite*   _home;
  * Disable touch so there's no bad behavior when the wall is moving
  */
 -(void) addWallRow {
-    NSLog(@"addWallRow");
+//    NSLog(@"addWallRow");
     
     self.isTouchEnabled = NO;
 
     int currentTileSpriteRunningActions = [_currentTile.sprite numberOfRunningActions];
-    NSLog(@"addWallRow currentTile.sprite numberOfRunningActions = %d, currentTile.row = %d, currentTile.col = %d", currentTileSpriteRunningActions, _currentTile.row, _currentTile.col);
+//    NSLog(@"addWallRow currentTile.sprite numberOfRunningActions = %d, currentTile.row = %d, currentTile.col = %d", currentTileSpriteRunningActions, _currentTile.row, _currentTile.col);
     
     if (currentTileSpriteRunningActions > 0 && _currentTile.row > 0) {
         _currentTile.row++;
@@ -124,7 +124,7 @@ CCSprite*   _home;
          */
         
         [_currentTile.sprite stopActionByTag:ACTION_TAG_ADD_TO_WALL];
-        NSLog(@"addWallRow stoppedActionByTag for ACTION_TAG_ADD_TO_WALL");
+//        NSLog(@"addWallRow stoppedActionByTag for ACTION_TAG_ADD_TO_WALL");
         
         [self scheduleOnce:@selector(moveToAddToWall) delay:WALL_TRANS_TIME];
         
@@ -137,7 +137,7 @@ CCSprite*   _home;
          * Solution to this is "pause" then "resume" after delay.
          */
         [_currentTile.sprite stopActionByTag:ACTION_TAG_KNOCK];
-        NSLog(@"addWallRow stoppedActionByTag for ACTION_TAG_KNOCK");
+//        NSLog(@"addWallRow stoppedActionByTag for ACTION_TAG_KNOCK");
         
         [self scheduleOnce:@selector(knockWallTile) delay:WALL_TRANS_TIME];
         
@@ -243,7 +243,7 @@ CCSprite*   _home;
  * Start the progress bar and enable touch
  */
 -(void) startProgressBar {
-    NSLog(@"startProgressBar");
+//    NSLog(@"startProgressBar");
     
     [_progressBar resetBar];
     [_progressBar startWithDuration:_score.wallTime target:self callback:@selector(addWallRow)];
@@ -350,7 +350,7 @@ CCSprite*   _home;
  * @param wallTile the tile touched to make the value
  */
 -(void) valueMade:(Tile*) wallTile {
-    NSLog(@"valueMade");
+//    NSLog(@"valueMade");
     /*
      * It's a match!
      * Move the current tile to the position of the wallTile
@@ -370,7 +370,7 @@ CCSprite*   _home;
  * Callback when the value made wall tile is done
  */
 -(void) wallTileKnockedDone:(id)sender {
-    NSLog(@"wallTileKnockedDone");
+//    NSLog(@"wallTileKnockedDone");
     
     [[SimpleAudioEngine sharedEngine] playEffect:@"knock.m4a"];
     
@@ -537,7 +537,7 @@ CCSprite*   _home;
  * @param touchPoint CGPoint that was touched in case there was no wallTile touched
  */
 -(void) valueNotMade:(Tile*) wallTile touchPoint:(CGPoint)point {
-    NSLog(@"valueNotMade wallTile=%@", wallTile);
+//    NSLog(@"valueNotMade wallTile=%@", wallTile);
     
     /*
      * It's not a match
@@ -584,7 +584,7 @@ CCSprite*   _home;
  * Callback after the current tile becomes a part of the wall
  */
 -(void) currentBecomesWallTileDone:(id)sender {
-    NSLog(@"currentBecomesWallTileDone");
+//    NSLog(@"currentBecomesWallTileDone");
 
     /*
      * If the current tile transitioned to a point when the

@@ -24,6 +24,13 @@
 
 -(void) createSprite:(int)value {
     
+    [CCTexture2D setDefaultAlphaPixelFormat:kCCTexture2DPixelFormat_RGBA4444];
+    
+    /*
+     * Re-add to the sprite frame cache in case there was a memory warning and it got cleared
+     */
+    [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"Make10Sprites.plist"];
+
     _sprite = [CCSprite spriteWithSpriteFrameName:@"tile.png"];
     
     

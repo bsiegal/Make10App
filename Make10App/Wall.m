@@ -46,7 +46,7 @@ NSMutableArray* _tiles;
 }
 
 -(void) transitionUpWithTarget:(id)target callback:(SEL)callback {
-    NSLog(@"Wall.transitionUpWithTarget");
+//    NSLog(@"Wall.transitionUpWithTarget");
  
     [[SimpleAudioEngine sharedEngine] playEffect:@"wallUp.m4a"];
     
@@ -69,7 +69,7 @@ NSMutableArray* _tiles;
     }
 
     self.needToMoveUpCount = [tiles count];
-    NSLog(@"Wall.transitionUpWithTarget needToMoveUpCount starts at %d", self.needToMoveUpCount);
+//    NSLog(@"Wall.transitionUpWithTarget needToMoveUpCount starts at %d", self.needToMoveUpCount);
 
     /*
      * Move all the tiles up except for the last one.
@@ -83,18 +83,18 @@ NSMutableArray* _tiles;
         id actionMoveDone = [CCCallFuncN actionWithTarget:self selector:@selector(tileUpDone)];
 
         if (tile && tile.sprite && target && index == len - 1) {
-            NSLog(@"Wall.transitionUpWithTarget tile = %@, index = len - 1 = %d", tile, len - 1);
+//            NSLog(@"Wall.transitionUpWithTarget tile = %@, index = len - 1 = %d", tile, len - 1);
             id actionMoveFinal = [CCCallFuncN actionWithTarget:target selector:callback];
 
             [tile.sprite runAction:[CCSequence actions:actionMove, actionMoveDone, actionMoveFinal, nil]];
 
         } else if (tile && tile.sprite) {
-            NSLog(@"Wall.transitionUpWithTarget else if tile = %@", tile);
+//            NSLog(@"Wall.transitionUpWithTarget else if tile = %@", tile);
             
             [tile.sprite runAction:[CCSequence actions:actionMove, actionMoveDone, nil]];
             
         } else if ((!tile || !tile.sprite) && index == len - 1){
-            NSLog(@"Wall.transitionUpWithTarget else");
+//            NSLog(@"Wall.transitionUpWithTarget else");
 
             [target performSelector:callback];
             
@@ -131,19 +131,19 @@ NSMutableArray* _tiles;
      * delay the release by wall trans time
      */
     NSMutableArray* tileRow = [_tiles objectAtIndex:row];
-    NSLog(@"Wall.removeTile tile = %@ numberOfActionsRunning = %d", tile, [tile.sprite numberOfRunningActions]);
+//    NSLog(@"Wall.removeTile tile = %@ numberOfActionsRunning = %d", tile, [tile.sprite numberOfRunningActions]);
     
-    CCAction* wallUp = [tile.sprite getActionByTag:ACTION_TAG_WALL_UP];
-    if (!wallUp.isDone) {
-        NSLog(@"wallUp Not done... continue on");
-        /*
-         * this is only a problem if this is the last tile in the wall because if it gets
-         * removed the ccsequence of actions won't get fired and we'll never restart the
-         * progress bar and will never have touch enabled again!
-         */
-    }
+//    CCAction* wallUp = [tile.sprite getActionByTag:ACTION_TAG_WALL_UP];
+//    if (!wallUp.isDone) {
+//        NSLog(@"wallUp Not done... continue on");
+//        /*
+//         * this is only a problem if this is the last tile in the wall because if it gets
+//         * removed the ccsequence of actions won't get fired and we'll never restart the
+//         * progress bar and will never have touch enabled again!
+//         */
+//    }
     [tile release];
-    NSLog(@"Wall.removeTile tile released");
+//    NSLog(@"Wall.removeTile tile released");
 
     [tileRow replaceObjectAtIndex:col withObject:[NSNull null]];
 
@@ -461,7 +461,7 @@ NSMutableArray* _tiles;
 
 -(void) tileUpDone {
     self.needToMoveUpCount--;
-    NSLog(@"Wall.snapAllToGrid decrementing needToMoveUpCount to %d", self.needToMoveUpCount);
+//    NSLog(@"Wall.snapAllToGrid decrementing needToMoveUpCount to %d", self.needToMoveUpCount);
 
     [self snapAllToGrid];
 }

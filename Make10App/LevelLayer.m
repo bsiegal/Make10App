@@ -36,12 +36,20 @@ CCMenu*     _menu;
 //    if (self = [super initWithColor: ccc4(4, 51, 191, 100)]) { //darker blue
     if (self = [super initWithColor: ccc4(5, 151, 242, 85)]) { //lighter blue
         
+
+        [CCTexture2D setDefaultAlphaPixelFormat:kCCTexture2DPixelFormat_RGBA4444];
+        
+        /*
+         * Re-add to the sprite frame cache in case there was a memory warning and it got cleared
+         */
+        [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"Make10Sprites.plist"];
+
         /*
          * Randomly decide which background to show
          */
         int r = arc4random() % 4 + 1;
         self.randomBackground = r > 2 ? 1 : 0;
-        NSLog(@"r= %d, randomBg = %d", r, self.randomBackground);
+
         NSString* name = self.randomBackground == 1 ? @"boyReady" : @"girlReady";
         CCSprite* background = [Make10Util genLayerBackgroundWithName:name];
         [self addChild:background];
