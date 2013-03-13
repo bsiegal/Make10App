@@ -18,6 +18,7 @@
 
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"
+#import "SimpleAudioEngine.h"
 
 /**
  * Default make value
@@ -34,6 +35,11 @@ static int const LEVEL_MARKER = 56;
  * The duration scenes to change
  */
 static float const LAYER_TRANS_TIME = 0.5f;
+
+/**
+ * The duration for a sprite button enlarge and shrink back
+ */
+static float const SPRITE_SCALE_TIME = 0.1f;
 
 /**
  * The duration between wall risings for level 1
@@ -188,6 +194,11 @@ static int const TAG_MAKE10_APP_LAYER = 5;
  * Return YES if the touch is within the sprite
  */
 +(BOOL) isSpriteTouched:(CCSprite*)sprite touches:(NSSet*)touches;
+
+/**
+ * Scale up and back down the sprite then call the selector on the target
+ */
++(void) touchedSprite:(CCSprite*)sprite target:(id)target selector:(SEL)selector;
 
 /**
  * Get the height of the score label area

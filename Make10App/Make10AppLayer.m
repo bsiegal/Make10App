@@ -302,9 +302,7 @@ CCSprite*   _home;
      * (and there's no levelLayer showing)
      */
     if (!_levelLayer && [Make10Util isSpriteTouched:_home touches:touches]) {
-        [[SimpleAudioEngine sharedEngine] playEffect:@"click.m4a"];
-        [[CCDirector sharedDirector] pause];
-        [self showLevelLayerWithPause:YES];
+        [Make10Util touchedSprite:_home target:self selector:@selector(pauseAction)];
         return;
     }
     
@@ -340,6 +338,10 @@ CCSprite*   _home;
     }
 }
 
+-(void) pauseAction {
+    [[CCDirector sharedDirector] pause];
+    [self showLevelLayerWithPause:YES];
+}
 #pragma mark value made
 ///**
 // * Back to the home scene

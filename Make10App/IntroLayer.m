@@ -177,19 +177,17 @@ CCSprite* _about;
 -(void) ccTouchesEnded:(NSSet*)touches withEvent:(UIEvent*)event {
         
     if ([Make10Util isSpriteTouched:_settings touches:touches]) {
-        [self settingsAction];
+        [Make10Util touchedSprite:_settings target:self selector:@selector(settingsAction)];
     } else if ([Make10Util isSpriteTouched:_about touches:touches]) {
-        [self aboutAction];
+        [Make10Util touchedSprite:_about target:self selector:@selector(aboutAction)];
     }
 }
 
 -(void) settingsAction {
-    [[SimpleAudioEngine sharedEngine] playEffect:@"click.m4a"];
 	[[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInR transitionWithDuration:LAYER_TRANS_TIME scene:[SettingsLayer scene]]];
 }
 
 -(void) aboutAction {
-    [[SimpleAudioEngine sharedEngine] playEffect:@"click.m4a"];
 	[[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInR transitionWithDuration:LAYER_TRANS_TIME scene:[AboutLayer scene]]];
 }
 //

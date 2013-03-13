@@ -93,9 +93,12 @@ CCSprite*  _home;
 
 -(void) ccTouchesEnded:(NSSet*)touches withEvent:(UIEvent*)event {
     if ([Make10Util isSpriteTouched:_home touches:touches]) {
-        [[SimpleAudioEngine sharedEngine] playEffect:@"click.m4a"];
-        [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInL transitionWithDuration:LAYER_TRANS_TIME scene:[IntroLayer scene]]];
+        [Make10Util touchedSprite:_home target:self selector:@selector(homeAction)];
     }
+}
+
+-(void) homeAction {
+    [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInL transitionWithDuration:LAYER_TRANS_TIME scene:[IntroLayer scene]]];
 }
 
 #pragma mark UIWebViewDelegate

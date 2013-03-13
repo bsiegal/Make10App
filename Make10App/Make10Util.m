@@ -250,6 +250,14 @@ static int   _levelLabelPosition = 186;
     return FALSE;
 }
 
++(void) touchedSprite:(CCSprite*)sprite target:(id)target selector:(SEL)selector {
+    [[SimpleAudioEngine sharedEngine] playEffect:@"click.m4a"];
+    id actionEmbiggen = [CCScaleTo actionWithDuration:SPRITE_SCALE_TIME scale: 1.2f];
+    id actionUnbiggen = [CCScaleTo actionWithDuration:SPRITE_SCALE_TIME scale: 1.0f];
+    id actionDone = [CCCallFuncN actionWithTarget:target selector:selector];
+    [sprite runAction: [CCSequence actions:actionEmbiggen, actionUnbiggen, actionDone, nil]];
+}
+
 +(int) getScoreLabelHeight {
     return _scoreLabelHeight;
 }

@@ -254,19 +254,22 @@ CCSprite*          _home;
     _makeValuePicker.hidden = YES;
 
     if ([Make10Util isSpriteTouched:_home touches:touches]) {
-        
-        [[SimpleAudioEngine sharedEngine] playEffect:@"click.m4a"];
-        
-        /*
-         * write to disk to free up memory
-         */
-        NSUserDefaults* userDefaults = [NSUserDefaults standardUserDefaults];
-        [userDefaults synchronize];
-        
-        [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInL transitionWithDuration:LAYER_TRANS_TIME scene:[IntroLayer scene]]];
+    
+        [Make10Util touchedSprite:_home target:self selector:@selector(homeAction)];
     }
 }
 
+-(void) homeAction {
+    
+    /*
+     * write to disk to free up memory
+     */
+    NSUserDefaults* userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults synchronize];
+    
+    [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInL transitionWithDuration:LAYER_TRANS_TIME scene:[IntroLayer scene]]];
+    
+}
 //-(void) onExit {
 //    [[CCSpriteFrameCache sharedSpriteFrameCache] removeSpriteFramesFromFile:@"girlBg.plist"];
 //    [super onExit];
