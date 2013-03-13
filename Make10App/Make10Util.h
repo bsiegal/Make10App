@@ -232,4 +232,5 @@ static int const TAG_MAKE10_APP_LAYER = 5;
  * @param currentMakeValue int
  */
 +(int) genRandomMakeValue:(int)currentMakeValue;
+
 @end

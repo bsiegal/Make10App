@@ -79,12 +79,12 @@ CCMenu*     _menu;
         [_menu alignItemsVerticallyWithPadding:[Make10Util getResumeMenuPadding]];
         
         _getReady = [CCLabelTTF labelWithString:@"Get ready!" fontName:@"American Typewriter" fontSize:[Make10Util getTitleFontSize]];
-//        _getReady.color = ccc3(0, 0, 0);
+        _getReady.color = ccc3(0, 0, 0);
         _getReady.position = ccp(x, winSize.height * 0.6);
         [self addChild:_getReady];
 
         _levelLabel = [CCLabelTTF labelWithString:@"Level 2" fontName:@"American Typewriter" fontSize:[Make10Util getTitleFontSize]];
-//        _levelLabel.color = ccc3(0, 0, 0);
+        _levelLabel.color = ccc3(0, 0, 0);
         _levelLabel.position = ccp(x, [Make10Util getLevelLabelPosition]);
         [self addChild:_levelLabel];
 

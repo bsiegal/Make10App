@@ -326,7 +326,13 @@ CCSprite*   _home;
      * Find out where in the wall was touched
      */
     Tile* tile = [_wall whichTileAtLocation:location];
-     
+    
+    if (tile) {
+        float dur = CURRENT_TO_WALL_TRANS_TIME / 2;
+        id actionEmbiggen = [CCScaleTo actionWithDuration:dur scale: 1.2f];
+        id actionUnbiggen = [CCScaleTo actionWithDuration:dur scale: 1.0f];
+        [tile.sprite runAction: [CCSequence actions:actionEmbiggen, actionUnbiggen, nil]];
+    }
     if (tile.value + _currentTile.value == _makeValue) {
         [self valueMade:tile];
     } else {
