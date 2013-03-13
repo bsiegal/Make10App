@@ -30,6 +30,8 @@
 }
 @property BOOL pauseLayerShowing;
 
+-(void) showLevelLayerWithPause:(BOOL)pause;
+
 // returns a CCScene that contains the Make10AppLayer as the only child
 +(CCScene *) scene;
 

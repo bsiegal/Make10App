@@ -53,3 +53,8 @@ li {
     list-style-type: circle;
     margin-bottom: 0.5em;
 }
+
+a.author {
+    font-weight: bold;
+    font-variant: small-caps;
+}

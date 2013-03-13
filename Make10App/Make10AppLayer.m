@@ -326,7 +326,7 @@ CCSprite*   _home;
      * Find out where in the wall was touched
      */
     Tile* tile = [_wall whichTileAtLocation:location];
-    
+     
     if (tile.value + _currentTile.value == _makeValue) {
         [self valueMade:tile];
     } else {

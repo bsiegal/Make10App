@@ -65,6 +65,9 @@ CCSprite*          _home;
         // add the label as a child to this Layer
         [self addChild:text];
         
+        _home = [Make10Util createHomeSprite];
+        [self addChild:_home];
+
         /*
          * UIView to which UIKit components can be added
          */
@@ -93,17 +96,7 @@ CCSprite*          _home;
                 makeValueRow = i;
             }
         }
-        
-        int pickerWidth = 100;
-        _makeValuePicker = [[UIPickerView alloc] initWithFrame:CGRectMake(winSize.width / 2 - pickerWidth / 2, winSize.height / 2 - 100, pickerWidth, winSize.height)];
-        _makeValuePicker.delegate = self;
-        _makeValuePicker.showsSelectionIndicator = YES;
-        _makeValuePicker.hidden = YES;
-
-        [_makeValuePicker selectRow:makeValueRow inComponent:0 animated:NO];
-
-        [view addSubview:_makeValuePicker];
-        
+                
         /*
          * Make value as a button that will show the picker view
          */
@@ -172,8 +165,16 @@ CCSprite*          _home;
         [menu alignItemsVerticallyWithPadding:[Make10Util getMenuPadding]];
         [self addChild:menu];
         
-        _home = [Make10Util createHomeSprite];
-        [self addChild:_home];
+        int pickerWidth = 100;
+        _makeValuePicker = [[UIPickerView alloc] initWithFrame:CGRectMake(x - pickerWidth / 2, [Make10Util getMarginTop] + [Make10Util getUpperLabelPadding] * 2 + score.contentSize.height, pickerWidth, 300)];
+        _makeValuePicker.delegate = self;
+        _makeValuePicker.showsSelectionIndicator = YES;
+        _makeValuePicker.hidden = YES;
+        
+        [_makeValuePicker selectRow:makeValueRow inComponent:0 animated:NO];
+        
+        [view addSubview:_makeValuePicker];
+
         
         self.isTouchEnabled = YES;
         

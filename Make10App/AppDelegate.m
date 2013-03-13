@@ -139,7 +139,8 @@
         if (layer) {
             Make10AppLayer* appLayer = (Make10AppLayer*) layer;
             if (![appLayer pauseLayerShowing]) {
-                [director_ resume];
+//                [director_ resume];
+                [appLayer showLevelLayerWithPause:YES];
             }
         } else {
             [director_ resume];
