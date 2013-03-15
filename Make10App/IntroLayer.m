@@ -111,7 +111,11 @@ CCSprite* _about;
 -(void) addAbout {
         
     CGSize winSize = [[CCDirector sharedDirector] winSize];
-    
+    /*
+     * Re-add to the sprite frame cache in case there was a memory warning and it got cleared
+     */
+    [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"Make10Sprites.plist"];
+
     _about = [CCSprite spriteWithSpriteFrameName:@"about.png"];
     _about.position = ccp([Make10Util getMarginSide] + _about.contentSize.width / 2 + [Make10Util getUpperLabelPadding], winSize.height - [Make10Util getMarginTop] - _settings.contentSize.height / 2 - [Make10Util getUpperLabelPadding]);
     

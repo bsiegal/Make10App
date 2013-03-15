@@ -163,6 +163,11 @@ static int const TAG_MAKE10_APP_LAYER = 5;
 +(int) getLevelLabelPosition;
 
 /**
+ * The padding for the progress on the progress bar
+ */
++(int) getProgressPadding;
+
+/**
  * Create and position the score background sprite
  */
 +(CCSprite*) createWhiteBoxSprite;

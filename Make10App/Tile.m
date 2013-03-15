@@ -87,6 +87,8 @@
          */
         CGSize winSize = [[CCDirector sharedDirector] winSize];
         _sprite.position = ccp(_sprite.contentSize.width / 2 + [Make10Util getMarginSide], winSize.height - [Make10Util getMarginTop] - _sprite.contentSize.height * (1.5));
+        
+        _sprite.scale = 0.5f;
     }
     return self;
 }
@@ -95,9 +97,13 @@
 
 -(void) transitionToCurrentWithTarget:(id)target callback:(SEL)callback {
     CGSize winSize = [[CCDirector sharedDirector] winSize];
+    [self.sprite runAction:[CCScaleTo actionWithDuration:NEXT_TO_CURRENT_TRANS_TIME scale:1.0f]];
+    
     id actionMove = [CCMoveTo actionWithDuration:NEXT_TO_CURRENT_TRANS_TIME position:ccp(winSize.width / 2, winSize.height - [Make10Util getMarginTop] - _sprite.contentSize.height * (1.5))];
     id actionMoveDone = [CCCallFuncN actionWithTarget:target selector:callback];
     [self.sprite runAction:[CCSequence actions:actionMove, actionMoveDone, nil]];
+    
+    
     
 }
 

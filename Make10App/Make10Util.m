@@ -39,6 +39,7 @@ static int   _gainFontSize = 14;
 static int   _scoreLabelHeight = 32;
 static int   _resumeMenuPadding = 42;
 static int   _levelLabelPosition = 186;
+static int   _progressPadding = 2;
 
 +(void)initialize {
     if ([self class] == [super class]) {
@@ -57,6 +58,7 @@ static int   _levelLabelPosition = 186;
             _scoreLabelHeight = 64;
             _resumeMenuPadding = 84;
             _levelLabelPosition = 372;
+            _progressPadding = 4;
             
         } else {
             /*
@@ -69,54 +71,6 @@ static int   _levelLabelPosition = 186;
             }
         }
     }
-}
-
-+(CCSprite*) genBackgroundWithColor:(ccColor4B)color {
-    
-    [CCTexture2D setDefaultAlphaPixelFormat:kCCTexture2DPixelFormat_RGB565];
-    [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"homeBg.plist"];
-    [CCSpriteBatchNode batchNodeWithFile:@"homeBg.pvr.ccz"];
-
-//    /*
-//     * Re-add to the sprite frame cache in case there was a memory warning and it got cleared
-//     */
-//    [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"Make10Sprites.plist"];
-//    
-    CCSprite* background = [CCSprite spriteWithSpriteFrameName:@"noise.png"];
-
-//    CCSprite* noise = [CCSprite spriteWithSpriteFrameName:@"noise.png"];
-//    
-//    float textureWidth = noise.contentSize.width;
-//    float textureHeight = noise.contentSize.height;
-//    
-//    //1: Create new CCRenderTexture
-//    CCRenderTexture* rt = [CCRenderTexture renderTextureWithWidth:textureWidth height:textureHeight];
-//    
-//    //2: Call CCRenderTexture:begin
-//    ccColor4F bgColor = ccc4FFromccc4B(color);
-//    [rt beginWithClear:bgColor.r g:bgColor.g b:bgColor.b a:bgColor.a];
-//    
-//    //3: Draw into the texture
-//    [noise setBlendFunc:(ccBlendFunc){GL_DST_COLOR, GL_ZERO}];
-//    noise.position = ccp(textureWidth / 2, textureHeight / 2);
-//    [noise visit];
-//    
-//    //4: Call CCRenderTexture:end
-//    [rt end];
-//    
-//    //5: Create a new Sprite from the texture
-//    CCSprite* background = [CCSprite spriteWithTexture:rt.sprite.texture];
-
-    
-    CGSize winSize = [[CCDirector sharedDirector] winSize];
-    background.position = ccp(winSize.width / 2, winSize.height / 2);
-    
-    ccTexParams tp = {GL_LINEAR, GL_LINEAR, GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE};
-    [background.texture setTexParameters:&tp];
-
-    
-    
-    return background;
 }
 
 +(CCSprite*) genLayerBackgroundWithName:(NSString*)name {
@@ -155,6 +109,12 @@ static int   _levelLabelPosition = 186;
 +(int) getLevelLabelPosition {
     return _levelLabelPosition + _marginTop;
 }
+
++(int) getProgressPadding {
+    return _progressPadding;
+}
+
+#pragma mark creatingSprites
 
 +(CCSprite*) createWhiteBoxSprite {
     
@@ -213,6 +173,11 @@ static int   _levelLabelPosition = 186;
 
 +(CCMenuItemSprite*) createButtonWithText:(NSString *)text target:(id)target selector:(SEL)selector {
 
+    /*
+     * Re-add to the sprite frame cache in case there was a memory warning and it got cleared
+     */
+    [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"Make10Sprites.plist"];
+
     CCMenuItemSprite* button = [CCMenuItemImage itemWithNormalSprite:[CCSprite spriteWithSpriteFrameName:@"button-short.png"] selectedSprite:[CCSprite spriteWithSpriteFrameName:@"buttonPressed-short.png"] target:target selector:selector];
 
 //    CCMenuItemImage* button = [CCMenuItemImage itemWithNormalImage:@"button-short.png" selectedImage:@"buttonPressed-short.png" target:target selector:selector];
@@ -226,6 +191,12 @@ static int   _levelLabelPosition = 186;
 }
 
 +(CCMenuItemSprite*) createToggleWithText:(NSString *)text {
+    
+    /*
+     * Re-add to the sprite frame cache in case there was a memory warning and it got cleared
+     */
+    [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"Make10Sprites.plist"];
+
     CCMenuItemSprite* button = [CCMenuItemSprite itemWithNormalSprite:[CCSprite spriteWithSpriteFrameName:@"button-short.png"] selectedSprite:[CCSprite spriteWithSpriteFrameName:@"buttonPressed-short.png"]];
     CCLabelTTF* label = [CCLabelTTF labelWithString:text fontName:@"American Typewriter" fontSize:_menuItemFontSize];
     label.position = ccp(button.contentSize.width / 2, button.contentSize.height / 2);
