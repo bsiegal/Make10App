@@ -90,6 +90,7 @@ static int   _progressPadding = 2;
     return background;
 }
 
+#pragma mark get static values
 +(float) getMarginTop {
     return _marginTop;
 }
@@ -112,6 +113,26 @@ static int   _progressPadding = 2;
 
 +(int) getProgressPadding {
     return _progressPadding;
+}
+
++(int) getScoreLabelHeight {
+    return _scoreLabelHeight;
+}
+
++(int) getUpperLabelPadding {
+    return _upperLevelPadding;
+}
+
++(int) getTitleFontSize {
+    return _titleFontSize;
+}
+
++(int) getGainFontSize {
+    return _gainFontSize;
+}
+
++(int) getMenuPadding {
+    return _menuPadding;
 }
 
 #pragma mark creatingSprites
@@ -206,6 +227,7 @@ static int   _progressPadding = 2;
     return button;
 }
 
+#pragma mark sprite touch
 
 +(BOOL) isSpriteTouched:(CCSprite*)sprite touches:(NSSet*)touches {
     UITouch* touch = [touches anyObject];
@@ -221,6 +243,11 @@ static int   _progressPadding = 2;
     return FALSE;
 }
 
++(void) touchSpriteBegan:(CCSprite*)sprite {
+    id actionEmbiggen = [CCScaleTo actionWithDuration:SPRITE_SCALE_TIME scale: 1.2f];
+    [sprite runAction: actionEmbiggen];
+}
+
 +(void) touchedSprite:(CCSprite*)sprite target:(id)target selector:(SEL)selector {
     [[SimpleAudioEngine sharedEngine] playEffect:@"click.m4a"];
     id actionEmbiggen = [CCScaleTo actionWithDuration:SPRITE_SCALE_TIME scale: 1.2f];
@@ -229,24 +256,9 @@ static int   _progressPadding = 2;
     [sprite runAction: [CCSequence actions:actionEmbiggen, actionUnbiggen, actionDone, nil]];
 }
 
-+(int) getScoreLabelHeight {
-    return _scoreLabelHeight;
-}
-
-+(int) getUpperLabelPadding {
-    return _upperLevelPadding;
-}
-
-+(int) getTitleFontSize {
-    return _titleFontSize;
-}
-
-+(int) getGainFontSize {
-    return _gainFontSize;
-}
-
-+(int) getMenuPadding {
-    return _menuPadding;
++(void) touchSpriteEnded:(CCSprite*)sprite {
+    id actionUnbiggen = [CCScaleTo actionWithDuration:SPRITE_SCALE_TIME scale: 1.0f];
+    [sprite runAction: actionUnbiggen];    
 }
 
 +(NSArray*) getMakeValuesArray {

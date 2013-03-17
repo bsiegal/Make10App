@@ -32,6 +32,7 @@
 		3C88859116E2C390006A7DB7 /* about.html in Resources */ = {isa = PBXBuildFile; fileRef = 3C88859016E2C390006A7DB7 /* about.html */; };
 		3C88859316E2C3D8006A7DB7 /* make10.css in Resources */ = {isa = PBXBuildFile; fileRef = 3C88859216E2C3D8006A7DB7 /* make10.css */; };
 		3C88859516E2DEDB006A7DB7 /* click.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 3C88859416E2DEDB006A7DB7 /* click.m4a */; };
+		3CC7E5D916F0FED200975F67 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CC7E5D816F0FED200975F67 /* libz.dylib */; };
 		3CCA3EAA16EB68D100685600 /* sample.png in Resources */ = {isa = PBXBuildFile; fileRef = 3CCA3EA816EB68D100685600 /* sample.png */; };
 		3CCA3EAB16EB68D100685600 /* valueMade.png in Resources */ = {isa = PBXBuildFile; fileRef = 3CCA3EA916EB68D100685600 /* valueMade.png */; };
 		3CCA3EB116EB9A3B00685600 /* dots.png in Resources */ = {isa = PBXBuildFile; fileRef = 3CCA3EB016EB9A3B00685600 /* dots.png */; };
@@ -199,6 +200,7 @@
 		3C88859016E2C390006A7DB7 /* about.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = about.html; path = web/about.html; sourceTree = "<group>"; };
 		3C88859216E2C3D8006A7DB7 /* make10.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; name = make10.css; path = web/make10.css; sourceTree = "<group>"; };
 		3C88859416E2DEDB006A7DB7 /* click.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; name = click.m4a; path = Sounds/click.m4a; sourceTree = "<group>"; };
+		3CC7E5D816F0FED200975F67 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		3CCA3EA816EB68D100685600 /* sample.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = sample.png; path = web/sample.png; sourceTree = "<group>"; };
 		3CCA3EA916EB68D100685600 /* valueMade.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = valueMade.png; path = web/valueMade.png; sourceTree = "<group>"; };
 		3CCA3EB016EB9A3B00685600 /* dots.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = dots.png; path = web/dots.png; sourceTree = "<group>"; };
@@ -491,6 +493,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3CC7E5D916F0FED200975F67 /* libz.dylib in Frameworks */,
 				915FEDF116B30B7E0045A15A /* QuartzCore.framework in Frameworks */,
 				915FEDF316B30B7E0045A15A /* OpenGLES.framework in Frameworks */,
 				915FEDF516B30B7E0045A15A /* OpenAL.framework in Frameworks */,
@@ -553,6 +556,7 @@
 		915FEDE116B30B7E0045A15A = {
 			isa = PBXGroup;
 			children = (
+				3CC7E5D816F0FED200975F67 /* libz.dylib */,
 				915FEE0216B30B7E0045A15A /* Make10App */,
 				915FEDEF16B30B7E0045A15A /* Frameworks */,
 				915FEDED16B30B7E0045A15A /* Products */,
@@ -1257,17 +1261,24 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Make10App/Prefix.pch;
 				HEADER_SEARCH_PATHS = "\"Make10App/libs/kazmath/include\"";
 				INFOPLIST_FILE = Make10App/Resources/Info.plist;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/Make10App/TestFlightSDK1.2\"",
+				);
 				OTHER_LDFLAGS = (
 					"-lz",
 					"-ObjC",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				VALIDATE_PRODUCT = NO;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1276,17 +1287,25 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Make10App/Prefix.pch;
 				HEADER_SEARCH_PATHS = "\"Make10App/libs/kazmath/include\"";
 				INFOPLIST_FILE = Make10App/Resources/Info.plist;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/Make10App/TestFlightSDK1.2\"",
+				);
 				OTHER_LDFLAGS = (
 					"-lz",
 					"-ObjC",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				VALIDATE_PRODUCT = YES;
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				VALIDATE_PRODUCT = NO;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

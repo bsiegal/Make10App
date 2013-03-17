@@ -117,11 +117,24 @@ CCLabelTTF* _hiScore;
 
 #pragma mark Touches
 
+-(void) ccTouchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+    if ([Make10Util isSpriteTouched:_home touches:touches]) {
+        [Make10Util touchSpriteBegan:_home];
+    }
+}
+
 -(void) ccTouchesEnded:(NSSet*)touches withEvent:(UIEvent*)event {
     
     if ([Make10Util isSpriteTouched:_home touches:touches]) {
         [Make10Util touchedSprite:_home target:self selector:@selector(homeAction)];
+        return;
     }
+    
+    /*
+     * In case moved off
+     */
+    [Make10Util touchSpriteEnded:_home];
+
 }
 
 -(void) homeAction {

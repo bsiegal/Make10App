@@ -201,9 +201,19 @@ static int const TAG_MAKE10_APP_LAYER = 5;
 +(BOOL) isSpriteTouched:(CCSprite*)sprite touches:(NSSet*)touches;
 
 /**
+ * Scale up the sprite 
+ */
++(void) touchSpriteBegan:(CCSprite*)sprite;
+
+/**
  * Scale up and back down the sprite then call the selector on the target
  */
 +(void) touchedSprite:(CCSprite*)sprite target:(id)target selector:(SEL)selector;
+
+/**
+ * Scale sprite back down -- only call this when not calling touchedSprite
+ */
++(void) touchSpriteEnded:(CCSprite*)sprite;
 
 /**
  * Get the height of the score label area

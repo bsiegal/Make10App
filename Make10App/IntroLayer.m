@@ -178,13 +178,31 @@ CCSprite* _about;
 
 #pragma mark Touches
 
+-(void) ccTouchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+    if ([Make10Util isSpriteTouched:_settings touches:touches]) {
+        [Make10Util touchSpriteBegan:_settings];
+    } else if ([Make10Util isSpriteTouched:_about touches:touches]) {
+        [Make10Util touchSpriteBegan:_about];
+    }
+    
+}
+
 -(void) ccTouchesEnded:(NSSet*)touches withEvent:(UIEvent*)event {
-        
     if ([Make10Util isSpriteTouched:_settings touches:touches]) {
         [Make10Util touchedSprite:_settings target:self selector:@selector(settingsAction)];
+        return;
     } else if ([Make10Util isSpriteTouched:_about touches:touches]) {
         [Make10Util touchedSprite:_about target:self selector:@selector(aboutAction)];
+        return;
     }
+    
+    /*
+     * In case they were scaled up, scale them back down.
+     * If in one of the cases above, it doesn't matter
+     * because the scene changes.
+     */
+    [Make10Util touchSpriteEnded:_settings];
+    [Make10Util touchSpriteEnded:_about];
 }
 
 -(void) settingsAction {

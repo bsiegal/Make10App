@@ -294,6 +294,12 @@ CCSprite*   _home;
 }
 
 #pragma mark Touches
+-(void) ccTouchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+    if (!_levelLayer && [Make10Util isSpriteTouched:_home touches:touches]) {
+        [Make10Util touchSpriteBegan:_home];
+    }
+}
+
 
 -(void) ccTouchesEnded:(NSSet*)touches withEvent:(UIEvent*)event {
     
@@ -306,6 +312,11 @@ CCSprite*   _home;
         return;
     }
     
+    /*
+     * In case moved off
+     */
+    [Make10Util touchSpriteEnded:_home];
+
     /*
      * If the current tile is in flight
      * do not respond to touches
