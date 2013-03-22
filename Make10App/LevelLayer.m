@@ -67,7 +67,7 @@ CCMenu*     _menu;
         /*
          * Home button
          */
-        CCMenuItemSprite* home = [Make10Util createButtonWithText:@"New game" target:self selector:@selector(homeAction)];
+        CCMenuItemSprite* home = [Make10Util createButtonWithText:@"Start over" target:self selector:@selector(homeAction)];
         
         float x = winSize.width / 2 + play.contentSize.width / 2 - [Make10Util getUpperLabelPadding];
         /*
