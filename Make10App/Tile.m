@@ -30,22 +30,20 @@
      * Re-add to the sprite frame cache in case there was a memory warning and it got cleared
      */
     [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"Make10Sprites.plist"];
-
-    _sprite = [CCSprite spriteWithSpriteFrameName:@"tile.png"];
     
     
     NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
     int style = [[defaults objectForKey:PREF_TILE_STYLE] intValue];
-    if (style == PREF_TILE_STYLE_DOTS && value < 10) {
+    int makeValue = [[defaults objectForKey:PREF_MAKE_VALUE] intValue];
+    
+    if (style == PREF_TILE_STYLE_DOTS && makeValue <= 10) {
         
         NSString* fileName = [NSString stringWithFormat:@"dot%d.png", value];
-        CCSprite* dots = [CCSprite spriteWithSpriteFrameName:fileName];
-        
-        dots.position = ccp(_sprite.contentSize.width / 2, _sprite.contentSize.height / 2);
-        [_sprite addChild:dots];
+        _sprite = [CCSprite spriteWithSpriteFrameName:fileName];
         
     } else {
-        
+        _sprite = [CCSprite spriteWithSpriteFrameName:@"tile.png"];
+
         NSString* text = [NSString stringWithFormat:@"%d", value];
         CCLabelTTF* label = [CCLabelTTF labelWithString:text fontName:@"Arial" fontSize:[Make10Util getTileFontSize]];
         label.position = ccp(_sprite.contentSize.width / 2, _sprite.contentSize.height / 2);
