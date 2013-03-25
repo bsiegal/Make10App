@@ -62,14 +62,16 @@ static int const ACTION_TAG_ADD_TO_WALL = 2;
 /**
  * An init method with value and boolean for current tile
  * @param value int for the tile
+ * @param makeValue int for the current make value
  */
--(id) initWithValue:(int)value;
+-(id) initWithValue:(int)value makeValue:(int)makeValue;
 /**
  * An init method with value and column for placement
  * @param value int for the tile
  * @param col int column placement
+ * @param makeValue int for the current make value
  */
--(id) initWithValueAndCol:(int)value col:(int)col;
+-(id) initWithValueAndCol:(int)value col:(int)col makeValue:(int)makeValue;
 /**
  * Move the tile to the current tile position
  */

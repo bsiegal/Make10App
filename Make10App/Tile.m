@@ -22,7 +22,7 @@
 
 @implementation Tile
 
--(void) createSprite:(int)value {
+-(void) createSprite:(int)value makeValue:(int)makeValue {
     
     [CCTexture2D setDefaultAlphaPixelFormat:kCCTexture2DPixelFormat_RGBA4444];
     
@@ -34,7 +34,6 @@
     
     NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
     int style = [[defaults objectForKey:PREF_TILE_STYLE] intValue];
-    int makeValue = [[defaults objectForKey:PREF_MAKE_VALUE] intValue];
     
     if (style == PREF_TILE_STYLE_DOTS && makeValue <= 10) {
         
@@ -53,14 +52,14 @@
     }
 }
 
--(id) initWithValueAndCol:(int)value col:(int)col  {
+-(id) initWithValueAndCol:(int)value col:(int)col makeValue:(int)makeValue {
     
     if (self = [super init]) {
 
         _value = value;
         _col = col;
         
-        [self createSprite:value];
+        [self createSprite:value makeValue:makeValue];
         /*
          * The x position is the col * width of tile + half width of tile
          * The y position is -half * height of a tile so it starts below screen
@@ -72,12 +71,12 @@
     
 }
 
--(id) initWithValue:(int)value {
+-(id) initWithValue:(int)value makeValue:(int)makeValue {
     if (self = [super init]) {
         
         _value = value;
         
-        [self createSprite:value];
+        [self createSprite:value makeValue:makeValue];
         
         /*
          * NextTile The x position is the half width of tile

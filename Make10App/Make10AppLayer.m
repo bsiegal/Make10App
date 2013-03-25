@@ -81,7 +81,7 @@ CCSprite*   _home;
 -(void) createNewTilesForRow {
     for (int j = 0; j < MAX_COLS; j++) {
         int value = [self genRandomValue];
-        Tile* wallTile = [[Tile alloc] initWithValueAndCol:value col:j];
+        Tile* wallTile = [[Tile alloc] initWithValueAndCol:value col:j makeValue:_makeValue];
         [self addChild:wallTile.sprite];
         
         [_wall addTile:wallTile row:0 col:j];
@@ -171,7 +171,7 @@ CCSprite*   _home;
     } else {
         value = [self genRandomValue];
     }
-    _nextTile = [[Tile alloc] initWithValue:value];
+    _nextTile = [[Tile alloc] initWithValue:value makeValue:_makeValue];
     [self addChild:_nextTile.sprite];
 }
 
